@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "altrusight"
+  "defaultProject": "altrusight",
+  "cli": {
+    "analytics": "9bc193b6-cc52-47d1-a34d-40c365682ba3"
+  }
 }
