@@ -7,26 +7,50 @@
 }
 
 .sidenav-content-container {
-    flex: 0.5;
-    width: 50%;
-    background-color: burlywood;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    width: 40%;
+    background-color: #deb887;
+    .card-container {
+        margin-left: 2%;
+        margin-right: 2%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        .section1 {
+            flex: 0.3;
+            background-color: purple;
+        }
+        .section2 {
+            flex: 0.2;
+            background-color: powderblue;
+        }
+        .section3 {
+            flex: 0.2;
+            background-color: greenyellow;
+        }
+        .section4 {
+            flex: 0.2;
+            background-color: thistle;
+        }
+    }
 }
 
 .main-content-container {
-    margin: 0;
     display: flex;
     flex-grow: 1;
     background-color: lightsalmon;
     .main-content {
         display: flex;
+        flex-direction: column;
         flex: 1;
-        height: 90vh;
         background-color: teal;
-        justify-content: center;
         align-items: center;
     }
     .vertical-toggle-button {
-        height: 100%;
         min-width: 3vh;
     }
 }
