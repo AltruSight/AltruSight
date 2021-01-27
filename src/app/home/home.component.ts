@@ -38,4 +38,29 @@ export class HomeComponent implements OnInit {
       'Salvation Army',
     ];
   }
+
+  getFriendsUsernames(): string[] {
+    return [
+      'Andrew',
+      'Thomas',
+      'Doug',
+      'Kanye'
+    ];
+  }
+
+  getFriendProfilePictureURL(friend: string): string {
+    return '../../assets/profile-placeholder.png';
+  }
+
+  getProgress(): number {
+    return 35;
+  }
+
+  getGoal(): number {
+    return 76;
+  }
+
+  getProgressPercentage(): number {
+    return this.getProgress() / this.getGoal() * 100;
+  }
 }

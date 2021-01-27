@@ -8,17 +8,15 @@
         <div class="card-container">
             <div class="section1">
                 <mat-card class="profile-card">
-                    <mat-card-title-group>
-                        <mat-card-header>
-                            <img mat-card-avatar src="{{getProfilePictureURL()}}"/>
-                            <mat-card-title>
-                                {{getUsername()}}
-                            </mat-card-title>
-                            <mat-card-subtitle>
-                                Edit Profile Link
-                            </mat-card-subtitle>
-                        </mat-card-header>
-                    </mat-card-title-group>
+                    <mat-card-header>
+                        <img mat-card-avatar src="{{getProfilePictureURL()}}"/>
+                        <mat-card-title>
+                            {{getUsername()}}
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            Edit Profile Link
+                        </mat-card-subtitle>
+                    </mat-card-header>
                     <mat-divider></mat-divider>
                     <mat-card-content>
                         <p>Your Favorite Nonprofits</p>
@@ -27,13 +25,40 @@
                                 {{nonprofit}}
                             </button>
                         </div>
-                        <button mat-raised-button color="primary" class="more-favorites-button">More</button>
+                        <mat-card-actions>
+                            <button mat-raised-button color="primary">More</button>
+                        </mat-card-actions>
                     </mat-card-content>
                 </mat-card>
             </div>
-            <div class="section2"><p>section2</p></div>
-            <div class="section3"><p>section3</p></div>
-            <div class="section4"><p>section4</p></div>
+            <div class="section2">
+                <mat-card class="friends-card">
+                    <mat-card-content>
+                        <div class="friends-container">
+                            <img *ngFor="let friend of getFriendsUsernames()" mat-card-avatar src="{{getFriendProfilePictureURL(friend)}}">
+                        </div>
+                    </mat-card-content>
+                    <mat-card-footer>
+                        <mat-card-title>Your Friends</mat-card-title>
+                    </mat-card-footer>
+                </mat-card>
+            </div>
+            <div class="section3">
+                <mat-card class="progress-bar-card">
+                    <mat-card-content>
+                        <mat-progress-bar mode="determinate" [value]="getProgressPercentage()"></mat-progress-bar>
+                        <h5>${{getProgress()}} of ${{getGoal()}} donated.</h5>
+                    </mat-card-content>
+                    <mat-card-footer>
+                        <mat-card-title>Your Goal Progress</mat-card-title>
+                    </mat-card-footer>
+                </mat-card>
+            </div>
+            <div class="section4">
+                <mat-card class="account-stats-card">
+                    <mat-card-title>Your Account Stats</mat-card-title>
+                </mat-card>
+            </div>
         </div>
     </mat-sidenav>
 
@@ -41,7 +66,6 @@
     <mat-sidenav-content class="main-content-container">
         <div class="main-content">
             <div class="payment-feed-container">
-                <p>PAYMENT FEED</p>
             </div>
         </div>
 
