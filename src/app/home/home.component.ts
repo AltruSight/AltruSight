@@ -22,4 +22,20 @@ export class HomeComponent implements OnInit {
   toggleSideNavOpened(): void {
     this.sidenavOpened = !this.sidenavOpened;
   }
+
+  getProfilePictureURL(): string {
+    return '../../assets/profile-placeholder.png';
+  }
+
+  getUsername(): string { return 'Anduru'; }
+
+  getFavoriteNonprofits(): string[] {
+    return [
+      'Wikipedia',
+      'Charitywatch',
+      'FIFA',
+      'St. Jude',
+      'Salvation Army',
+    ];
+  }
 }

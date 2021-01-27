@@ -21,8 +21,35 @@
         flex-direction: column;
         justify-content: space-evenly;
         .section1 {
-            flex: 0.3;
-            background-color: purple;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            flex: 0.15;
+            .profile-card {
+                flex: 1;
+                .mat-card-title-group {
+                    justify-content: flex-start;
+                }
+                .mat-card-content {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+                    .fav-container {
+                        display: flex; 
+                        flex-direction: row;
+                        justify-content: space-between;
+                        .fav {
+                            flex: 0.23;
+                            text-align: center;
+                            border: 1px solid black;
+                            margin-bottom: 2%;
+                        }
+                    }
+                    .more-favorites-button {
+                        flex: 0.92;
+                    }
+                }
+            }
         }
         .section2 {
             flex: 0.2;
@@ -49,6 +76,12 @@
         flex: 1;
         background-color: teal;
         align-items: center;
+        justify-content: center;
+        .payment-feed-container {
+            width: 90%;
+            flex: 0.9;
+            background-color: antiquewhite;
+        }
     }
     .vertical-toggle-button {
         min-width: 3vh;
