@@ -1,6 +1,33 @@
-.home-main-container {
-    height: 100vh;
-    align-items: stretch;
-    flex: 1;
+.sidenav-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
     background-color: orange;
 }
+
+.sidenav-content-container {
+    flex: 0.5;
+    width: 50%;
+    background-color: burlywood;
+}
+
+.main-content-container {
+    margin: 0;
+    display: flex;
+    flex-grow: 1;
+    background-color: lightsalmon;
+    .main-content {
+        display: flex;
+        flex: 1;
+        height: 90vh;
+        background-color: teal;
+        justify-content: center;
+        align-items: center;
+    }
+    .vertical-toggle-button {
+        height: 100%;
+        min-width: 3vh;
+    }
+}
+

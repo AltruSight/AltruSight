@@ -1,2 +1,18 @@
-<div class="home-main-container">
-</div>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav 
+        class="sidenav-content-container" 
+        mode="side" 
+        position="end"
+        [opened]="sidenavOpened">
+    </mat-sidenav>
+
+    <mat-sidenav-content class="main-content-container">
+        <div class="main-content">
+            <p>HELLO</p>
+        </div>
+
+        <button (click)="toggleSideNavOpened()" class="vertical-toggle-button">
+            {{getSidenavButtonText()}}
+        </button>
+    </mat-sidenav-content>
+</mat-sidenav-container>
