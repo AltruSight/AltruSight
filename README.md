@@ -34,4 +34,5 @@ AltruSight’s goal is to implement a proof-of concept website to serve as a bea
 * Push your changes to your branch using ```git push```
   * You may first have to set up your remote upstream branch (so changes are reflected in your branch on GitHub) using ```git push --set-upstream origin BRANCH_NAME_HERE```
 * Once your development on a branch is complete, perform a pull request (can be done through GitHub website).
+  * Before submitting a PR, make sure to pull in master branch and resolve merge conflicts carefully to ensure that the branch (and PR) will be eligible to merge upon approval.
 
