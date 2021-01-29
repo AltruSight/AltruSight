@@ -3,3 +3,25 @@
     background-color: red;
     flex: 1;
 }
+
+.login-container-RT {
+    top: 50px;
+    height: 10rem;
+    width: 50%;
+    align-self: center;
+    // height: 30rem;
+    // width: 30rem;
+    // min-height: 10rem;
+    // min-width: 50px;
+    
+    background-color: orange;
+}
+
+.main-container-login {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    background-color: purple;
+}
