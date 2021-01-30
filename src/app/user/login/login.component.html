@@ -4,8 +4,55 @@
 
 </div>
 -->
-<div class="main-container-login">
-    <div class="login-container-RT">
-        fsdf
+<div class="main-container-login" id="main-login-container">
+    <div class="login-container">
+        <div class="login-inputs-container">
+            <!-- Container for sign in title-->
+            <div class="login-title">
+                <h2>Sign in to AltruSight </h2>
+            </div>
+
+            <!-- Container for login inputs-->
+            <div class="login-inputs">
+                <!-- Email input -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Enter Your Email">
+                    <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+    
+                <!-- Password input -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-hint><a class="forgot-password" href="login">Forgot Password</a></mat-hint>
+                </mat-form-field>
+
+                <!-- Sign in button -->
+                <button class="login-button" mat-raised-button color="primary">Sign in</button>
+
+                <!-- Register container -->
+                <div class="register-with-us">
+                    Don't have an account with us yet? Register <a href="/login"> here! </a>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- container to add image credits -->
+    <div class="image-credits-container">
+        Photo by 
+        <a class="image-credits" href="https://www.pexels.com/@scottwebb?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels"> 
+            Scott Webb  
+        </a>
+        from
+        <a class="image-credits" href="https://www.pexels.com/photo/shapes-and-pattern-2346594/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels">
+            Pexels
+        </a>
     </div>
 </div>
