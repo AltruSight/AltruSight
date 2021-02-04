@@ -17,22 +17,23 @@
                 <!-- Email input -->
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input matInput placeholder="Enter Your Email">
+                    <input #userEmail matInput placeholder="Enter Your Email">
                     <mat-icon matSuffix>email</mat-icon>
+                    <mat-error *ngIf="loginError">Some Erro Message</mat-error>
                 </mat-form-field>
     
                 <!-- Password input -->
                 <mat-form-field appearance="outline">
                     <mat-label>Password</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'">
+                    <input #userPassword matInput [type]="hide ? 'password' : 'text'">
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <mat-hint><a class="forgot-password" href="login">Forgot Password</a></mat-hint>
+                    <mat-hint><a class="forgot-password" href="login">Forgot your password? Click here!</a></mat-hint>
                 </mat-form-field>
 
                 <!-- Sign in button -->
-                <button class="login-button" mat-raised-button color="primary">Sign in</button>
+                <button (click)="login(userEmail.value, userPassword.value)" class="login-button" mat-raised-button color="primary">Sign in</button>
 
                 <!-- Register container -->
                 <div class="register-with-us">

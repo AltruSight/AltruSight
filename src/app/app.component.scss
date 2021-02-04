@@ -12,13 +12,9 @@ h1 {
     height: 10%;
     flex: 0.1;
     background-color: blue;
-
-    // Rafa changes
-    position: fixed;
-    z-index: 1;
 }
 .content-scroll-container {
     height: 90%;
-    flex: 1.0;
+    flex: 0.9;
     background-color: aqua;
 }
