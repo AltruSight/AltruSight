@@ -13,13 +13,15 @@
             </div>
 
             <!-- Container for login inputs-->
-            <div class="login-inputs">
+            <form [formGroup]="signInForm" (ngSubmit)="formSubmitted()" class="login-inputs">
                 <!-- Email input -->
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input #userEmail matInput placeholder="Enter Your Email">
+                    <input type="email" [formControl]="userEmailControl" [errorStateMatcher]="matcher" matInput placeholder="Enter Your Email">
                     <mat-icon matSuffix>email</mat-icon>
-                    <mat-error *ngIf="loginError">Some Erro Message</mat-error>
+                    <mat-error *ngIf="userEmailControl.hasError('email')" > Please enter a valid email</mat-error>
+                    <mat-error *ngIf="userEmailControl.hasError('required')"> Email is required </mat-error>
+                    <mat-error *ngIf="userEmailControl.hasError('customEmailError')"> Some other login error </mat-error>
                 </mat-form-field>
     
                 <!-- Password input -->
@@ -33,14 +35,14 @@
                 </mat-form-field>
 
                 <!-- Sign in button -->
-                <button (click)="login(userEmail.value, userPassword.value)" class="login-button" mat-raised-button color="primary">Sign in</button>
+                <button (click)="signIn(userEmailControl.value, userPassword.value)" class="login-button" mat-raised-button color="primary">Sign in</button>
 
                 <!-- Register container -->
                 <div class="register-with-us">
                     Don't have an account with us yet? Register <a href="/login"> here! </a>
                 </div>
 
-            </div>
+            </form>
             
         </div>
     </div>
