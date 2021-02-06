@@ -1,3 +1,46 @@
-<div class="register-main-container">
+<div class="main-container-register" id="main-register-container">
+    <div class="register-container">
+        <div class="register-inputs-container">
+            <!-- Container for register title-->
+            <div class="register-title">
+                <h2>Create your AltruSight Account </h2>
+            </div>
+
+            <!-- Container for register inputs-->
+            <div class="register-inputs">
+                <!-- Email input -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input #userEmail matInput placeholder="Enter a Valid Email Address">
+                    <mat-icon matSuffix>email</mat-icon>
+                    <mat-error *ngIf="registerError">Some Erro Message</mat-error>
+                </mat-form-field>
+    
+                <!-- Password input -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input #userPassword matInput [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-hint>Use 8 or more characters with atleast one letter, number & symbol</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Confirm</mat-label>
+                    <input #userConfirmPassword matInput [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <!-- Sign in button -->
+                <button (click)="register(userEmail.value, userPassword.value, userConfirmPassword.value)" class="register-button" mat-raised-button color="primary">Register</button>
+            </div>
+            <div class="sign-in-instead">
+                <a href="/login"> Sign in instead</a>
+            </div>
+        </div>
+    </div>
 </div>
 
