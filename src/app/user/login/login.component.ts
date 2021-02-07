@@ -1,7 +1,7 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import { ErrorStateMatcher} from '@angular/material/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -10,50 +10,71 @@ import {ErrorStateMatcher} from '@angular/material/core';
 })
 
 export class LoginComponent implements OnInit {
-  hide = true;
-  loginError = false;
-  errorMessage = "test";
-
-  testEmail = ["rtoche@uark.edu"]
-  testPassword = ["legomyego"]
+  hidePassword = true;
+  errorMessage = "";
+  showLoadingDiv = true;
 
   signInForm: FormGroup;
   userEmailControl: FormControl;
+  userPasswordControl: FormControl;
 
-
-  matcher = new SignInStateMatcher();
-
-  constructor() { 
-    // Defining sign in form controls
+  constructor(public auth: AngularFireAuth) { 
+    // Defining user email control
     this.userEmailControl = new FormControl('', [
       Validators.required,
-      Validators.email
-    ]);
-    this.userEmailControl.setErrors({customEmailError: false });
+      Validators.email,
 
-    // Defining sign in form
-    this.signInForm = new FormGroup({
-      userEmailControl: this.userEmailControl
-    });
+	  ]);
+    // this.userEmailControl.setErrors({customEmailError: false });
     
+    // Defining password control
+    this.userPasswordControl = new FormControl('', [
+      Validators.required
+		
+	]);
+
+	// Defining sign in form
+	this.signInForm = new FormGroup({
+	  userEmailControl: this.userEmailControl,
+	  userPasswordControl: this.userPasswordControl
+
+	});
+
+	this.showLoadingDiv = false;
+
   }
 
+  // Keep for future reference: How to create custom validator
+  // https://dzone.com/articles/how-to-create-custom-validators-in-angular
   emailValidator(control: AbstractControl): {[key: string]: boolean} | null {
-    return null;
+	console.log("EMAIL VALIDATOR")
+	  return null;
   }
-
 
   ngOnInit(): void {
   }
 
-  formSubmitted(): void {
-
-    this.signInForm.controls.userEmailControl.setErrors({customEmailError: true})
-    console.log("FORM SUBMITTED");
-  }
-
   signIn(userEmail: string, userPassword: string):void {
-    
+    // Check to make sure form is not invalid before submitting
+    if(!this.signInForm.invalid) {
+      this.showLoadingDiv = true;
+      this.errorMessage = "";
+
+      this.auth.signInWithEmailAndPassword(userEmail, userPassword).then((user) => {
+        // Successfully signed in
+        console.log("Signed in!");
+        
+        this.errorMessage = ""
+        window.location.href = "/"
+        //this.showLoadingDiv = false;
+      })
+      .catch((error) => {
+        // Could not sign in
+        this.showLoadingDiv = false;
+        console.log(error);
+        this.errorMessage = error.message;
+      });
+    }
   }
 }
 
@@ -63,6 +84,6 @@ export class LoginComponent implements OnInit {
 //==============================================
 export class SignInStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm): boolean {
-    return !!(control && control.invalid && (control.dirty || control.touched));
+	return !!(control && control.invalid && (control.dirty || control.touched));
   }
 }

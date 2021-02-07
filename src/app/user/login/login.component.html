@@ -1,9 +1,13 @@
-<!-- 
-<div class="login-main-container">
-
-
-</div>
+<!-- TODO: This div should probably be its own module so that it can be 
+    overlayed over other pages when loading data or other screens. It's here for now
 -->
+<div *ngIf="showLoadingDiv" class="loading-screen">
+    <div class="loading-spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>
+
+
 <div class="main-container-login" id="main-login-container">
     <div class="login-container">
         <div class="login-inputs-container">
@@ -12,30 +16,36 @@
                 <h2>Sign in to AltruSight </h2>
             </div>
 
+            <!-- Sign In Error Container -->
+            <div class="signin-error">
+                {{errorMessage}}
+            </div>
+
             <!-- Container for login inputs-->
-            <form [formGroup]="signInForm" (ngSubmit)="formSubmitted()" class="login-inputs">
+            <form [formGroup]="signInForm" class="login-inputs">
                 <!-- Email input -->
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input type="email" [formControl]="userEmailControl" [errorStateMatcher]="matcher" matInput placeholder="Enter Your Email">
+                    <input type="email" [formControl]="userEmailControl" matInput placeholder="Enter Your Email">
                     <mat-icon matSuffix>email</mat-icon>
-                    <mat-error *ngIf="userEmailControl.hasError('email')" > Please enter a valid email</mat-error>
-                    <mat-error *ngIf="userEmailControl.hasError('required')"> Email is required </mat-error>
-                    <mat-error *ngIf="userEmailControl.hasError('customEmailError')"> Some other login error </mat-error>
+                    <mat-error *ngIf="userEmailControl.hasError('email')" > Please enter a <b>valid</b> email addres</mat-error>
+                    <mat-error *ngIf="userEmailControl.hasError('required')"> An email address is <b>required</b> </mat-error>
+                    <!-- <mat-error *ngIf="userEmailControl.hasError('customEmailError')"> Some other login error </mat-error> -->
                 </mat-form-field>
     
                 <!-- Password input -->
                 <mat-form-field appearance="outline">
                     <mat-label>Password</mat-label>
-                    <input #userPassword matInput [type]="hide ? 'password' : 'text'">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <input [formControl]="userPasswordControl" matInput [type]="hidePassword ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
+                    <mat-error> Password is required </mat-error>
                     <mat-hint><a class="forgot-password" href="login">Forgot your password? Click here!</a></mat-hint>
                 </mat-form-field>
 
                 <!-- Sign in button -->
-                <button (click)="signIn(userEmailControl.value, userPassword.value)" class="login-button" mat-raised-button color="primary">Sign in</button>
+                <button type="button" (click)="signIn(userEmailControl.value, userPasswordControl.value)" class="login-button" mat-raised-button color="primary">Sign in</button>
 
                 <!-- Register container -->
                 <div class="register-with-us">
