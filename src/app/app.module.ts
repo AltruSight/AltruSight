@@ -18,6 +18,21 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
+
+var firebaseConfig = {
+  apiKey: "AIzaSyAVri_yX0V1mDZpInMfR4ZuftjjZrvOvR8",
+  authDomain: "altrusight-a1259.firebaseapp.com",
+  projectId: "altrusight-a1259",
+  storageBucket: "altrusight-a1259.appspot.com",
+  messagingSenderId: "1080844724672",
+  appId: "1:1080844724672:web:6b1211767bd2fb12408025",
+  measurementId: "G-LCJMQLRNXF"
+};
 
 @NgModule({
   declarations: [
@@ -37,7 +52,12 @@ import {MatIconModule} from '@angular/material/icon';
     MatProgressBarModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
