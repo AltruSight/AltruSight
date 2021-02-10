@@ -2,6 +2,8 @@
     text-align: center;
 }
 
+// TODO: adding height to the parent container and just using flex is the way to go: need to fix home.component styling 
+// and other components where the height is constantly cascaded (bad practice)
 .main-container {
     height: 100%;
     display: flex; 
