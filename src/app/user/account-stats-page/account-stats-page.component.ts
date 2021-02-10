@@ -1,5 +1,4 @@
 // TODO: Dedicated page for a user's account stats, progress goal modification, etc.
-// TODO: Combine this with favorite nonprofits list / content
 
 import { Component, OnInit } from '@angular/core';
 

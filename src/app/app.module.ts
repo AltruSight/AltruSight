@@ -30,6 +30,7 @@ import { ProfilePageComponent } from './user/profile-page/profile-page.component
 import { NonprofitSearchPageComponent } from './nonprofit-search-page/nonprofit-search-page.component';
 import { AccountStatsPageComponent } from './user/account-stats-page/account-stats-page.component';
 import { FriendsPageComponent } from './user/friends-page/friends-page.component';
+import { FavoriteNonprofitsComponent } from './user/favorite-nonprofits/favorite-nonprofits.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { FriendsPageComponent } from './user/friends-page/friends-page.component
     ProfilePageComponent,
     NonprofitSearchPageComponent,
     AccountStatsPageComponent,
-    FriendsPageComponent
+    FriendsPageComponent,
+    FavoriteNonprofitsComponent
   ],
   imports: [
     BrowserModule,
