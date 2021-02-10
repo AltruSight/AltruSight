@@ -18,6 +18,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 // Angular Firebase Imports
 import { AngularFireModule } from '@angular/fire';
@@ -45,6 +47,9 @@ import { environment } from '../environments/environment';
     MatIconModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

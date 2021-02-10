@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import { ErrorStateMatcher} from '@angular/material/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
@@ -8,37 +10,76 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 
 export class LoginComponent implements OnInit {
-  hide = true;
-  loginError = false;
+  hidePassword = true;
+  errorMessage = '';
+  showLoadingDiv = true;
 
-  testEmail = ['rtoche@uark.edu'];
-  testPassword = ['legomyego'];
+  signInForm: FormGroup;
+  userEmailControl: FormControl;
+  userPasswordControl: FormControl;
 
-  constructor(public auth: AngularFireAuth) { }
+  constructor(public auth: AngularFireAuth) {
+    // Defining user email control
+    this.userEmailControl = new FormControl('', [
+      Validators.required,
+      Validators.email,
+    ]);
+    // this.userEmailControl.setErrors({customEmailError: false });
+
+    // Defining password control
+    this.userPasswordControl = new FormControl('', [
+      Validators.required
+    ]);
+
+  // Defining sign in form
+    this.signInForm = new FormGroup({
+      userEmailControl: this.userEmailControl,
+      userPasswordControl: this.userPasswordControl
+    });
+
+    this.showLoadingDiv = false;
+  }
+
+  // Keep for future reference: How to create custom validator
+  // https://dzone.com/articles/how-to-create-custom-validators-in-angular
+  emailValidator(control: AbstractControl): {[key: string]: boolean} | null {
+    console.log('EMAIL VALIDATOR');
+    return null;
+  }
 
   ngOnInit(): void {
   }
 
-  login(userEmail: string, userPassword: string): void {
-    console.log(userEmail);
-    console.log(userPassword);
+  signIn(userEmail: string, userPassword: string): void {
+    // Check to make sure form is not invalid before submitting
+    if (!this.signInForm.invalid) {
+      this.showLoadingDiv = true;
+      this.errorMessage = '';
 
-    // Once registration form is complete, similar method is used there except with createUserWithEmailAndPassword (something like that)
-    this.auth.signInWithEmailAndPassword(userEmail, userPassword)
-      .then(() => {
-        // ANDREW - Adding behavior to user authentication
-        // generally we could either have a pop up for this information
-        console.log('Logged in successfully');
-        // or, redirect to home page, or do both (pop up then redirect after exiting popup)
+      this.auth.signInWithEmailAndPassword(userEmail, userPassword).then((user) => {
+        // Successfully signed in
+        console.log('Signed in!');
+
+        this.errorMessage = '';
+        window.location.href = '/';
+        // this.showLoadingDiv = false;
       })
       .catch((error) => {
-        // RAFA - Handling validation
-        // in this case, just send the error message case to validation and use a series of switch statements
-        // the types of error message cases should be listed on the firebase auth documentation
-        console.error(error);
-        this.loginError = true;
+        // Could not sign in
+        this.showLoadingDiv = false;
+        console.log(error);
+        this.errorMessage = error.message;
       });
+    }
   }
+}
 
 
+// ==============================================
+// ErrorStateMatcher Implementation
+// ==============================================
+export class SignInStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm): boolean {
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
 }
