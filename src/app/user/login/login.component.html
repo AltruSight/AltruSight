@@ -28,13 +28,9 @@
                     <mat-label>Email</mat-label>
                     <input type="email" [formControl]="userEmailControl" matInput placeholder="Enter Your Email">
                     <mat-icon matSuffix>email</mat-icon>
-<<<<<<< HEAD
-                    <mat-error *ngIf="loginError">Some Error Message</mat-error>
-=======
                     <mat-error *ngIf="userEmailControl.hasError('email')" > Please enter a <b>valid</b> email addres</mat-error>
                     <mat-error *ngIf="userEmailControl.hasError('required')"> An email address is <b>required</b> </mat-error>
                     <!-- <mat-error *ngIf="userEmailControl.hasError('customEmailError')"> Some other login error </mat-error> -->
->>>>>>> 2bbc54367474799f309675de1589afe7fd7df7e8
                 </mat-form-field>
     
                 <!-- Password input -->
