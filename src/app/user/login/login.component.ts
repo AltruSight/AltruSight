@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { ErrorStateMatcher} from '@angular/material/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   userEmailControl: FormControl;
   userPasswordControl: FormControl;
 
-  constructor(public auth: AngularFireAuth) { 
+  constructor(public auth: AngularFireAuth, public router: Router) { 
     // Defining user email control
     this.userEmailControl = new FormControl('', [
       Validators.required,
@@ -65,7 +66,7 @@ export class LoginComponent implements OnInit {
         console.log("Signed in!");
         
         this.errorMessage = ""
-        window.location.href = "/"
+        this.router.navigateByUrl("/");
         //this.showLoadingDiv = false;
       })
       .catch((error) => {
