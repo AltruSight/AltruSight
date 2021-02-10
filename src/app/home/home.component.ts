@@ -1,6 +1,7 @@
 // ng generate component home was used to create boilerplate
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   sidenavOpened = true;
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
   }
@@ -54,6 +55,10 @@ export class HomeComponent implements OnInit {
 
   getProgress(): number {
     return 35;
+  }
+
+  navigateTo(page: string): void {
+    this.router.navigateByUrl(`${page}`);
   }
 
   getGoal(): number {
