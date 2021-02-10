@@ -25,13 +25,23 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { NonprofitPageComponent } from './nonprofit/nonprofit-page/nonprofit-page.component';
+import { ProfilePageComponent } from './user/profile-page/profile-page.component';
+import { NonprofitSearchPageComponent } from './nonprofit-search-page/nonprofit-search-page.component';
+import { AccountStatsPageComponent } from './user/account-stats-page/account-stats-page.component';
+import { FriendsPageComponent } from './user/friends-page/friends-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NonprofitPageComponent,
+    ProfilePageComponent,
+    NonprofitSearchPageComponent,
+    AccountStatsPageComponent,
+    FriendsPageComponent
   ],
   imports: [
     BrowserModule,
