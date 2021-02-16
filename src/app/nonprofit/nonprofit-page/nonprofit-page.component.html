@@ -1,5 +1,49 @@
 <div class="main-container">
-    <div class="favorites-container">
-        <h1 class="title">{{nonprofitName}} Page</h1>
+    <!--TOOLBAR for nonprofit page containing quick access buttons-->
+    <div class="nonprofit-toolbar">
+        <div class="title-box">
+            {{nonprofitName}}
+        </div>
+        <div class="links-box" mat-button>
+            <button (click)="goToNonprofitHomePageExternal()" class="links-btn" mat-button>
+                <div class="column">
+                    <mat-icon class="icon">assistant_direction</mat-icon>
+                    home website
+                </div>
+            </button>
+            <mat-divider style="height: 100%" [vertical]="true"></mat-divider>
+            <button (click)="toggleNonprofitFavorited()" class="links-btn" mat-button>
+                <div class="column">
+                    <mat-icon class="icon" *ngIf="getNonprofitFavorited()">favorite</mat-icon>
+                    <mat-icon class="icon" *ngIf="!getNonprofitFavorited()">favorite_border</mat-icon>
+                    {{getNonprofitFavorited() ? 'unfavorite' : 'favorite'}}
+                </div>
+            </button>
+        </div>
+        <button (click)="donationButtonClicked()" class="donate-box" mat-button>
+            <div class="column">
+                <mat-icon class="icon">bloodtype</mat-icon>
+                donate
+            </div>
+        </button>
     </div>
+
+    <!--MAIN CONTENT PANEL-->
+    <mat-sidenav-container class="sidenav-container">
+        <!--SIDEBAR CONTENT-->
+        <mat-sidenav 
+            class="sidebar-container"
+            position="end" 
+            mode="side"
+            [opened]="sidenavOpened">
+            Hello
+        </mat-sidenav>
+    
+        <!--MAIN CONTENT-->
+        <mat-sidenav-content>
+            <div class="nonprofit-container">
+                Hello
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 </div>

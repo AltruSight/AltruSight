@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
       'Wikipedia',
       'Charitywatch',
       'FIFA',
+      'Super Long Charity Name, It Is Super Long Bro',
       'St. Jude',
       'Salvation Army',
     ];
