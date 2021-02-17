@@ -6,6 +6,11 @@
                 <h2>Create your AltruSight Account </h2>
             </div>
 
+            <!-- Register Error Container -->
+            <div class="register-error">
+                {{registerErrorMessage}}
+            </div>
+
             <!-- Container for register inputs-->
             <form [formGroup]="registerForm" class="register-inputs">
                 <!-- Email input -->
@@ -21,18 +26,18 @@
                     <!-- Password input -->
                     <mat-form-field appearance="outline">
                         <mat-label>Password</mat-label>
-                        <input [formControl]="userPasswordControl" matInput [type]="hide ? 'password' : 'text'">
-                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <input [formControl]="userPasswordControl" matInput [type]="hidePasswords ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hidePasswords = !hidePasswords" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswords">
+                            <mat-icon>{{hidePasswords ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                         <mat-error *ngIf="userPasswordControl.hasError('required')">Please enter a password</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
                         <mat-label>Confirm</mat-label>
-                        <input [formControl]="userPasswordConfirmControl" matInput [type]="hide ? 'password' : 'text'" [errorStateMatcher]="confirmPasswordsMatch">
-                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <input [formControl]="userPasswordConfirmControl" matInput [type]="hidePasswords ? 'password' : 'text'" [errorStateMatcher]="confirmPasswordsMatch">
+                        <button mat-icon-button matSuffix (click)="hidePasswords = !hidePasswords" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswords">
+                            <mat-icon>{{hidePasswords ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                         <!-- <mat-error *ngIf="userPasswordConfirmControl.hasError('required')">Please enter a password</mat-error> -->
                         <mat-error>{{errorMessage}}</mat-error>

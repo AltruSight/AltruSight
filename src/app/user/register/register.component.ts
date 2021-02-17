@@ -11,9 +11,10 @@ import { ErrorStateMatcher} from '@angular/material/core';
 })
 
 export class RegisterComponent implements OnInit {
-  hide = true;
+  hidePasswords = true;
   registerError = false;
   errorMessage = '';
+  registerErrorMessage = '';
   testvar = false;
 
   registerForm: FormGroup;
@@ -63,15 +64,10 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  // fake validation of confirm passwords
-  userPasswordIsValid(): boolean {
-    return true;
-  }
-
   passwordsValid(control: AbstractControl): { [key: string]: boolean } | null {
     this.errorMessage = '';
-    const password1 = control.get('userPasswordControl')?.value;
-    const password2 = control.get('userPasswordConfirmControl')?.value
+    const password1 = control.get('userPasswordControl')?.value.toString();
+    const password2 = control.get('userPasswordConfirmControl')?.value.toString();
     
     if(password1.indexOf(' ') >= 0) {
       this.errorMessage = ErrorMessages.passwordsHasSpaces;
@@ -95,22 +91,28 @@ export class RegisterComponent implements OnInit {
   }
 
   register(userEmail: string, userPassword: string, userConfirmPassword: string): void {
-    if (userPassword === userConfirmPassword && this.userPasswordIsValid()) {
-      // RAFA: Add validation here (if passswords don't match, throw error)
+    this.registerErrorMessage = '';
+    // Double checking that passwords are equal to each other but redundant as its
+    // alread checked by the form --> (this.userPasswordsGroup.valid)
+    const passwordsEqual = userPassword === userConfirmPassword;
+
+    if (this.userPasswordsGroup.valid && this.userEmailControl.valid && passwordsEqual) {
+      console.log("Creating user!");
       this.auth.createUserWithEmailAndPassword(userEmail, userPassword)
       .then(() => {
-        console.log(userEmail);
-        console.log(userPassword);
-        console.log(userConfirmPassword);
+        console.log('Created user: ', userEmail);
         this.router.navigateByUrl('/');
       })
       .catch((error) => {
+        this.registerErrorMessage = error.message;
         // Use error in validation
-        console.error(error);
+        //console.error(error);
       });
     }
-
-    this.registerError = true;
+    else {
+      this.registerErrorMessage = ErrorMessages.makeSureInputFieldsValid;
+      this.registerError = true;
+    }
   }
 }
 
@@ -127,7 +129,8 @@ export class ConfirmPasswordsMatch implements ErrorStateMatcher {
 }
 
 export const ErrorMessages: { [key: string]: string } = {
-  passwordsHasSpaces: 'Passwords may not have spaces',
+  passwordsHasSpaces: 'Password may not have spaces',
   passwordsMustMatch: 'Passwords must match',
-  passwordDoesNotMeetRegEx: 'Password must use 8 characters or more with at least one letter, number & symbol'
+  passwordDoesNotMeetRegEx: 'Password must use 8 characters or more with at least one letter, number & symbol',
+  makeSureInputFieldsValid: 'Pleasse make sure all input fields are filled'
 };
