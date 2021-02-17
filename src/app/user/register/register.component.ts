@@ -3,8 +3,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, ValidatorFn, Validators} from '@angular/forms';
 import { ErrorStateMatcher} from '@angular/material/core';
-import { formatCurrency } from '@angular/common';
-import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +13,8 @@ import { invalid } from '@angular/compiler/src/render3/view/util';
 export class RegisterComponent implements OnInit {
   hide = true;
   registerError = false;
-  errorMessage = "";
+  errorMessage = '';
+  testvar = false;
 
   registerForm: FormGroup;
   userEmailControl: FormControl;
@@ -27,6 +26,8 @@ export class RegisterComponent implements OnInit {
   confirmPasswordsMatch = new ConfirmPasswordsMatch();
 
   constructor(public auth: AngularFireAuth, public router: Router) {
+    this.testvar = false;
+
     // User Email
     this.userEmailControl = new FormControl('', [
       Validators.required,
@@ -48,7 +49,7 @@ export class RegisterComponent implements OnInit {
       userPasswordControl: this.userPasswordControl,
       userPasswordConfirmControl: this.userPasswordConfirmControl
     }, 
-    {validators: this.passwordsValid});
+    { validators: this.passwordsValid.bind(this) });
 
     // User registration form
     this.registerForm = new FormGroup({
@@ -59,6 +60,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   // fake validation of confirm passwords
@@ -67,30 +69,30 @@ export class RegisterComponent implements OnInit {
   }
 
   passwordsValid(control: AbstractControl): { [key: string]: boolean } | null {
+    this.errorMessage = '';
     const password1 = control.get('userPasswordControl')?.value;
     const password2 = control.get('userPasswordConfirmControl')?.value
     
+    if(password1.indexOf(' ') >= 0) {
+      this.errorMessage = ErrorMessages.passwordsHasSpaces;
+      // this.errorMessage = 'Passowrd may not have spaces';
+      return {'passwordsInvalid:': true};
+    }
+
+    // Uncomment this when we're ready to test for 8 or more charachters,
+    // with at least one letter, number and symbol.
+    // else if(!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password1)){
+    //   this.errorMessage = ErrorMessages.passwordDoesNotMeetRegEx;
+    //   return { 'passwordsInvalid': true };
+    // }
+
     // console.log(control.get('userPasswordControl'))
-    if ((password1 !== password2)) {
-        console.log('passwords dont match!!')
-        return { 'passwordsInvalid': true };
+    else if ((password1 !== password2)) {
+      this.errorMessage = ErrorMessages.passwordsMustMatch;
+      return { 'passwordsInvalid': true };
     }
     return null;
   }
-
-  // // Keep for future reference: How to create custom validator
-  // // https://dzone.com/articles/how-to-create-custom-validators-in-angular
-  // passwordsValidator(passwordControl: FormControl): ValidatorFn {
-  //   console.log('PASSWORD VALIDATOR');
-  //   console.log(passwordControl);
-  //   return (control: AbstractControl): { [key: string]: boolean } | null => {
-  //     if(passwordControl.value === control.value)
-  //       return {'passwordsMatch': true };
-  //     else 
-  //       return {'passwordsMatch': false};
-  //   };
-  //   // return null;
-  // }
 
   register(userEmail: string, userPassword: string, userConfirmPassword: string): void {
     if (userPassword === userConfirmPassword && this.userPasswordIsValid()) {
@@ -112,10 +114,6 @@ export class RegisterComponent implements OnInit {
   }
 }
 
-export const errorMessages: { [key: string]: string } = {
-  confirmPassword: 'Passwords must match'
-};
-
 /**
  * Custom ErrorStateMatcher which returns true (error exists) when the parent form group is invalid and the control has been touched
  */
@@ -127,3 +125,9 @@ export class ConfirmPasswordsMatch implements ErrorStateMatcher {
       return !parentValid && firstPasswordTyped      
   }
 }
+
+export const ErrorMessages: { [key: string]: string } = {
+  passwordsHasSpaces: 'Passwords may not have spaces',
+  passwordsMustMatch: 'Passwords must match',
+  passwordDoesNotMeetRegEx: 'Password must use 8 characters or more with at least one letter, number & symbol'
+};

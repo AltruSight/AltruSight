@@ -35,7 +35,7 @@
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                         <!-- <mat-error *ngIf="userPasswordConfirmControl.hasError('required')">Please enter a password</mat-error> -->
-                        <mat-error>Passwords must match</mat-error>
+                        <mat-error>{{errorMessage}}</mat-error>
 
                         <mat-hint>Use 8 or more characters with atleast one letter, number & symbol</mat-hint>
                     </mat-form-field>
