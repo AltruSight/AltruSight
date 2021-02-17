@@ -26,6 +26,10 @@
                 donate
             </div>
         </button>
+        <button (click)="toggleSidenavOpened()" class="toggle-box" mat-button>
+            <mat-icon class="icon" *ngIf="!sidenavOpened">menu_open</mat-icon>
+            <mat-icon class="icon" *ngIf="sidenavOpened">menu</mat-icon>
+    </button>
     </div>
 
     <!--MAIN CONTENT PANEL-->
@@ -36,13 +40,52 @@
             position="end" 
             mode="side"
             [opened]="sidenavOpened">
-            Hello
+            <div class="card-container">
+                <mat-card class="rating-card">
+                    <mat-card-header>
+                        <mat-card-title>Rating</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>{{getNonprofitRating()}}</p>
+                    </mat-card-content>
+                </mat-card>
+    
+                <mat-card class="mission-card">
+                    <mat-card-header>
+                        <mat-card-title>Mission</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>{{getNonprofitMission()}}</p>
+                    </mat-card-content>
+                </mat-card>
+    
+                <mat-card class="efficiency-card">
+                    <mat-card-header>
+                        <!--TODO: fundraisingExpenses vs. other spending in API-->
+                        <mat-card-title>Spending Efficiency</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>{{getNonprofitSpendingEfficiency() * 100}}%</p>
+                    </mat-card-content>
+                </mat-card>
+    
+                <mat-card class="compensation-card">
+                    <mat-card-header>
+                        <mat-card-title>Top Compensation</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>{{getNonprofitTopCompensation()}}</p>
+                        <p>{{getNonprofitTopCompensation()}}</p>
+                        <p>{{getNonprofitTopCompensation()}}</p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </mat-sidenav>
     
         <!--MAIN CONTENT-->
-        <mat-sidenav-content>
+        <mat-sidenav-content class="sidenav-content-container">
             <div class="nonprofit-container">
-                Hello
+
             </div>
         </mat-sidenav-content>
     </mat-sidenav-container>

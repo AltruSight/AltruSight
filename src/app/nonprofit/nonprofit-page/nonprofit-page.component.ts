@@ -22,6 +22,23 @@ export class NonprofitPageComponent implements OnInit {
     return this.nonprofitFavorited;
   }
 
+  // TODO: package these getters into a single object later
+  getNonprofitRating(): number {
+    return 4.4;
+  }
+
+  getNonprofitMission(): string {
+    return 'this nonprofit is nonprofit to be charitable and nonprofit, duh.';
+  }
+
+  getNonprofitSpendingEfficiency(): number {
+    return 0.71;
+  }
+
+  getNonprofitTopCompensation(): number {
+    return 166000.3;
+  }
+
   goToNonprofitHomePageExternal(): void {
     // replace with making a modal appear with yes or no, and then modal
     // will navigate to home page based on yes / no
@@ -35,5 +52,9 @@ export class NonprofitPageComponent implements OnInit {
 
   toggleNonprofitFavorited(): void {
     this.nonprofitFavorited = !this.nonprofitFavorited;
+  }
+
+  toggleSidenavOpened(): void {
+    this.sidenavOpened = !this.sidenavOpened;
   }
 }
