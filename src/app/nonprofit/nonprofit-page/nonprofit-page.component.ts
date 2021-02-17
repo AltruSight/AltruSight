@@ -24,6 +24,9 @@ export class NonprofitPageComponent implements OnInit {
 
   // TODO: package these getters into a single object later
   getNonprofitRating(): number {
+    // use "score" field - out of 100.
+    // score / 100 = x / 5
+    // x = score / 100 * 5 (out of 5 stars)
     return 4.4;
   }
 

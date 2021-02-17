@@ -76,6 +76,7 @@
             background-color: silver;
             .card-container {
                 height: 100%;
+                width: 100%;
                 margin-left: 2%;
                 margin-right: 2%;
                 display: flex;
@@ -83,6 +84,14 @@
                 justify-content: space-evenly;
                 .rating-card {
                     flex: 0.2;
+                    .rating-title {
+                        font-size: 35px;
+                        text-align: center;
+                    }
+                    .rating-value {
+                        font-size: 30px;
+                        text-align: center;
+                    }
                 }
                 .mission-card{
                     flex: 0.2;
