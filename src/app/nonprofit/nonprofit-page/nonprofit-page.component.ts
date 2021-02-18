@@ -18,8 +18,13 @@ export class NonprofitPageComponent implements OnInit {
     this.nonprofitName = this.route.snapshot.paramMap.get('nonprofit-id') as string;
   }
 
+  // fetched from database
   getNonprofitFavorited(): boolean {
     return this.nonprofitFavorited;
+  }
+
+  getUserNonprofitRating(): number {
+    return 4;
   }
 
   // TODO: package these getters into a single object later
@@ -38,8 +43,9 @@ export class NonprofitPageComponent implements OnInit {
     return 0.71;
   }
 
-  getNonprofitTopCompensation(): number {
-    return 166000.3;
+  // Change to actual object once starting to pull from API
+  getNonprofitTopCompensation(): any {
+    return { name: 'George Costanza', compensation: 166001.34 };
   }
 
   goToNonprofitHomePageExternal(): void {
@@ -59,5 +65,9 @@ export class NonprofitPageComponent implements OnInit {
 
   toggleSidenavOpened(): void {
     this.sidenavOpened = !this.sidenavOpened;
+  }
+
+  userNonprofitRatingChanged(rating: number): void {
+    console.log('nonprofit rating changed to: ' + rating);
   }
 }

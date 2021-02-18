@@ -43,38 +43,46 @@
             <div class="card-container">
                 <mat-card class="rating-card">
                     <mat-card-content>
-                        <p class="rating-title">Rating</p>
-                        <p class="rating-value">{{getNonprofitRating()}}</p>
+                        <p class="card-title">Rating</p>
+                        <div class="rating-content-container">
+                            <div class="current-rating-container">
+                                <p class="current-rating-title">Current Rating:</p>
+                                <p class="current-rating-value">{{getNonprofitRating()}}</p>
+                                <p class="current-rating-subtitle">out of 5</p>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="your-rating-container">
+                                <p class="your-rating-title">Your Rating:</p>
+                                <bar-rating class="rating-bar" [rate]="getUserNonprofitRating()" (rateChange)="userNonprofitRatingChanged($event)" [max]="5"></bar-rating>
+                            </div>
+                        </div>
                     </mat-card-content>
                 </mat-card>
     
                 <mat-card class="mission-card">
-                    <mat-card-header>
-                        <mat-card-title>Mission</mat-card-title>
-                    </mat-card-header>
                     <mat-card-content>
+                        <p class="card-title">Mission</p>
                         <p>{{getNonprofitMission()}}</p>
                     </mat-card-content>
                 </mat-card>
     
                 <mat-card class="efficiency-card">
-                    <mat-card-header>
-                        <!--TODO: fundraisingExpenses vs. other spending in API-->
-                        <mat-card-title>Spending Efficiency</mat-card-title>
-                    </mat-card-header>
                     <mat-card-content>
-                        <p>{{getNonprofitSpendingEfficiency() * 100}}%</p>
+                        <div class="efficiency-title-container">
+                            <p class="card-title">Useful Spending %</p>
+                        </div>
+                        <div class="efficiency-content-container">
+                            <p class="efficiency-value">{{getNonprofitSpendingEfficiency() * 100}}%</p>
+                        </div>
                     </mat-card-content>
                 </mat-card>
     
                 <mat-card class="compensation-card">
-                    <mat-card-header>
-                        <mat-card-title>Top Compensation</mat-card-title>
-                    </mat-card-header>
                     <mat-card-content>
-                        <p>{{getNonprofitTopCompensation()}}</p>
-                        <p>{{getNonprofitTopCompensation()}}</p>
-                        <p>{{getNonprofitTopCompensation()}}</p>
+                        <p class="card-title">Top Compensation</p>
+                        <p>1. {{getNonprofitTopCompensation().name}}: ${{getNonprofitTopCompensation().compensation}}</p>
+                        <p>2. {{getNonprofitTopCompensation().name}}: ${{getNonprofitTopCompensation().compensation}}</p>
+                        <p>3. {{getNonprofitTopCompensation().name}}: ${{getNonprofitTopCompensation().compensation}}</p>
                     </mat-card-content>
                 </mat-card>
             </div>
