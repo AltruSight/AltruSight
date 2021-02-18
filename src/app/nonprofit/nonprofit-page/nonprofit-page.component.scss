@@ -97,7 +97,7 @@
                     text-align: center;
                 }
                 .rating-card {
-                    flex: 0.2;
+                    flex: 0.15;
                     .rating-content-container {
                         display: flex; 
                         flex-direction: row;
@@ -140,7 +140,7 @@
                 .efficiency-card{
                     display: flex; 
                     flex-direction: column;
-                    flex: 0.2;
+                    flex: 0.125;
                     .efficiency-title-container {
                         flex: 0.2;
                     }
@@ -155,6 +155,9 @@
                 }
                 .compensation-card{
                     flex: 0.2;
+                }
+                .more-stats-card {
+                    flex: 0.1;
                 }
             }
         }
