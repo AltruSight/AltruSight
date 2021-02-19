@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, Va
 import { ErrorStateMatcher} from '@angular/material/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   userEmailControl: FormControl;
   userPasswordControl: FormControl;
 
-  constructor(public auth: AngularFireAuth, public router: Router) {
+  constructor(public auth: AngularFireAuth, public router: Router, public messagesService: MessagesService) {
     // Defining user email control
     this.userEmailControl = new FormControl('', [
       Validators.required,
@@ -62,7 +63,11 @@ export class LoginComponent implements OnInit {
         console.log('Signed in!');
 
         this.errorMessage = '';
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/').then((navigated: boolean) => {
+          if (navigated) {
+            this.messagesService.openSnackBar('Logged in successfully!', 'Close', 50000);
+          }
+        });
         // this.showLoadingDiv = false;
       })
       .catch((error) => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ export class RegisterComponent implements OnInit {
   hide = true;
   registerError = false;
 
-  constructor(public auth: AngularFireAuth, public router: Router) { }
+  constructor(public auth: AngularFireAuth, public router: Router, private messagesService: MessagesService) { }
 
   ngOnInit(): void {
   }
@@ -30,7 +31,11 @@ export class RegisterComponent implements OnInit {
         console.log(userEmail);
         console.log(userPassword);
         console.log(userConfirmPassword);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/').then((navigated: boolean) => {
+          if (navigated) {
+            this.messagesService.openSnackBar('Account registered successfully!', 'Close', 50000);
+          }
+        });
       })
       .catch((error) => {
         // Use error in validation
