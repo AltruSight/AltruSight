@@ -61,7 +61,7 @@ import { FavoriteNonprofitsComponent } from './user/favorite-nonprofits/favorite
     AngularFireAuthModule,
     FormsModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
