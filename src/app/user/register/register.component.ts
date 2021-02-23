@@ -15,7 +15,6 @@ export class RegisterComponent implements OnInit {
   registerError = false;
   errorMessage = '';
   registerErrorMessage = '';
-  testvar = false;
 
   registerForm: FormGroup;
   userEmailControl: FormControl;
@@ -27,7 +26,6 @@ export class RegisterComponent implements OnInit {
   confirmPasswordsMatch = new ConfirmPasswordsMatch();
 
   constructor(public auth: AngularFireAuth, public router: Router) {
-    this.testvar = false;
 
     // User Email
     this.userEmailControl = new FormControl('', [
@@ -69,7 +67,7 @@ export class RegisterComponent implements OnInit {
     const password1 = control.get('userPasswordControl')?.value.toString();
     const password2 = control.get('userPasswordConfirmControl')?.value.toString();
     
-    if(password1.indexOf(' ') >= 0) {
+    if(password1.includes(' ')) {
       this.errorMessage = ErrorMessages.passwordsHasSpaces;
       // this.errorMessage = 'Passowrd may not have spaces';
       return {'passwordsInvalid:': true};
@@ -77,10 +75,10 @@ export class RegisterComponent implements OnInit {
 
     // Uncomment this when we're ready to test for 8 or more charachters,
     // with at least one letter, number and symbol.
-    // else if(!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password1)){
-    //   this.errorMessage = ErrorMessages.passwordDoesNotMeetRegEx;
-    //   return { 'passwordsInvalid': true };
-    // }
+    else if(!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password1)){
+      this.errorMessage = ErrorMessages.passwordDoesNotMeetRegEx;
+      return { 'passwordsInvalid': true };
+    }
 
     // console.log(control.get('userPasswordControl'))
     else if ((password1 !== password2)) {
@@ -129,8 +127,8 @@ export class ConfirmPasswordsMatch implements ErrorStateMatcher {
 }
 
 export const ErrorMessages: { [key: string]: string } = {
-  passwordsHasSpaces: 'Password may not have spaces',
-  passwordsMustMatch: 'Passwords must match',
+  passwordsHasSpaces:       'Password may not have spaces',
+  passwordsMustMatch:       'Passwords must match',
   passwordDoesNotMeetRegEx: 'Password must use 8 characters or more with at least one letter, number & symbol',
-  makeSureInputFieldsValid: 'Pleasse make sure all input fields are filled'
+  makeSureInputFieldsValid: 'Please make sure all input fields are valid'
 };
