@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
     this.userPasswordsGroup = new FormGroup({
       userPasswordControl: this.userPasswordControl,
       userPasswordConfirmControl: this.userPasswordConfirmControl
-    }, 
+    },
     { validators: this.passwordsValid.bind(this) });
 
     // User registration form
@@ -66,24 +66,24 @@ export class RegisterComponent implements OnInit {
     this.errorMessage = '';
     const password1 = control.get('userPasswordControl')?.value.toString();
     const password2 = control.get('userPasswordConfirmControl')?.value.toString();
-    
-    if(password1.includes(' ')) {
+
+    if (password1.includes(' ')) {
       this.errorMessage = ErrorMessages.passwordsHasSpaces;
       // this.errorMessage = 'Passowrd may not have spaces';
       return {'passwordsInvalid:': true};
     }
 
-    // Uncomment this when we're ready to test for 8 or more charachters,
-    // with at least one letter, number and symbol.
-    else if(!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password1)){
-      this.errorMessage = ErrorMessages.passwordDoesNotMeetRegEx;
-      return { 'passwordsInvalid': true };
-    }
-
     // console.log(control.get('userPasswordControl'))
     else if ((password1 !== password2)) {
       this.errorMessage = ErrorMessages.passwordsMustMatch;
-      return { 'passwordsInvalid': true };
+      return { passwordsInvalid: true };
+    }
+
+    // Uncomment this when we're ready to test for 8 or more charachters,
+    // with at least one letter, number and symbol.
+    else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password1)){
+      this.errorMessage = ErrorMessages.passwordDoesNotMeetRegEx;
+      return { passwordsInvalid: true };
     }
     return null;
   }
@@ -95,7 +95,7 @@ export class RegisterComponent implements OnInit {
     const passwordsEqual = userPassword === userConfirmPassword;
 
     if (this.userPasswordsGroup.valid && this.userEmailControl.valid && passwordsEqual) {
-      console.log("Creating user!");
+      console.log('Creating user!');
       this.auth.createUserWithEmailAndPassword(userEmail, userPassword)
       .then(() => {
         console.log('Created user: ', userEmail);
@@ -104,7 +104,7 @@ export class RegisterComponent implements OnInit {
       .catch((error) => {
         this.registerErrorMessage = error.message;
         // Use error in validation
-        //console.error(error);
+        // console.error(error);
       });
     }
     else {
@@ -121,8 +121,8 @@ export class ConfirmPasswordsMatch implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
       const parentValid = control!.parent!.valid;
       const firstPasswordTyped = control!.parent!.get('userPasswordControl')!.dirty;
-      
-      return !parentValid && firstPasswordTyped      
+
+      return !parentValid && firstPasswordTyped;
   }
 }
 
