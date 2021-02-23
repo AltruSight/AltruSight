@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent },
-  {path: 'nonprofit', component: NonprofitPageComponent},
+  {path: 'nonprofit/:nonprofit-id', component: NonprofitPageComponent},
   {path: 'profile', component: ProfilePageComponent},
   {path: 'friends', component: FriendsPageComponent},
   {path: 'account-stats', component: AccountStatsPageComponent},

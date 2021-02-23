@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
       'Wikipedia',
       'Charitywatch',
       'FIFA',
+      'Super Long Charity Name, It Is Super Long Bro',
       'St. Jude',
       'Salvation Army',
     ];
@@ -57,15 +58,19 @@ export class HomeComponent implements OnInit {
     return 35;
   }
 
-  navigateTo(page: string): void {
-    this.router.navigateByUrl(`${page}`);
-  }
-
   getGoal(): number {
     return 76;
   }
 
   getProgressPercentage(): number {
     return this.getProgress() / this.getGoal() * 100;
+  }
+
+  navigateTo(page: string): void {
+    this.router.navigateByUrl(`${page}`);
+  }
+
+  navigateToNonprofit(nonprofitId: string): void {
+    this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
   }
 }

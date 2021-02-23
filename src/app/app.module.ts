@@ -32,6 +32,10 @@ import { AccountStatsPageComponent } from './user/account-stats-page/account-sta
 import { FriendsPageComponent } from './user/friends-page/friends-page.component';
 import { FavoriteNonprofitsComponent } from './user/favorite-nonprofits/favorite-nonprofits.component';
 
+// 3rd Party Modules
+import { BarRatingModule } from 'ngx-bar-rating';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,9 +50,13 @@ import { FavoriteNonprofitsComponent } from './user/favorite-nonprofits/favorite
     FavoriteNonprofitsComponent
   ],
   imports: [
+    // Angular Core
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    // Angular Material
     MatSidenavModule,
     MatCardModule,
     MatDividerModule,
@@ -57,11 +65,13 @@ import { FavoriteNonprofitsComponent } from './user/favorite-nonprofits/favorite
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatProgressSpinnerModule,
+    // Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatProgressSpinnerModule,
+    // 3rd Party
+    BarRatingModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
