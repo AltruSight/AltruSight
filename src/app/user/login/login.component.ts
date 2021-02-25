@@ -4,6 +4,7 @@ import { ErrorStateMatcher} from '@angular/material/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { MessagesService } from 'src/app/services/messages.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,16 @@ import { MessagesService } from 'src/app/services/messages.service';
 export class LoginComponent implements OnInit {
   hidePassword = true;
   errorMessage = '';
-  showLoadingDiv = true;
+  showLoadingDiv = false;
 
   signInForm: FormGroup;
   userEmailControl: FormControl;
   userPasswordControl: FormControl;
 
-  constructor(public auth: AngularFireAuth, public router: Router, public messagesService: MessagesService) {
+  constructor(public router: Router,
+              public messagesService: MessagesService,
+              private authService: AuthService
+  ) {
     // Defining user email control
     this.userEmailControl = new FormControl('', [
       Validators.required,
@@ -38,8 +42,6 @@ export class LoginComponent implements OnInit {
       userEmailControl: this.userEmailControl,
       userPasswordControl: this.userPasswordControl
     });
-
-    this.showLoadingDiv = false;
   }
 
   // Keep for future reference: How to create custom validator
@@ -55,27 +57,14 @@ export class LoginComponent implements OnInit {
   signIn(userEmail: string, userPassword: string): void {
     // Check to make sure form is not invalid before submitting
     if (!this.signInForm.invalid) {
-      this.showLoadingDiv = true;
       this.errorMessage = '';
 
-      this.auth.signInWithEmailAndPassword(userEmail, userPassword).then((user) => {
-        // Successfully signed in
-        console.log('Signed in!');
-
-        this.errorMessage = '';
-        this.router.navigateByUrl('/').then((navigated: boolean) => {
-          if (navigated) {
-            this.messagesService.openSnackBar('Logged in successfully!', 'Close', 50000);
-          }
+      this.authService.signIn(userEmail, userPassword)
+        .then((errorMessage) => {
+          this.errorMessage = errorMessage;
+        }).catch((errorMessage) => {
+          this.errorMessage = errorMessage;
         });
-        // this.showLoadingDiv = false;
-      })
-      .catch((error) => {
-        // Could not sign in
-        this.showLoadingDiv = false;
-        console.log(error);
-        this.errorMessage = error.message;
-      });
     }
   }
 }
