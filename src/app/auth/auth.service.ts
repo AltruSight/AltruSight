@@ -27,6 +27,7 @@ export class AuthService {
     return this.isLoggedIn;
   }
 
+  // returns error message (or blank error message)
   register(userEmail: string, userPassword: string): Promise<string> {
     return this.auth.createUserWithEmailAndPassword(userEmail, userPassword)
     .then(() => {
@@ -65,12 +66,14 @@ export class AuthService {
       });
   }
 
-  logout(): void {
-    this.auth.signOut().then(() => {
+  logout(): Promise<string> {
+    return this.auth.signOut().then(() => {
       this.messagesService.openSnackBar('signed out successfully', 'close', 50000);
+      return '';
     })
     .catch((error) => {
       console.error(error);
+      return error.message;
     });
   }
 

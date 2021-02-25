@@ -1,9 +1,13 @@
 <div class="main-container">
   <!--TOOLBAR / NAV BAR HERE-->
   <div class="nav-bar">
-    <button (click)="navigateTo('login')">Login</button>
-    <button (click)="navigateTo('register')">Register</button>
-    <button (click)="this.authService.logout()">Logout</button>
+    <div *ngIf="this.authService.getIsLoggedIn()">
+      <button (click)="this.authService.logout()">Logout</button>
+    </div>
+    <div *ngIf="!this.authService.getIsLoggedIn()">
+      <button (click)="navigateTo('login')">Login</button>
+      <button (click)="navigateTo('register')">Register</button>
+    </div>
   </div>
 
   <!--ROUTER OUTLET-->
