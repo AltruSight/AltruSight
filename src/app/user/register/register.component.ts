@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, ValidatorFn, Validators} from '@angular/forms';
+import { MessagesService } from 'src/app/services/messages.service';
+import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { ErrorStateMatcher} from '@angular/material/core';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +27,9 @@ export class RegisterComponent implements OnInit {
 
   confirmPasswordsMatch = new ConfirmPasswordsMatch();
 
-  constructor(public auth: AngularFireAuth, public router: Router) {
+  constructor(public router: Router,
+              private messagesService: MessagesService,
+              private authService: AuthService) {
 
     // User Email
     this.userEmailControl = new FormControl('', [
@@ -96,15 +100,13 @@ export class RegisterComponent implements OnInit {
 
     if (this.userPasswordsGroup.valid && this.userEmailControl.valid && passwordsEqual) {
       console.log('Creating user!');
-      this.auth.createUserWithEmailAndPassword(userEmail, userPassword)
-      .then(() => {
-        console.log('Created user: ', userEmail);
-        this.router.navigateByUrl('/');
+
+      this.authService.register(userEmail, userPassword)
+      .then((message) => {
+        this.registerErrorMessage = message;
       })
       .catch((error) => {
-        this.registerErrorMessage = error.message;
-        // Use error in validation
-        // console.error(error);
+        this.registerErrorMessage = error;
       });
     }
     else {

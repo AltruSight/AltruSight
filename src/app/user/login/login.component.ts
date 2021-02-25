@@ -3,6 +3,8 @@ import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, Va
 import { ErrorStateMatcher} from '@angular/material/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { MessagesService } from 'src/app/services/messages.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,13 +15,16 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   hidePassword = true;
   errorMessage = '';
-  showLoadingDiv = true;
+  showLoadingDiv = false;
 
   signInForm: FormGroup;
   userEmailControl: FormControl;
   userPasswordControl: FormControl;
 
-  constructor(public auth: AngularFireAuth, public router: Router) {
+  constructor(public router: Router,
+              public messagesService: MessagesService,
+              private authService: AuthService
+  ) {
     // Defining user email control
     this.userEmailControl = new FormControl('', [
       Validators.required,
@@ -37,8 +42,6 @@ export class LoginComponent implements OnInit {
       userEmailControl: this.userEmailControl,
       userPasswordControl: this.userPasswordControl
     });
-
-    this.showLoadingDiv = false;
   }
 
   // Keep for future reference: How to create custom validator
@@ -54,23 +57,14 @@ export class LoginComponent implements OnInit {
   signIn(userEmail: string, userPassword: string): void {
     // Check to make sure form is not invalid before submitting
     if (!this.signInForm.invalid) {
-      this.showLoadingDiv = true;
       this.errorMessage = '';
 
-      this.auth.signInWithEmailAndPassword(userEmail, userPassword).then((user) => {
-        // Successfully signed in
-        console.log('Signed in!');
-
-        this.errorMessage = '';
-        this.router.navigateByUrl('/');
-        // this.showLoadingDiv = false;
-      })
-      .catch((error) => {
-        // Could not sign in
-        this.showLoadingDiv = false;
-        console.log(error);
-        this.errorMessage = error.message;
-      });
+      this.authService.signIn(userEmail, userPassword)
+        .then((errorMessage) => {
+          this.errorMessage = errorMessage;
+        }).catch((errorMessage) => {
+          this.errorMessage = errorMessage;
+        });
     }
   }
 }
