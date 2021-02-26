@@ -74,12 +74,17 @@
     <mat-sidenav-content class="main-content-container">
         <div class="main-content">
             <div class="payment-feed-container">
-                <!-- add here -->
-                <h2>Add payment feed here</h2>
-                <ul *ngFor="let donations of getDonations().slice(0,5)">
-                    <p>{{donations.donorName}}, {{donations.donationDescription}},
-                        {{donations.donationCharityName}} </p>
-                </ul>
+                <br>
+                <mat-card class="paymentFeed" *ngFor="let donations of getDonations().slice(0,5)">
+                    <mat-card-header>
+                        <mat-card-title class="paymentFeedDonor">
+                            {{donations.donorName}} donated to {{donations.donationCharityName}}
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content class="paymentFeedDescription">
+                        {{donations.donationDescription}}
+                    </mat-card-content>
+                </mat-card>
 
             </div>
         </div>
