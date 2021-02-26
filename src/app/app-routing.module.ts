@@ -8,12 +8,14 @@ import { FriendsPageComponent } from './user/friends-page/friends-page.component
 import { LoginComponent } from './user/login/login.component';
 import { ProfilePageComponent } from './user/profile-page/profile-page.component';
 import { RegisterComponent } from './user/register/register.component';
+import { NonprofitSearchPageComponent } from './nonprofit-search-page/nonprofit-search-page.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent },
   {path: 'nonprofit/:nonprofit-id', component: NonprofitPageComponent},
+  {path: 'nonprofits', component: NonprofitSearchPageComponent},
   {path: 'profile', component: ProfilePageComponent},
   {path: 'friends', component: FriendsPageComponent},
   {path: 'account-stats', component: AccountStatsPageComponent},

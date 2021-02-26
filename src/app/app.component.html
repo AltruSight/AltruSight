@@ -1,13 +1,42 @@
 <div class="main-container">
   <!--TOOLBAR / NAV BAR HERE-->
   <div class="nav-bar">
-    <div *ngIf="this.authService.getIsLoggedIn()">
-      <button (click)="this.authService.logout()">Logout</button>
-    </div>
-    <div *ngIf="!this.authService.getIsLoggedIn()">
-      <button (click)="navigateTo('login')">Login</button>
-      <button (click)="navigateTo('register')">Register</button>
-    </div>
+    <mat-toolbar color="primary" class="nav-toolbar">
+      <mat-toolbar-row class="top-toolbar-row">
+        <h2>Altrusight</h2>
+        <span class="spacer"></span>
+        <div>
+          <button mat-button [mat-menu-trigger-for]="accountMenu">
+            <mat-icon class="icon">admin_panel_settings</mat-icon>
+          </button>
+          <mat-menu #accountMenu="matMenu">
+            <div *ngIf="this.authService.getIsLoggedIn()">
+              <button mat-menu-item (click)="navigateTo('profile')">Profile Page</button>
+              <button mat-menu-item (click)="this.authService.logout()">Logout</button>
+            </div>
+            <div *ngIf="!this.authService.getIsLoggedIn()">
+              <button mat-menu-item (click)="navigateTo('login')">Login</button>
+              <button mat-menu-item (click)="navigateTo('register')">Register</button>
+            </div>
+          </mat-menu>
+        </div>
+      </mat-toolbar-row>
+      <mat-toolbar-row class="bottom-toolbar-row">
+        <button mat-button class="toolbar-main-button" (click)="navigateTo('')">Home</button>
+        <button mat-button class="toolbar-main-button" [matMenuTriggerFor]="nonprofitMenu">Nonprofits</button>
+        <mat-menu #nonprofitMenu="matMenu">
+          <button mat-menu-item (click)="navigateTo('nonprofits')">All Nonprofits</button>
+          <button mat-menu-item (click)="navigateTo('favorite-nonprofits')">Your Favorite Nonprofits</button>
+        </mat-menu>
+        <button class="toolbar-main-button" mat-button>About Us</button>
+        <span class="spacer"></span>
+        <mat-form-field class="search-bar" appearance="outline">
+          <mat-label>Search Nonprofits</mat-label>
+          <input matInput placeholder="Search">
+          <mat-icon matPrefix>search</mat-icon>
+        </mat-form-field>
+      </mat-toolbar-row>
+    </mat-toolbar>
   </div>
 
   <!--ROUTER OUTLET-->
