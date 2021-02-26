@@ -33,6 +33,11 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "styles/_variables.scss"
+              ]
+            },
             "scripts": []
           },
           "configurations": {

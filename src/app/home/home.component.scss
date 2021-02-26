@@ -1,9 +1,10 @@
+@import '../../styles/_variables.scss';
+
 .sidenav-container {
     display: flex;
     flex-direction: row;
     height: 100%;
     width: 100%;
-    background-color: orange;
 }
 
 .card-title-button {
@@ -16,7 +17,7 @@
     flex: 1;
     height: 100%;
     width: 40%;
-    background-color: green; 
+    background-color: $accent-2;
     .card-container {
         margin-left: 2%;
         margin-right: 2%;
@@ -31,6 +32,7 @@
             flex: 0.2;
             .profile-card {
                 flex: 1;
+                background-color: $primary-off-white;
                 .mat-card-content {
                     display: flex;
                     flex-direction: column;
@@ -39,12 +41,23 @@
                         display: flex; 
                         flex-direction: row;
                         flex-wrap: wrap;
-                        justify-content: space-evenly;
-                        .fav {
-                            text-align: center;
-                            border: 1px solid black;
-                            margin-bottom: 2%;
+                        align-self: flex-start;
+                        .favorites-list {
+                            flex: 1;
+                            .fav {
+                            }
+                            .fav:hover {
+                                background-color: $primary-1;
+                            }
                         }
+                    }
+                    .more-button {
+                        font-size: 25px;
+                        background-color: $accent-4;
+                        color: $primary-off-white;
+                    }
+                    .more-button:hover {
+                        background-color: $accent-2;
                     }
                 }
             }
@@ -102,27 +115,26 @@
 .main-content-container {
     display: flex;
     flex-grow: 1;
-    background-color: lightsalmon;
     .main-content {
         display: flex;
         flex-direction: column;
         flex: 1;
-        background-color: teal;
+        background-color: $accent-1;
         align-items: center;
         justify-content: center;
         .payment-feed-container {
             width: 90%;
             flex: 0.9;
-            background-color: #00BFA5;
+            background-color: $accent-3;
             border-radius: 20px;
         }
     }
     .vertical-toggle-button {
-        min-width: 3vh;
-        background-color: #00BFA5;
+        min-width: 2vh;
+        background-color: $primary-1;
     }
     .vertical-toggle-button:hover {
-        background-color: #A7FFEB;
+        background-color: $primary-3;
     }
 }
 

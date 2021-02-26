@@ -14,19 +14,21 @@
                             {{getUsername()}}
                         </mat-card-title>
                         <mat-card-subtitle>
-                            <button (click)="navigateTo('profile')">Edit Profile</button>
+                            <button color="primary" (click)="navigateTo('profile')">Edit Profile</button>
                         </mat-card-subtitle>
                     </mat-card-header>
                     <mat-divider></mat-divider>
                     <mat-card-content>
-                        <p>Your Favorite Nonprofits</p>
                         <div class="fav-container">
-                            <button (click)="navigateToNonprofit(nonprofit)" mat-stroked-button class="fav" *ngFor="let nonprofit of getFavoriteNonprofits().slice(0, 4)">
-                                {{nonprofit}}  
-                            </button>
+                            <mat-list class="favorites-list" dense>
+                                <div mat-subheader>Your Favorite Nonprofits</div>
+                                <mat-list-item class="fav" (click)="navigateToNonprofit(nonprofit)" *ngFor="let nonprofit of getFavoriteNonprofits().slice(0, 4)">
+                                    {{nonprofit}}
+                                </mat-list-item>
+                            </mat-list>
                         </div>
                         <mat-card-actions>
-                            <button (click)="navigateTo('favorite-nonprofits')" mat-raised-button color="primary">More</button>
+                            <button class="more-button" (click)="navigateTo('favorite-nonprofits')" mat-raised-button>More</button>
                         </mat-card-actions>
                     </mat-card-content>
                 </mat-card>
