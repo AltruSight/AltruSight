@@ -12,6 +12,9 @@
           <mat-menu #accountMenu="matMenu">
             <div *ngIf="this.authService.getIsLoggedIn()">
               <button mat-menu-item (click)="navigateTo('profile')">Profile Page</button>
+              <button mat-menu-item (click)="navigateTo('friends')">Friends List</button>
+              <button mat-menu-item (click)="navigateTo('account-stats')">Account Stats</button>
+              <button mat-menu-item (click)="navigateTo('favorite-nonprofits')">Favorited Nonprofits</button>
               <button mat-menu-item (click)="this.authService.logout()">Logout</button>
             </div>
             <div *ngIf="!this.authService.getIsLoggedIn()">
