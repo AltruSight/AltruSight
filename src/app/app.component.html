@@ -1,3 +1,5 @@
+<!--TODO: Move profile sidebar to TOP LEVEL of app (with button to open via toolbar)-->
+<!--TODO: Make toolbar headers not shrink too much-->
 <div class="main-container">
   <!--TOOLBAR / NAV BAR HERE-->
   <div class="nav-bar">
@@ -26,7 +28,9 @@
       </mat-toolbar-row>
       <mat-toolbar-row class="bottom-toolbar-row">
         <button mat-button class="toolbar-main-button" (click)="navigateTo('')">Home</button>
+        <div class="vertical-divider"></div>
         <button mat-button class="toolbar-main-button" [matMenuTriggerFor]="nonprofitMenu">Nonprofits</button>
+        <div class="vertical-divider"></div>
         <mat-menu #nonprofitMenu="matMenu">
           <button mat-menu-item (click)="navigateTo('nonprofits')">All Nonprofits</button>
           <button mat-menu-item (click)="navigateTo('favorite-nonprofits')">Your Favorite Nonprofits</button>

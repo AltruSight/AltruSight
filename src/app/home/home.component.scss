@@ -17,13 +17,13 @@
     .main-content {
         display: flex; 
         flex-direction: column;
-        flex: 1 0 800px;
+        flex: 1 0 0;
         justify-content: center;
         margin: 5%;
         .payment-feed-container {
             display: flex; 
             flex-direction: column;
-            flex: 0.9 0.9 500px;
+            flex: 0.9 1 500px;
             background-color: $primary-2;
             border-radius: 20px;
         }
@@ -41,7 +41,7 @@
         display: flex;
         flex-direction: column;
         min-height: 100%;
-        flex: 0.2 0.2 350px; 
+        flex: 0.2 0 350px; 
         background-color: $accent-3;
         justify-content: space-around;
 
