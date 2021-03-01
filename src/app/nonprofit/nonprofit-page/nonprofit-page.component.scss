@@ -25,14 +25,15 @@
         display: flex;
         flex-direction: row;
         flex: 0.15;
-        background-color: teal;
+        background-color: $accent-3;
         justify-content: center;
         .title-box {
             // nested flexbox to align title text properly in center
             display: flex;
             flex: 0.15 0.25 auto;
             overflow: hidden;
-            background-color: silver;
+            background-color: $accent-4;
+            color: $primary-off-white;
             margin: 1%;
             border-radius: 15px;
             align-items: center;
@@ -44,7 +45,8 @@
             display: flex;
             flex-direction: row;
             flex: 0.15 0.2 auto;
-            background-color: silver;
+            background-color: $accent-4;
+            color: $primary-off-white;
             margin: 1%;
             border-radius: 15px;
             align-items: center;
@@ -52,13 +54,15 @@
             .links-btn {
                 font-size: 15px;
                 flex: 0.5;
+                height: 100%;
             }
         }
         .donate-box {
             display: flex;
             flex-direction: column;
             flex: 0.15;
-            background-color: white;
+            background-color: $accent-4;
+            color: $primary-off-white;
             margin: 1%;
             border-radius: 15px;
             align-items: center;
@@ -68,6 +72,7 @@
         .toggle-box {
             display: flex;
             flex: 0.1;
+            color: $primary-off-white;
             align-items: center;
             justify-content: center;
             margin-left: auto;
@@ -78,12 +83,12 @@
     // wrapper for angular sidenav container overall
     .sidenav-container {
         flex: 1;
-        background-color: peachpuff;
+        background-color: $primary-1;
 
         // container for sidebar contents (ratings, etc.)
         .sidebar-container {
             flex: 1;
-            background-color: silver;
+            background-color: $accent-1;
             // controls width of sidebar
             width: 50%;
             .card-container {
@@ -172,7 +177,7 @@
                 flex: 1;
                 margin: 2%;
                 height: 100%;
-                background-color: silver;
+                background-color: $primary-2;
                 border-radius: 15px;
             }
         }

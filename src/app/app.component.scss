@@ -4,7 +4,6 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: grey;
     .nav-bar {
         flex: 0.1;
         .nav-toolbar {
@@ -17,7 +16,7 @@
             }
             .bottom-toolbar-row {
                 display: flex;
-                background-color: #004c86;
+                background-color: $accent-4;
                 overflow: hidden;
                 align-items: center;
                 justify-content: center;
