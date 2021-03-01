@@ -1,85 +1,70 @@
-<mat-sidenav-container class="sidenav-container">
-    <!--SOCIAL BAR CONTENT GOES HERE-->
-    <mat-sidenav 
-        class="sidenav-content-container" 
-        mode="side" 
-        position="end"
-        [opened]="sidenavOpened">
-        <div class="card-container">
-            <div class="section1">
-                <mat-card class="profile-card">
-                    <mat-card-header>
-                        <img (click)="navigateTo('profile')" mat-card-avatar src="{{getProfilePictureURL()}}"/>
-                        <mat-card-title>
-                            {{getUsername()}}
-                        </mat-card-title>
-                        <mat-card-subtitle>
-                            <button color="primary" (click)="navigateTo('profile')">Edit Profile</button>
-                        </mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-divider></mat-divider>
-                    <mat-card-content>
-                        <div class="fav-container">
-                            <mat-list class="favorites-list" dense>
-                                <div mat-subheader>Your Favorite Nonprofits</div>
-                                <mat-list-item class="fav" (click)="navigateToNonprofit(nonprofit)" *ngFor="let nonprofit of getFavoriteNonprofits().slice(0, 4)">
-                                    {{nonprofit}}
-                                </mat-list-item>
-                            </mat-list>
-                        </div>
-                        <mat-card-actions>
-                            <button class="more-button" (click)="navigateTo('favorite-nonprofits')" mat-raised-button>More</button>
-                        </mat-card-actions>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-            <div class="section2">
-                <mat-card class="friends-card">
-                    <mat-card-content>
-                        <div class="friends-container">
-                            <!--TODO: Clicking on each individual badge should take you to friend's profile page-->
-                            <img *ngFor="let friend of getFriendsUsernames()" mat-card-avatar src="{{getFriendProfilePictureURL(friend)}}">
-                        </div>
-                    </mat-card-content>
-                    <mat-card-footer>
-                        <mat-card-title>
-                            <button class="card-title-button" (click)="navigateTo('friends')" mat-button>Your Friends</button>
-                        </mat-card-title>
-                    </mat-card-footer>
-                </mat-card>
-            </div>
-            <div class="section3">
-                <mat-card class="progress-bar-card">
-                    <mat-card-content>
-                        <mat-progress-bar mode="determinate" [value]="getProgressPercentage()" (click)="navigateTo('account-stats')"></mat-progress-bar>
-                        <h5>${{getProgress()}} of ${{getGoal()}} donated.</h5>
-                    </mat-card-content>
-                    <mat-card-footer>
-                        <mat-card-title>
-                            <button class="card-title-button" (click)="navigateTo('account-stats')" mat-button>Your Goal Progress</button>
-                        </mat-card-title>
-                    </mat-card-footer>
-                </mat-card>
-            </div>
-            <div class="section4">
-                <mat-card class="account-stats-card">
-                    <mat-card-title>
-                        <button class="card-title-button" (click)="navigateTo('account-stats')" mat-button>Other Account Stats</button>
-                    </mat-card-title>
-                </mat-card>
-            </div>
+<div class="main-container">
+    <div class="main-content">
+        <div class="payment-feed-container">
+            Testtesttesttest            Testtesttesttest
+            Testtesttesttest
+            Testtesttesttest
+            Testtesttesttest
+            Testtesttesttest
+            Testtesttesttest
+            TesttesttesttestTesttesttesttestTesttesttesttestTesttesttesttestTesttesttesttest
         </div>
-    </mat-sidenav>
+    </div>
 
-    <!--HOME PAGE CONTENT GOES HERE-->
-    <mat-sidenav-content class="main-content-container">
-        <div class="main-content">
-            <div class="payment-feed-container">
-            </div>
-        </div>
+    <div (click)="toggleSideNavOpened()" class="sidebar-button"></div>
+    <div *ngIf="sidenavOpened" class="sidebar-content">
+        <mat-card class="profile-card">
+            <mat-card-header>
+                <img (click)="navigateTo('profile')" mat-card-avatar src="{{getProfilePictureURL()}}"/>
+                <mat-card-title>{{getUsername()}}</mat-card-title>
+                <mat-card-subtitle>
+                    <button (click)="navigateTo('profile')">Edit Profile</button>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <mat-list dense>
+                    <div mat-subheader>Your Favorite Nonprofits</div>
+                    <div class="divider"></div>
+                    <mat-list-item class="favorite-nonprofit" (click)="navigateToNonprofit(nonprofit)" *ngFor="let nonprofit of getFavoriteNonprofits().slice(0, 4)">
+                        {{nonprofit}}
+                        <mat-divider color="primary"></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+                <mat-card-actions class="more-button-container">
+                    <button class="more-button" (click)="navigateTo('favorite-nonprofits')" mat-raised-button>More</button>
+                </mat-card-actions>
+            </mat-card-content>
+        </mat-card>
 
-        <button (click)="toggleSideNavOpened()" class="vertical-toggle-button">
-            {{getSidenavButtonText()}}
-        </button>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+        <mat-card class="friends-card">
+            <mat-card-content class="badge-container">
+                <!--TODO: Clicking on each individual badge should take you to friend's profile page-->
+                <img *ngFor="let friend of getFriendsUsernames()" mat-card-avatar src="{{getFriendProfilePictureURL(friend)}}">   
+            </mat-card-content>
+            <mat-card-footer>
+                <mat-card-title class="card-title-button-container">
+                    <button class="card-title-button" (click)="navigateTo('friends')" mat-button>Your Friends</button>
+                </mat-card-title>
+            </mat-card-footer>
+        </mat-card>
+
+        <mat-card class="progress-bar-card">
+            <mat-card-content>
+                <mat-progress-bar class="progress-bar" mode="determinate" [value]="getProgressPercentage()" (click)="navigateTo('account-stats')"></mat-progress-bar>
+                <h5 class="progress-bar-caption">${{getProgress()}} of ${{getGoal()}} donated.</h5>
+            </mat-card-content>
+            <mat-card-footer>
+                <mat-card-title class="card-title-button-container">
+                    <button class="card-title-button" (click)="navigateTo('account-stats')" mat-button>Your Goal Progress</button>
+                </mat-card-title>
+            </mat-card-footer>
+        </mat-card>
+
+        <mat-card class="account-stats-card">
+            <mat-card-title class="card-title-button-container">
+                <button class="card-title-button" (click)="navigateTo('account-stats')" mat-button>Other Account Stats</button>
+            </mat-card-title>
+        </mat-card>
+    </div>
+</div>

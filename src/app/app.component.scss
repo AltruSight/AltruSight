@@ -1,3 +1,5 @@
+@import '../styles/variables';
+
 .main-container {
     height: 100%;
     display: flex;
@@ -11,7 +13,6 @@
 }
 
 .nav-bar {
-    height: 15%;
     flex: 0.1;
     .nav-toolbar {
         height: 100%;
@@ -40,5 +41,5 @@
 .content-scroll-container {
     height: 90%;
     flex: 0.9;
-    background-color: aqua;
+    background-color: $primary-1;
 }
