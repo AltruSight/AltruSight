@@ -112,7 +112,14 @@
             background-color: #00BFA5;
             border-radius: 20px;
         }
+        .home-view-placeholder {
+            width: 90%;
+            flex: 0.9;
+            background-color: red;
+            border-radius: 20px;
+        }
     }
+
     .vertical-toggle-button {
         min-width: 3vh;
         background-color: #00BFA5;
@@ -120,19 +127,8 @@
     .vertical-toggle-button:hover {
         background-color: #A7FFEB;
     }
-
-    .home-view-placeholder {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        background-color: red;
-        align-items: center;
-        justify-content: center;
-    }
-
-
-
 }
+
 .altViewNavigation {
     display: flex;
     flex-direction: row;
