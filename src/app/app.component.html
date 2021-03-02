@@ -1,4 +1,3 @@
-<!--TODO: Move profile sidebar to TOP LEVEL of app (with button to open via toolbar)-->
 <!--TODO: Make toolbar headers not shrink too much-->
 <div class="main-container">
   <!--TOOLBAR / NAV BAR HERE-->
@@ -7,8 +6,13 @@
       <mat-toolbar-row class="top-toolbar-row">
         <h2>Altrusight</h2>
         <span class="spacer"></span>
-        <div>
-          <button mat-button [mat-menu-trigger-for]="accountMenu">
+        <div class="centered-content">
+          <mat-form-field class="search-bar" color="primary" appearance="outline">
+            <mat-label>Search Nonprofits</mat-label>
+            <input matInput placeholder="Search">
+            <mat-icon matPrefix>search</mat-icon>
+          </mat-form-field>
+          <button mat-button class="account-button" [mat-menu-trigger-for]="accountMenu">
             <mat-icon class="icon">admin_panel_settings</mat-icon>
           </button>
           <mat-menu #accountMenu="matMenu">
@@ -37,18 +41,73 @@
         </mat-menu>
         <button class="toolbar-main-button" mat-button>About Us</button>
         <span class="spacer"></span>
-        <mat-form-field class="search-bar" appearance="outline">
-          <mat-label>Search Nonprofits</mat-label>
-          <input matInput placeholder="Search">
-          <mat-icon matPrefix>search</mat-icon>
-        </mat-form-field>
+        <button *ngIf="authService.getIsLoggedIn()" class="toolbar-main-button" (click)="toggleSidebarOpened()" mat-button>
+          <mat-icon class="menu-icon">menu</mat-icon>
+        </button>
       </mat-toolbar-row>
     </mat-toolbar>
   </div>
 
   <!--ROUTER OUTLET-->
   <!--Make this scroll so nav bar always stays static at top-->
-  <div class="content-scroll-container">
-    <router-outlet></router-outlet>
+  <div class="content-container">
+    <div class="content-scroll-container">
+      <router-outlet></router-outlet>
+    </div>
+    <div *ngIf="sidebarOpened && authService.getIsLoggedIn()" class="sidebar-content">
+      <mat-card class="profile-card">
+        <mat-card-header>
+            <img (click)="navigateTo('profile')" mat-card-avatar src="{{getProfilePictureURL()}}"/>
+            <mat-card-title>{{getUsername()}}</mat-card-title>
+            <mat-card-subtitle>
+                <button (click)="navigateTo('profile')">Edit Profile</button>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <mat-list dense>
+                <div mat-subheader>Your Favorite Nonprofits</div>
+                <div class="divider"></div>
+                <mat-list-item class="favorite-nonprofit" (click)="navigateToNonprofit(nonprofit)" *ngFor="let nonprofit of getFavoriteNonprofits().slice(0, 4)">
+                    {{nonprofit}}
+                    <mat-divider color="primary"></mat-divider>
+                </mat-list-item>
+            </mat-list>
+            <mat-card-actions class="more-button-container">
+                <button class="more-button" (click)="navigateTo('favorite-nonprofits')" mat-raised-button>More</button>
+            </mat-card-actions>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="friends-card">
+        <mat-card-content class="badge-container">
+            <!--TODO: Clicking on each individual badge should take you to friend's profile page-->
+            <img *ngFor="let friend of getFriendsUsernames()" mat-card-avatar src="{{getFriendProfilePictureURL(friend)}}">   
+        </mat-card-content>
+        <mat-card-footer>
+            <mat-card-title class="card-title-button-container">
+                <button class="card-title-button" (click)="navigateTo('friends')" mat-button>Your Friends</button>
+            </mat-card-title>
+        </mat-card-footer>
+    </mat-card>
+
+    <mat-card class="progress-bar-card">
+        <mat-card-content>
+            <mat-progress-bar class="progress-bar" mode="determinate" [value]="getProgressPercentage()" (click)="navigateTo('account-stats')"></mat-progress-bar>
+            <h5 class="progress-bar-caption">${{getProgress()}} of ${{getGoal()}} donated.</h5>
+        </mat-card-content>
+        <mat-card-footer>
+            <mat-card-title class="card-title-button-container">
+                <button class="card-title-button" (click)="navigateTo('account-stats')" mat-button>Your Goal Progress</button>
+            </mat-card-title>
+        </mat-card-footer>
+    </mat-card>
+
+    <mat-card class="account-stats-card">
+        <mat-card-title class="card-title-button-container">
+            <button class="card-title-button" (click)="navigateTo('account-stats')" mat-button>Other Account Stats</button>
+        </mat-card-title>
+    </mat-card>
+    </div>
   </div>
 </div>

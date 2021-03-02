@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { MessagesService } from '../services/messages.service';
+import { MessagesService } from '../misc-services/messages.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  isLoggedIn = false;
+  isLoggedIn: boolean;
 
+  // TODO: Make sidebar pop up immediately upon logging in
+  // My theory is that it's not being rerendered until a click
+  // Utilize some lifecycle method
   constructor(private auth: AngularFireAuth, private messagesService: MessagesService, private router: Router) {
+    this.isLoggedIn = this.auth.currentUser !== null;
     this.auth.onAuthStateChanged((user) => {
         if (user) {
           console.log('signed in');

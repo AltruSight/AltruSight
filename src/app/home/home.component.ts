@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  sidenavOpened = true;
+  sidenavOpened = false;
 
   constructor(public router: Router) { }
 
