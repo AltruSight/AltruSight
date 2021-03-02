@@ -23,9 +23,15 @@
         .payment-feed-container {
             display: flex; 
             flex-direction: column;
+            align-items: center;
             flex: 0.9 1 500px;
             background-color: $primary-2;
             border-radius: 20px;
+
+            .paymentFeedCards {
+                margin-top: 10px;
+                width: 80%;             
+            }
         }
     }
     .sidebar-button {    
