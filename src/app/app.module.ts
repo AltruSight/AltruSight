@@ -20,10 +20,15 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
 
 // Angular Firebase Imports
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+
+// Custom Component Imports & Project Config Imports
 import { environment } from '../environments/environment';
 import { NonprofitPageComponent } from './nonprofit/nonprofit-page/nonprofit-page.component';
 import { ProfilePageComponent } from './user/profile-page/profile-page.component';
@@ -66,6 +71,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatInputModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatMenuModule,
     // Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
