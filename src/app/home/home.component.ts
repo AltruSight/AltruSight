@@ -9,9 +9,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  sidenavOpened = false;
 
   constructor(public router: Router) { }
+  sidenavOpened = false;
+
+  public donations: Donation[] = [
+    {id: 0, donorName: 'Jules Winnfield', donationDescription: 'Le Big Mac',
+     donationCharityName: 'The Ronald McDonald House'},
+    {id: 1, donorName: 'Tai Lopez', donationDescription: 'You know what I like more than materialistic things? Knowledge.',
+     donationCharityName: 'Wikipedia'},
+    {id: 2, donorName: 'Leo Messi', donationDescription: 'GOAT donating a goat',
+     donationCharityName: 'Heifer International'},
+    {id: 3, donorName: 'Vincent Vega', donationDescription: 'Check them out!',
+     donationCharityName: 'The Hero Foundation'},
+  ];
 
   ngOnInit(): void {
   }
@@ -74,18 +85,7 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
   }
 
-  public donations: donation[] = [
-    {id:0, donorName: 'Jules Winnfield', donationDescription: 'Le Big Mac',
-     donationCharityName: 'The Ronald McDonald House'},
-    {id:1, donorName: 'Tai Lopez', donationDescription: 'You know what I like more than materialistic things? Knowledge.',
-     donationCharityName: 'Wikipedia'},
-    {id:2, donorName: 'Leo Messi', donationDescription: 'GOAT donating a goat',
-     donationCharityName: 'Heifer International'},
-    {id:3, donorName: 'Vincent Vega', donationDescription: 'Check them out!',
-     donationCharityName: 'The Hero Foundation'},
-  ]
-
-  getDonations(): donation[] {
+  getDonations(): Donation[] {
     return [
       this.donations[0],
       this.donations[1],
@@ -94,7 +94,7 @@ export class HomeComponent implements OnInit {
   }
 }
 
-export class donation {
+export class Donation {
   constructor(
     public id: number,
     public donorName: string,
