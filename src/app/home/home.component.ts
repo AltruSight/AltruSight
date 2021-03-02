@@ -85,4 +85,32 @@ export class HomeComponent implements OnInit {
   navigateToNonprofit(nonprofitId: string): void {
     this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
   }
+
+  public donations: donation[] = [
+    {id:0, donorName: 'Jules Winnfield', donationDescription: 'Le Big Mac',
+     donationCharityName: 'The Ronald McDonald House'},
+    {id:1, donorName: 'Tai Lopez', donationDescription: 'You know what I like more than materialistic things? Knowledge.',
+     donationCharityName: 'Wikipedia'},
+    {id:2, donorName: 'Leo Messi', donationDescription: 'GOAT donating a goat',
+     donationCharityName: 'Heifer International'},
+    {id:3, donorName: 'Vincent Vega', donationDescription: 'Check them out!',
+     donationCharityName: 'The Hero Foundation'},
+  ]
+
+  getDonations(): donation[] {
+    return [
+      this.donations[0],
+      this.donations[1],
+      this.donations[2]
+    ];
+  }
+}
+
+export class donation {
+  constructor(
+    public id: number,
+    public donorName: string,
+    public donationDescription: string,
+    public donationCharityName: string
+  ){}
 }
