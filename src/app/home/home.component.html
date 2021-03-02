@@ -75,7 +75,7 @@
         <div class="main-content">
             <div class="payment-feed-container">
                 <br>
-                <mat-card class="paymentFeed" *ngFor="let donations of getDonations().slice(0,5)">
+                <mat-card class="paymentFeed" *ngFor="let donations of getDonations().slice(0,3)">
                     <mat-card-header>
                         <mat-card-title class="paymentFeedDonor">
                             {{donations.donorName}} donated to {{donations.donationCharityName}}
@@ -84,6 +84,10 @@
                     <mat-card-content class="paymentFeedDescription">
                         {{donations.donationDescription}}
                     </mat-card-content>
+                    <mat-card-actions class="card-actions">
+                        <button mat-button>LIKE</button>
+                        <button mat-button>SHARE</button>
+                    </mat-card-actions>
                 </mat-card>
 
             </div>

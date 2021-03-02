@@ -75,22 +75,21 @@ export class HomeComponent implements OnInit {
   }
 
   public donations: donation[] = [
-    {id:0, donorName: 'Vincent Vega', donationDescription: 'Le Big Mac',
-     donationCharityName: 'Hawthorne Grill'},
-    {id:1, donorName: 'Jules Winnfield', donationDescription: 'That is a mighty fine burger',
-     donationCharityName: 'Big Kahuna Burger'},
-    {id:2, donorName: 'Butch Coolidge', donationDescription: 'Zeds dead baby',
-     donationCharityName: 'Pawn Shop'},
-    {id:3, donorName: 'Marsellus Wallace', donationDescription: 'Im pretty far from ok',
-     donationCharityName: 'Pawn Shop'}
+    {id:0, donorName: 'Jules Winnfield', donationDescription: 'Le Big Mac',
+     donationCharityName: 'The Ronald McDonald House'},
+    {id:1, donorName: 'Tai Lopez', donationDescription: 'You know what I like more than materialistic things? Knowledge.',
+     donationCharityName: 'Wikipedia'},
+    {id:2, donorName: 'Leo Messi', donationDescription: 'GOAT donating a goat',
+     donationCharityName: 'Heifer International'},
+    {id:3, donorName: 'Vincent Vega', donationDescription: 'Check them out!',
+     donationCharityName: 'The Hero Foundation'},
   ]
 
   getDonations(): donation[] {
     return [
       this.donations[0],
       this.donations[1],
-      this.donations[2],
-      this.donations[3]
+      this.donations[2]
     ];
   }
 }
