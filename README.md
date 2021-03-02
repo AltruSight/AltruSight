@@ -30,7 +30,7 @@ AltruSight’s goal is to implement a proof-of concept website to serve as a bea
 * DO NOT directly make changes on the master branch (the default branch whenever opening the project or cloning it.
 * Instead, open a new branch for your task with the command ```git checkout -b TASK_NAME_HERE```
 * Add changes to git using ```git add .```
-* Commit your changes to git using ```git commit -m "YOUR COMMIT CHANGES SUMMARY HERE"````
+* Commit your changes to git using ```git commit -m \"YOUR COMMIT CHANGES SUMMARY HERE\"````
 * Push your changes to your branch using ```git push```
   * You may first have to set up your remote upstream branch (so changes are reflected in your branch on GitHub) using ```git push --set-upstream origin BRANCH_NAME_HERE```
 * Once your development on a branch is complete, perform a pull request (can be done through GitHub website).
