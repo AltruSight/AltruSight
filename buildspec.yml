@@ -1,0 +1,23 @@
+version: 0.2
+
+env:
+    variables:
+        CACHE_CONTROL: "86400"
+        S3_BUCKET: "http://s3-us-east-2.amazonaws.com/altrusight-build"
+phases:
+  install:
+    runtime-versions:
+        nodejs: 10
+    commands:
+        - echo Installing source NPM dependencies...
+        - npm install
+        - npm install -g @angular/cli
+  build:
+    commands:
+        - echo Build started 
+        - ng build
+artifacts:
+    files:
+        - "dist/**/*"
+        - "appspec.yml"
+    discard-paths: yes

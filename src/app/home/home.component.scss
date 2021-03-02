@@ -6,13 +6,17 @@
     background-color: orange;
 }
 
+.card-title-button {
+    font-size: 25px;
+}
+
 .sidenav-content-container {
     display: flex;
     flex-direction: column;
     flex: 1;
     height: 100%;
     width: 40%;
-    background-color: #00796B;
+    background-color: green; 
     .card-container {
         margin-left: 2%;
         margin-right: 2%;
