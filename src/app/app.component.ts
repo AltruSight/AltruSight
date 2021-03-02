@@ -12,7 +12,7 @@ export class AppComponent {
   sidebarOpened: boolean;
 
   constructor(public router: Router, public authService: AuthService) {
-      this.sidebarOpened = this.authService.getIsLoggedIn();
+      this.sidebarOpened = false; // this.authService.getIsLoggedIn();
   }
 
   toggleSidebarOpened(): void {

@@ -85,6 +85,7 @@
             .profile-card {
                 flex: 0.2 0.25 0;
                 .favorite-nonprofit {
+                    cursor: pointer;
                     font-size: 15px;
                 }
                 .favorite-nonprofit:hover {

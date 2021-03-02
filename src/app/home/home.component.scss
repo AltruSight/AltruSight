@@ -11,7 +11,7 @@
     flex-direction: row;
     min-height: 100%; 
     flex: 1;
-    background-color: $primary-1;
+    background-color: $primary-2;
 
     // MAIN CONTENT
     .main-content {
@@ -19,18 +19,49 @@
         flex-direction: column;
         flex: 1 0 0;
         justify-content: center;
-        margin: 5%;
+        margin: 1%;
         .payment-feed-container {
             display: flex; 
             flex-direction: column;
             align-items: center;
-            flex: 0.9 1 500px;
-            background-color: $primary-2;
+            overflow: scroll;
+            flex: 1 1 500px;
             border-radius: 20px;
 
             .paymentFeedCards {
-                margin-top: 10px;
-                width: 80%;             
+                margin-top: 2px;
+                width: 85%;
+                background-color: $primary-off-white;
+                opacity: 0.95;
+                justify-content: center;
+                .mat-card-header {
+                    margin: 0;
+                    .mat-card-title {
+                        margin: 0;
+                    }
+                }
+                .paymentFeedTitleUsername {
+                    color: $primary-off-black;
+                }
+                .paymentFeedTitleNonprofitName {
+                    cursor: pointer;
+                    color: $primary-off-black;
+                }
+                .paymentFeedTitleNonprofitName:hover {
+                    color: $accent-2;
+                }
+                .paymentFeedTitleNotImportant {
+                    color: $primary-off-black;
+                    opacity: 0.75;
+                }
+                .paymentFeedCardDescription {
+                    color: $primary-off-black;
+                    opacity: 0.9;
+                    margin: 0px 0px 0px 18px;
+                }
+                .paymentFeedCardActions {
+                    margin: 0px 0px 0px 0px;
+                }
             }
         }
     }

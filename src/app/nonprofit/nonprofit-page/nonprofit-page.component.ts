@@ -11,14 +11,14 @@ export class NonprofitPageComponent implements OnInit {
   nonprofitFavorited = false;
   sidenavOpened = true;
 
-  constructor(private route: ActivatedRoute  ) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // need to make sure this route is only accessible when id is passed in
+    // TODO: need to make sure this route is only accessible when id is passed in
     this.nonprofitName = this.route.snapshot.paramMap.get('nonprofit-id') as string;
   }
 
-  // fetched from database
+  // TODO: fetch from database
   getNonprofitFavorited(): boolean {
     return this.nonprofitFavorited;
   }
