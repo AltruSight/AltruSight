@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   sidenavOpened = true;
   altViewOpened = false;
-  mainContentOpened = true;
 
   constructor(public router: Router) { }
 
@@ -70,14 +69,8 @@ export class HomeComponent implements OnInit {
 
   toggleAltView(): void {
     this.altViewOpened = !this.altViewOpened;
-    this.mainContentOpened = !this.mainContentOpened;
   }
 
-  toggleMainContent(): void {
-    this.mainContentOpened = !this.mainContentOpened;
-    this.altViewOpened = !this.altViewOpened;
-  }
-  
   navigateTo(page: string): void {
     this.router.navigateByUrl(`${page}`);
   }

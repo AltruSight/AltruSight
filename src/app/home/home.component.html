@@ -72,9 +72,9 @@
 
     <!--HOME PAGE CONTENT GOES HERE-->
     <mat-sidenav-content class="main-content-container">
-        <ng-container *ngIf ="mainContentOpened">
             <div class="main-content">
-                <div class="payment-feed-container">
+              <ng-container *ngIf="!altViewOpened">
+                   <div class="payment-feed-container">
                     <mat-card class="paymentFeedCards" *ngFor="let donations of getDonations().slice(0,3)">
                         <mat-card-header>
                             <mat-card-title class="paymentFeedCardTitle">
@@ -89,29 +89,23 @@
                             <button mat-button>SHARE</button>
                         </mat-card-actions>
                     </mat-card>
-                </div>
+                   </div>
+                </ng-container>
+                <ng-container *ngIf="altViewOpened">
+                    <div class="home-view-placeholder" >
+                    </div>
+                </ng-container>
             </div>
-        </ng-container>
-
-        <ng-container *ngIf ="altViewOpened">
-            <div class ="home-view-placeholder" >
-            </div>
-        </ng-container>
-
         <button (click)="toggleSideNavOpened()" class="vertical-toggle-button">
             {{getSidenavButtonText()}}
         </button>
-
     </mat-sidenav-content>
-
-
-
 </mat-sidenav-container>
 
 <div class="altViewNavigation">
     <mat-card class="altViewButtons">
         <mat-card-content>
-            <button mat-button-mat-raised-button (click)="toggleAltView()" class="alt-view-button">View</button>
+            <button mat-raised-button (click)="toggleAltView()" class="alt-view-button">View</button>
         </mat-card-content>
     </mat-card>
 </div>
