@@ -3,22 +3,22 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-nonprofit-page',
-  templateUrl: './nonprofit-page.component.html',
-  styleUrls: ['./nonprofit-page.component.scss']
+  templateUrl: './nonprofit-page2.component.html',
+  styleUrls: ['./nonprofit-page2.component.scss']
 })
 export class NonprofitPageComponent implements OnInit {
   nonprofitName = '';
   nonprofitFavorited = false;
   sidenavOpened = true;
 
-  constructor(private route: ActivatedRoute  ) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // need to make sure this route is only accessible when id is passed in
+    // TODO: need to make sure this route is only accessible when id is passed in
     this.nonprofitName = this.route.snapshot.paramMap.get('nonprofit-id') as string;
   }
 
-  // fetched from database
+  // TODO: fetch from database
   getNonprofitFavorited(): boolean {
     return this.nonprofitFavorited;
   }
@@ -36,7 +36,10 @@ export class NonprofitPageComponent implements OnInit {
   }
 
   getNonprofitMission(): string {
-    return 'this nonprofit is nonprofit to be charitable and nonprofit, duh.';
+    return `The mission of ${this.nonprofitName} is to serve the world
+            for good, and to increase the transparency of other nonprofits.
+            We want each and every person to be able to make informed
+            donation decisions.`;
   }
 
   getNonprofitSpendingEfficiency(): number {

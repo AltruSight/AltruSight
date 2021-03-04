@@ -23,6 +23,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatListModule} from '@angular/material/list';
 
 // Angular Firebase Imports
 import { AngularFireModule } from '@angular/fire';
@@ -40,6 +41,7 @@ import { FavoriteNonprofitsComponent } from './user/favorite-nonprofits/favorite
 // 3rd Party Modules
 import { BarRatingModule } from 'ngx-bar-rating';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { OtherUserProfilePageComponent } from './user/other-user-profile-page/other-user-profile-page.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     NonprofitSearchPageComponent,
     AccountStatsPageComponent,
     FriendsPageComponent,
-    FavoriteNonprofitsComponent
+    FavoriteNonprofitsComponent,
+    OtherUserProfilePageComponent
   ],
   imports: [
     // Angular Core
@@ -74,6 +77,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatSnackBarModule,
     MatToolbarModule,
     MatMenuModule,
+    MatListModule,
     // Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
