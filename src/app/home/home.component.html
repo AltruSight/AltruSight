@@ -1,109 +1,34 @@
-<mat-sidenav-container class="sidenav-container">
-    <!--SOCIAL BAR CONTENT GOES HERE-->
-    <mat-sidenav 
-        class="sidenav-content-container" 
-        mode="side" 
-        position="end"
-        [opened]="sidenavOpened">
-        <div class="card-container">
-            <div class="section1">
-                <mat-card class="profile-card">
-                    <mat-card-header>
-                        <img (click)="navigateTo('profile')" mat-card-avatar src="{{getProfilePictureURL()}}"/>
-                        <mat-card-title>
-                            {{getUsername()}}
-                        </mat-card-title>
-                        <mat-card-subtitle>
-                            <button (click)="navigateTo('profile')">Edit Profile</button>
-                        </mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-divider></mat-divider>
-                    <mat-card-content>
-                        <p>Your Favorite Nonprofits</p>
-                        <div class="fav-container">
-                            <button (click)="navigateToNonprofit(nonprofit)" mat-stroked-button class="fav" *ngFor="let nonprofit of getFavoriteNonprofits().slice(0, 4)">
-                                {{nonprofit}}  
-                            </button>
-                        </div>
-                        <mat-card-actions>
-                            <button (click)="navigateTo('favorite-nonprofits')" mat-raised-button color="primary">More</button>
-                        </mat-card-actions>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-            <div class="section2">
-                <mat-card class="friends-card">
-                    <mat-card-content>
-                        <div class="friends-container">
-                            <!--TODO: Clicking on each individual badge should take you to friend's profile page-->
-                            <img *ngFor="let friend of getFriendsUsernames()" mat-card-avatar src="{{getFriendProfilePictureURL(friend)}}">
-                        </div>
-                    </mat-card-content>
-                    <mat-card-footer>
-                        <mat-card-title>
-                            <button class="card-title-button" (click)="navigateTo('friends')" mat-button>Your Friends</button>
-                        </mat-card-title>
-                    </mat-card-footer>
-                </mat-card>
-            </div>
-            <div class="section3">
-                <mat-card class="progress-bar-card">
-                    <mat-card-content>
-                        <mat-progress-bar mode="determinate" [value]="getProgressPercentage()" (click)="navigateTo('account-stats')"></mat-progress-bar>
-                        <h5>${{getProgress()}} of ${{getGoal()}} donated.</h5>
-                    </mat-card-content>
-                    <mat-card-footer>
-                        <mat-card-title>
-                            <button class="card-title-button" (click)="navigateTo('account-stats')" mat-button>Your Goal Progress</button>
-                        </mat-card-title>
-                    </mat-card-footer>
-                </mat-card>
-            </div>
-            <div class="section4">
-                <mat-card class="account-stats-card">
-                    <mat-card-title>
-                        <button class="card-title-button" (click)="navigateTo('account-stats')" mat-button>Other Account Stats</button>
-                    </mat-card-title>
-                </mat-card>
-            </div>
+<div class="main-container">
+    <div class="main-content">
+        <div class="altViewNavigation">
+            <mat-tab-group (selectedTabChange)="toggleAltView()" class="altViewButtons">
+                    <mat-tab label="Home"></mat-tab>
+                    <mat-tab label="Alt_View" ></mat-tab> 
+            </mat-tab-group>
         </div>
-    </mat-sidenav>
-
-
-    <!--HOME PAGE CONTENT GOES HERE-->
-    <mat-sidenav-content class="main-content-container">
-            <div class="main-content">
-               <div class="altViewNavigation">
-                    <mat-tab-group (selectedTabChange)="toggleAltView()" class="altViewButtons">
-                            <mat-tab label="Home"></mat-tab>
-                            <mat-tab label="Alt_View" ></mat-tab> 
-                    </mat-tab-group>
-                </div>
-              <ng-container *ngIf="!altViewOpened">
-                   <div class="payment-feed-container">
-                    <mat-card class="paymentFeedCards" *ngFor="let donations of getDonations().slice(0,3)">
-                        <mat-card-header>
-                            <mat-card-title class="paymentFeedCardTitle">
-                                {{donations.donorName}} donated to {{donations.donationCharityName}}
-                            </mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content class="paymentFeedCardDescription">
-                            {{donations.donationDescription}}
-                        </mat-card-content>
-                        <mat-card-actions class="paymentFeed-card-actions">
-                            <button mat-button>LIKE</button>
-                            <button mat-button>SHARE</button>
-                        </mat-card-actions>
-                    </mat-card>
-                   </div>
-                </ng-container>
-                <ng-container *ngIf="altViewOpened">
-                    <div class="home-view-placeholder" >
-                    </div>
-                </ng-container>
+        <ng-container *ngIf="!altViewOpened">
+            <div class="payment-feed-container">
+                <mat-card class="paymentFeedCards" *ngFor="let donations of getDonations()">
+                    <mat-card-header>
+                        <mat-card-title>
+                            <span class="paymentFeedTitleUsername">{{donations.donorName}}</span> 
+                            <span class="paymentFeedTitleNotImportant"> donated to </span> 
+                            <span class="paymentFeedTitleNonprofitName" (click)="navigateToNonprofit(donations.donationCharityName)">{{donations.donationCharityName}}</span> 
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content class="paymentFeedCardDescription">
+                        {{donations.donationDescription}}
+                    </mat-card-content>
+                    <mat-card-actions class="paymentFeedCardActions">
+                        <button mat-button>LIKE</button>
+                        <button mat-button>SHARE</button>
+                    </mat-card-actions>
+                </mat-card>
             </div>
-        <button (click)="toggleSideNavOpened()" class="vertical-toggle-button">
-            {{getSidenavButtonText()}}
-        </button>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+        </ng-container>
+        <ng-container *ngIf="altViewOpened">
+            <div class="alt-view-placeholder" >
+            </div>
+        </ng-container>
+    </div>
+</div>
