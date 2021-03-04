@@ -1,9 +1,10 @@
 <div class="main-container">
     <div class="main-content">
         <div class="altViewNavigation">
-            <mat-tab-group (selectedTabChange)="toggleAltView()" class="altViewButtons">
-                    <mat-tab label="Home"></mat-tab>
-                    <mat-tab label="Alt_View" ></mat-tab> 
+            <!--TODO: Place view containers WITHIN mat tab to utilize the animation duration and other properties-->
+            <mat-tab-group color="accent" (selectedTabChange)="toggleAltView()" class="altViewButtons" animationDuration="1000ms">
+                    <mat-tab label="Payment Feed"></mat-tab>
+                    <mat-tab label="Home View" ></mat-tab> 
             </mat-tab-group>
         </div>
         <ng-container *ngIf="!altViewOpened">
@@ -27,7 +28,7 @@
             </div>
         </ng-container>
         <ng-container *ngIf="altViewOpened">
-            <div class="alt-view-placeholder" >
+            <div class="home-view-placeholder" >
             </div>
         </ng-container>
     </div>

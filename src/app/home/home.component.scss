@@ -18,15 +18,13 @@
         display: flex; 
         flex-direction: column;
         flex: 1 0 0;
-        justify-content: center;
         margin: 1%;
         .altViewNavigation {
             display: flex;
             flex: 0.1 0 20px;
             justify-content: center;
-            margin-bottom: 0;
         }
-        .alt-view-placeholder {
+        .home-view-placeholder {
             display: flex;
             flex-direction: column;
             flex: 1 1 500px;
