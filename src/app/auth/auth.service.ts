@@ -8,27 +8,27 @@ import { MessagesService } from '../misc-services/messages.service';
 })
 export class AuthService {
 
-  isLoggedIn: boolean;
+  isLoggedIn = false;
+  username = 'Default Profile Name';
+  userId = 'Default User ID';
 
   // TODO: Make sidebar pop up immediately upon logging in
   // My theory is that it's not being rerendered until a click
   // Utilize some lifecycle method
   constructor(private auth: AngularFireAuth, private messagesService: MessagesService, private router: Router) {
-    this.isLoggedIn = this.auth.currentUser !== null;
     this.auth.onAuthStateChanged((user) => {
         if (user) {
           console.log('signed in');
           this.isLoggedIn = true;
+          this.username = user.displayName ? user.displayName : 'Default Profile Name';
+          this.userId = user.uid;
         } else {
-          console.log('signed out');
           this.isLoggedIn = false;
+          this.username = 'Default Profile Name';
+          this.userId = '';
         }
       }
     );
-  }
-
-  getIsLoggedIn(): boolean {
-    return this.isLoggedIn;
   }
 
   // returns error message (or blank error message)
@@ -37,7 +37,7 @@ export class AuthService {
     .then(() => {
       this.router.navigateByUrl('/').then((navigated: boolean) => {
         if (navigated) {
-          this.messagesService.openSnackBar('Account registered successfully!', 'Close', 50000);
+          this.messagesService.openSnackBar('Account registered successfully!', 'Close', 5000);
         }
       });
       return '';
@@ -57,7 +57,7 @@ export class AuthService {
 
         this.router.navigateByUrl('/').then((navigated: boolean) => {
           if (navigated) {
-            this.messagesService.openSnackBar('Logged in successfully!', 'Close', 50000);
+            this.messagesService.openSnackBar('Logged in successfully!', 'Close', 5000);
           }
         });
         return '';
@@ -72,7 +72,11 @@ export class AuthService {
 
   logout(): Promise<string> {
     return this.auth.signOut().then(() => {
-      this.messagesService.openSnackBar('signed out successfully', 'close', 50000);
+      this.router.navigateByUrl('/').then((navigated: boolean) => {
+        if (navigated) {
+          this.messagesService.openSnackBar('Logged out successfully.', 'Close', 5000);
+        }
+      });
       return '';
     })
     .catch((error) => {

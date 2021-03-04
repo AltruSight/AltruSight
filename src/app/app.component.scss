@@ -58,7 +58,8 @@
         .sidebar-content {
             display: flex;
             flex-direction: column;
-            flex: 0.1 0.1 300px;
+            overflow: scroll;
+            flex: 0.1 0 300px;
 
             position: absolute;
             height: calc(100% - 128px);

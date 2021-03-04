@@ -16,14 +16,14 @@
             <mat-icon class="icon">admin_panel_settings</mat-icon>
           </button>
           <mat-menu #accountMenu="matMenu">
-            <div *ngIf="this.authService.getIsLoggedIn()">
+            <div *ngIf="this.authService.isLoggedIn">
               <button mat-menu-item (click)="navigateTo('profile')">Profile Page</button>
               <button mat-menu-item (click)="navigateTo('friends')">Friends List</button>
               <button mat-menu-item (click)="navigateTo('account-stats')">Account Stats</button>
               <button mat-menu-item (click)="navigateTo('favorite-nonprofits')">Favorited Nonprofits</button>
               <button mat-menu-item (click)="this.authService.logout()">Logout</button>
             </div>
-            <div *ngIf="!this.authService.getIsLoggedIn()">
+            <div *ngIf="!this.authService.isLoggedIn">
               <button mat-menu-item (click)="navigateTo('login')">Login</button>
               <button mat-menu-item (click)="navigateTo('register')">Register</button>
             </div>
@@ -41,7 +41,7 @@
         </mat-menu>
         <button class="toolbar-main-button" mat-button>About Us</button>
         <span class="spacer"></span>
-        <button *ngIf="authService.getIsLoggedIn()" class="toolbar-main-button" (click)="toggleSidebarOpened()" mat-button>
+        <button *ngIf="this.authService.isLoggedIn" class="toolbar-main-button" (click)="toggleSidebarOpened()" mat-button>
           <mat-icon class="menu-icon">menu</mat-icon>
         </button>
       </mat-toolbar-row>
@@ -54,7 +54,7 @@
     <div class="content-scroll-container">
       <router-outlet></router-outlet>
     </div>
-    <div *ngIf="sidebarOpened && authService.getIsLoggedIn()" class="sidebar-content">
+    <div *ngIf="sidebarOpened && this.authService.isLoggedIn" class="sidebar-content">
       <mat-card class="profile-card">
         <mat-card-header>
             <img (click)="navigateTo('profile')" mat-card-avatar src="{{getProfilePictureURL()}}"/>

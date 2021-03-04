@@ -2,7 +2,7 @@
 // Will be the overarching page for the account stats, friends, etc...showing a preview of each (potentially)
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -10,7 +10,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent implements OnInit {
-  constructor() {}
+  username: string;
+
+  constructor(public authService: AuthService) {
+    this.username = this.authService.username;
+  }
 
   ngOnInit(): void {
   }
