@@ -99,13 +99,13 @@
         <button (click)="toggleSideNavOpened()" class="vertical-toggle-button">
             {{getSidenavButtonText()}}
         </button>
+
+        <div class="altViewNavigation">
+            <mat-tab-group (selectedTabChange)="toggleAltView()" class="altViewButtons">
+                    <mat-tab label="Home"></mat-tab>
+                    <mat-tab label="Alt_View" ></mat-tab> 
+            </mat-tab-group>
+        </div>
+
     </mat-sidenav-content>
 </mat-sidenav-container>
-
-<div class="altViewNavigation">
-    <mat-card class="altViewButtons">
-        <mat-card-content>
-            <button mat-raised-button (click)="toggleAltView()" class="alt-view-button">View</button>
-        </mat-card-content>
-    </mat-card>
-</div>

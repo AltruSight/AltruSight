@@ -110,6 +110,10 @@
         background-color: teal;
         align-items: center;
         justify-content: center;
+        .altViewNavigation {
+            display: flex;
+            flex: 1;
+        }
         .payment-feed-container {
             width: 90%;
             flex: 0.9;
@@ -125,11 +129,12 @@
         .home-view-placeholder {
             width: 90%;
             flex: 0.9;
-            background-color: red;
+            background-color: orange;
             border-radius: 20px;
         }
-    }
 
+
+    }
     .vertical-toggle-button {
         min-width: 3vh;
         background-color: #00BFA5;
@@ -137,20 +142,15 @@
     .vertical-toggle-button:hover {
         background-color: #A7FFEB;
     }
-}
 
-.altViewNavigation {
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-    .altViewButtons {
-        flex: 1;
-        .alt-view-button {
-         background-color: green;
-     }
-    }
+}   
 
-}
+
+
+
+
+
+
 
 
 
