@@ -25,6 +25,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatListModule} from '@angular/material/list';
 
 // Angular Firebase Imports
 import { AngularFireModule } from '@angular/fire';
@@ -45,6 +46,7 @@ import { BarRatingModule } from 'ngx-bar-rating';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CreditCardDirectivesModule } from 'angular-cc-library';
 import { NgxCurrencyModule } from "ngx-currency";
+import { OtherUserProfilePageComponent } from './user/other-user-profile-page/other-user-profile-page.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import { NgxCurrencyModule } from "ngx-currency";
     AccountStatsPageComponent,
     FriendsPageComponent,
     FavoriteNonprofitsComponent,
-    DonationDialog
+    DonationDialog,
+    OtherUserProfilePageComponent
   ],
   imports: [
     // Angular Core
@@ -82,6 +85,7 @@ import { NgxCurrencyModule } from "ngx-currency";
     MatMenuModule,
     MatDialogModule,
     MatStepperModule,
+    MatListModule,
     // Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,

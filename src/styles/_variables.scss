@@ -1,0 +1,86 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+
+// Custom color palette: https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=bde8e7&secondary.color=0077b6
+$custom-primary-palette: (
+  50: #e5f6f6,
+  100: #bde8e7,
+  200: #91dbd9,
+  300: #65ccc8,
+  400: #46bfb9,
+  500: #36b2ab,
+  600: #32a49c,
+  700: #2d938a,
+  800: #2a827a,
+  900: #22655c, 
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #FEFEFA,
+    600: #FEFEFA,
+    700: #FEFEFA,
+    800: #FEFEFA,
+    900: #FEFEFA,
+  )
+);
+
+$custom-secondary-palette: (
+  50: #e1f5fd,
+  100: #b3e5f9,
+  200: #81d3f5,
+  300: #51c2f1,
+  400: #2db5ef,
+  500: #0aa8ec,
+  600: #059add,
+  700: #0087ca,
+  800: #0076b6,
+  900: #005794,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #FEFEFA,
+    600: #FEFEFA,
+    700: #FEFEFA,
+    800: #FEFEFA,
+    900: #FEFEFA,
+  )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$altrusight-primary: mat-palette($custom-primary-palette);
+$altrusight-accent: mat-palette($custom-secondary-palette);
+
+// The warn palette is optional (defaults to red).
+$altrusight-warn: mat-palette($mat-red);
+
+// Colors 
+$primary-off-white: #FEFEFA;
+$primary-off-black: #202020;
+$primary-1: mat-color($altrusight-primary, 200);
+$primary-2: mat-color($altrusight-primary, 400);
+$primary-3: mat-color($altrusight-primary, 700);
+$accent-off-white: mat-color($altrusight-accent, 50);
+$accent-1: mat-color($altrusight-accent, 200);
+$accent-2: mat-color($altrusight-accent, 500);
+$accent-3: mat-color($altrusight-accent, 700);
+$accent-4: mat-color($altrusight-accent, 900);
+$warn: mat-color($altrusight-warn);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$altrusight-theme: mat-light-theme((
+  color: (
+    primary: $altrusight-primary,
+    accent: $altrusight-accent,
+    warn: $altrusight-warn,
+  )
+));

@@ -1,3 +1,6 @@
+@import '../../../styles/variables';
+
+
 .title {
     text-align: center;
 }
@@ -9,17 +12,17 @@
     justify-content: space-evenly;
     .progress-container {
         flex: 0.4;
-        background-color: silver;
+        background-color: $primary-2;
         margin-left: 5%;
         margin-right: 5%;
-        border-radius: 1%;
+        border-radius: 20px;
     }
     
     .other-stats-container {
         flex: 0.5;
-        background-color: silver;
+        background-color: $primary-2;
         margin-left: 5%;
         margin-right: 5%;
-        border-radius: 1%;
+        border-radius: 20px;
     }
 }

@@ -1,128 +1,139 @@
-.sidenav-container {
-    display: flex;
+@import '../../styles/variables';
+
+.divider {
+    width: 100%; 
+    background-color: silver;
+    height: 1px;
+}
+
+.main-container {
+    display: flex; 
     flex-direction: row;
-    height: 100%;
-    width: 100%;
-    background-color: orange;
-}
-
-.card-title-button {
-    font-size: 25px;
-}
-
-.sidenav-content-container {
-    display: flex;
-    flex-direction: column;
+    min-height: 100%; 
     flex: 1;
-    height: 100%;
-    width: 40%;
-    background-color: green; 
-    .card-container {
-        margin-left: 2%;
-        margin-right: 2%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        .section1 {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            flex: 0.2;
-            .profile-card {
-                flex: 1;
-                .mat-card-content {
-                    display: flex;
-                    flex-direction: column;
-                    text-align: center;
-                    .fav-container {
-                        display: flex; 
-                        flex-direction: row;
-                        flex-wrap: wrap;
-                        justify-content: space-evenly;
-                        .fav {
-                            text-align: center;
-                            border: 1px solid black;
-                            margin-bottom: 2%;
-                        }
-                    }
-                }
-            }
-        }
-        .section2 {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            flex: 0.1;
-            .friends-card {
-                flex: 1;
-                .friends-container {
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    justify-content: space-evenly;
-                }
-                .mat-card-footer {
-                    text-align: center;
-                }
-            }
-        }
-        .section3 {
-            height: 100%;
-            display: flex;
-            flex: 0.1;
-            flex-direction: column;
-            .progress-bar-card {
-                flex: 1;
-                .mat-card-content {
-                    display: flex;
-                    flex-direction: column;
-                    .mat-progress-bar {
-                        height: 2vh;
-                    }
-                }
-                .mat-card-footer {
-                    text-align: center;
-                }
-            }
-        }
-        .section4 {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            flex: 0.2;
-            .account-stats-card {
-                text-align: center;
-                flex: 1;
-            }
-        }
-    }
-}
+    background-color: $primary-2;
 
-.main-content-container {
-    display: flex;
-    flex-grow: 1;
-    background-color: lightsalmon;
+    // MAIN CONTENT
     .main-content {
-        display: flex;
+        display: flex; 
         flex-direction: column;
-        flex: 1;
-        background-color: teal;
-        align-items: center;
+        flex: 1 0 0;
         justify-content: center;
+        margin: 1%;
         .payment-feed-container {
-            width: 90%;
-            flex: 0.9;
-            background-color: #00BFA5;
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            overflow: scroll;
+            flex: 1 1 500px;
             border-radius: 20px;
+
+            .paymentFeedCards {
+                margin-top: 2px;
+                width: 85%;
+                background-color: $primary-off-white;
+                opacity: 0.95;
+                justify-content: center;
+                .mat-card-header {
+                    margin: 0;
+                    .mat-card-title {
+                        margin: 0;
+                    }
+                }
+                .paymentFeedTitleUsername {
+                    color: $primary-off-black;
+                }
+                .paymentFeedTitleNonprofitName {
+                    cursor: pointer;
+                    color: $primary-off-black;
+                }
+                .paymentFeedTitleNonprofitName:hover {
+                    color: $accent-2;
+                }
+                .paymentFeedTitleNotImportant {
+                    color: $primary-off-black;
+                    opacity: 0.75;
+                }
+                .paymentFeedCardDescription {
+                    color: $primary-off-black;
+                    opacity: 0.9;
+                    margin: 0px 0px 0px 18px;
+                }
+                .paymentFeedCardActions {
+                    margin: 0px 0px 0px 0px;
+                }
+            }
         }
     }
-    .vertical-toggle-button {
-        min-width: 3vh;
-        background-color: #00BFA5;
+    .sidebar-button {    
+        flex: 0 0 10px;
+        background-color: $accent-2;
     }
-    .vertical-toggle-button:hover {
-        background-color: #A7FFEB;
+    .sidebar-button:hover {
+        background-color: $accent-4;
+    }
+
+    // SIDEBAR
+    .sidebar-content{
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        flex: 0.2 0 350px; 
+        background-color: $accent-3;
+        justify-content: space-around;
+
+        // global styles for sidebar 
+        .mat-card {
+            margin-left: 1%;
+            margin-right: 1%;
+        }
+        .card-title-button-container {
+            text-align: center;
+            .card-title-button {
+                font-size: 20px;
+            }
+            .card-title-button:hover {
+                background-color: $accent-3; 
+                color: #FEFEFA;
+            }
+        }
+        // individual card styles
+        .profile-card {
+            flex: 0.2 0.25 0;
+            .favorite-nonprofit {
+                font-size: 15px;
+            }
+            .favorite-nonprofit:hover {
+                background-color: $accent-4;
+                color: $accent-1;
+            }
+            .more-button-container {
+                text-align: center;
+                .more-button {
+                    background-color: $accent-3;
+                    color: #FEFEFA;
+                }
+            }
+        }  
+        .friends-card {
+            flex: 0.15 0.2 0;
+            .badge-container {
+                display: flex; 
+                justify-content: space-around;
+            }
+
+        }  
+        .progress-bar-card {
+            flex: 0.15 0.2 0;
+            .progress-bar {
+                height: 12px;
+            }
+            .progress-bar-caption {
+                font-style: italic;
+            }
+        }  
+        .account-stats-card {
+            flex: 0.15 0.2 0;
+        }  
     }
 }
-
