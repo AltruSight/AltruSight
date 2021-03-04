@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import {Inject} from '@angular/core';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { CurrencyMaskInputMode, NgxCurrencyModule } from "ngx-currency";
 
 @Component({
   selector: 'app-nonprofit-page',
@@ -11,7 +16,7 @@ export class NonprofitPageComponent implements OnInit {
   nonprofitFavorited = false;
   sidenavOpened = true;
 
-  constructor(private route: ActivatedRoute  ) { }
+  constructor(private route: ActivatedRoute, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     // need to make sure this route is only accessible when id is passed in
@@ -54,9 +59,18 @@ export class NonprofitPageComponent implements OnInit {
     console.log('Navigating to external home page');
   }
 
-  donationButtonClicked(): void {
-    // create modal form for donations
-    console.log('donation button clicked...');
+  openDonateDialog(): void {
+    this.dialog.open(DonationDialog, {
+      data: {
+        nonprofitName: this.nonprofitName,
+        someString: "testing string data injection!"
+      },
+      height: '50%',
+      width: '50%',
+      // Prevents user form closing dialog when clicking outside of dialog
+      // Useful in cause user clicks outside on accident. They won't have to re-enter data
+      disableClose: true
+    });
   }
 
   toggleNonprofitFavorited(): void {
@@ -69,5 +83,41 @@ export class NonprofitPageComponent implements OnInit {
 
   userNonprofitRatingChanged(rating: number): void {
     console.log('nonprofit rating changed to: ' + rating);
+  }
+}
+
+// ===================================================
+// Defining Component class for Dialog
+// ===================================================
+
+@Component({
+  selector: './donation-dialog',
+  templateUrl: './donation-dialog.html',
+  styleUrls: ['./donation-dialog.scss']
+})
+export class DonationDialog {
+  // Defining Step Forms
+  donationAmountForm: FormGroup;
+  donorInformationForm: FormGroup;
+  confirmationForm: FormGroup;
+
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) {
+    // Donation Amount Form
+    this.donationAmountForm = this.formBuilder.group({
+      donationAmount: ['', Validators.required]
+    });
+
+    // Donor Information Form
+    this.donorInformationForm = this.formBuilder.group({
+      
+    });
+
+    // Confirmation Form
+    this.confirmationForm = this.formBuilder.group({
+      
+    });
+
+
   }
 }

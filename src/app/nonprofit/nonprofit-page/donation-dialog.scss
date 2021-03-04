@@ -1,0 +1,32 @@
+.donation-stepper-container
+{
+    width: 100%;
+    
+    .donation-amount-container
+    {
+        width: 100%;
+        height: 100%;
+        // background-color: red;
+        text-align: center;
+
+        .donation-input
+        {
+            width: 50%;
+            margin: auto;
+            // background-color: green;
+        }
+    }
+}
+
+.close-icon-button 
+{
+    z-index: 1;
+    float: right;
+    top: -1rem;
+    right: -1rem;
+
+    .close-icon 
+    {
+        transform: scale(0.75);
+    }
+}

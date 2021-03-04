@@ -23,6 +23,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatStepperModule} from '@angular/material/stepper';
 
 // Angular Firebase Imports
 import { AngularFireModule } from '@angular/fire';
@@ -36,10 +38,13 @@ import { NonprofitSearchPageComponent } from './nonprofit-search-page/nonprofit-
 import { AccountStatsPageComponent } from './user/account-stats-page/account-stats-page.component';
 import { FriendsPageComponent } from './user/friends-page/friends-page.component';
 import { FavoriteNonprofitsComponent } from './user/favorite-nonprofits/favorite-nonprofits.component';
+import  {DonationDialog } from './nonprofit/nonprofit-page/nonprofit-page.component'
 
 // 3rd Party Modules
 import { BarRatingModule } from 'ngx-bar-rating';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CreditCardDirectivesModule } from 'angular-cc-library';
+import { NgxCurrencyModule } from "ngx-currency";
 
 @NgModule({
   declarations: [
@@ -52,7 +57,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     NonprofitSearchPageComponent,
     AccountStatsPageComponent,
     FriendsPageComponent,
-    FavoriteNonprofitsComponent
+    FavoriteNonprofitsComponent,
+    DonationDialog
   ],
   imports: [
     // Angular Core
@@ -74,12 +80,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatSnackBarModule,
     MatToolbarModule,
     MatMenuModule,
+    MatDialogModule,
+    MatStepperModule,
     // Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     // 3rd Party
     BarRatingModule,
     FontAwesomeModule,
+    CreditCardDirectivesModule,
+    NgxCurrencyModule
   ],
   providers: [],
   bootstrap: [AppComponent]
