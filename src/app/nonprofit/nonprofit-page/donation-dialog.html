@@ -66,7 +66,7 @@
                 </div>
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button (click)="goToConfirmationStep(stepper)">Go To Confirmation Page!</button>
+                    <button mat-button matStepperNext>Go To Confirmation Page</button>
                 </div>
                 
             </form>
@@ -85,60 +85,40 @@
                     </p>
                     <div class="inputs-container">
                         <div class="donation-input">
+                            <!-- Donation Amunt -->
+                            <p style="content: '$';"> 
+                                <b>Donation Amount: </b> ${{getDonationAmount()}} 
+                            </p>
+                            
                             <!-- Card Holder Name -->
-                            <p> Card Holder Name: </p>
+                            <p> 
+                                <b>Card Holder Name:</b> {{getCardHolderName()}} 
+                            </p>
 
                             <!-- Expiration Date-->
-                            <p> Expiration Date: </p>
+                            <p> 
+                                <b>Expiration Date:</b> {{getCardExpDate()}}
+                            </p>
                         </div>
                     </div>
                     <div class="inputs-container">
                         <div class="donation-input">
                             <!-- Card Number -->
-                            <p> Card Number Name: </p>
+                            <p> 
+                                <b>Card Number:</b> {{getCardNumber()}} 
+                            </p>
 
                             <!-- Card CVC-->
-                            <p> Card CVC: </p>
+                            <p>
+                                <b>Card CVC:</b> {{getCardCVC()}} 
+                            </p>
                         </div>
                     </div>
                 </div>
 
                 <button mat-button matStepperPrevious>Back</button>
+                <button mat-button >Submit Donation</button>
             </form>
         </mat-step>
     </mat-vertical-stepper>
 </div>
-
-
-
-
-<!--
-<form>
-    <mat-form-field>
-        <mat-label>First Name</mat-label>
-        <input matInput type="text">
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>Last Name</mat-label>
-        <input matInput type="text">
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>Card Number</mat-label>
-        <input matInput type="tel" ccNumber>
-        <mat-hint> Hint: Do NOT input real CC number</mat-hint>
-        <mat-hint> because connection is not secure</mat-hint>
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>Card Expiration Date</mat-label>
-        <input matInput type="tel" ccExp>
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>CVC</mat-label>
-        <input matInput type="tel" ccCVC>
-    </mat-form-field>
-  </form>
--->

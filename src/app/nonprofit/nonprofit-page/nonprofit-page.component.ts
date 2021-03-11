@@ -106,8 +106,22 @@ export class DonationDialog {
   donorInformationForm: FormGroup;
   confirmationForm: FormGroup;
 
+  // Variables to be used in confirmation step
+  confCardHolderName: string;
+  confExpDate: string;
+  confCardNumber: string;
+  confCardCVC: string;
+  confDonationAmount: string;
+  
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private dialogRef: MatDialog) {
+    // Initializing confirmation variables
+    this.confCardHolderName = "";
+    this.confExpDate = "";
+    this.confCardNumber = "";
+    this.confCardCVC = "";
+    this.confDonationAmount = "";
+
     // Donation Amount Form
     this.donationAmountForm = this.formBuilder.group({
       donationAmount: ['', Validators.required]
@@ -127,10 +141,44 @@ export class DonationDialog {
     });
   }
 
-  goToConfirmationStep(stepper: MatStepper) {
-    stepper.next()
-    console.log(this.donorInformationForm.get('cardHolderName')?.value);
+  submitDonation()
+  {
+    this.dialogRef.closeAll();
+  }
 
+  getCardHolderName() : string {
+    const cardHolderName = this.donorInformationForm.get('cardHolderName')?.value;
+    this.confCardHolderName = cardHolderName;
+
+    return cardHolderName;
+  }
+
+  getCardNumber(): string {
+    const cardNumber = this.donorInformationForm.get('cardNumber')?.value;
+    this.confCardNumber = cardNumber;
+
+    return cardNumber;
+  }
+
+  getCardExpDate():string {
+    const cardExpDate = this.donorInformationForm.get('cardExpirationDate')?.value;
+    this.confExpDate = cardExpDate;
+
+    return cardExpDate;
+  }
+
+  getCardCVC():string {
+    const cardCVC = this.donorInformationForm.get('cardCVC')?.value
+    this.confCardCVC = cardCVC;
+
+    return cardCVC;
+  }
+
+  getDonationAmount():string {
+    const donationAmount = this.donationAmountForm.get('donationAmount')?.value;
+    this.confDonationAmount = donationAmount;
+
+    return donationAmount;
   }
 
 }
