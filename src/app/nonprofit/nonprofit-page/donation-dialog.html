@@ -5,50 +5,108 @@
     Thank you for choosing to to donate to {{data.nonprofitName}}!
 </h1>
 <div mat-dialog-content class="donation-stepper-container">
-    <mat-horizontal-stepper linear #stepper>
+    <mat-vertical-stepper linear #stepper>
+        
         <!-- Donation Amount Stepper-->
         <mat-step [stepControl]="donationAmountForm">
             <form [formGroup]="donationAmountForm">
-                <ng-template matStepLabel>Donation</ng-template>
+                <ng-template matStepLabel>Enter Donation Amount</ng-template>
 
-                <div class="donation-amount-container">
-
+                <div class="donation-inputs-container">
                     <!-- Input for donation amount -->
                     <div class="donation-input">
                         <mat-form-field>
-                            <mat-label>Enter Your Donation Amount</mat-label>
-                            <input matInput type="tel" formControlName="donationAmount" currencyMask>
+                            <mat-label>Enter Amount to Donate</mat-label>
+                            <input formControlName="donationAmount" matInput type="tel" currencyMask>
                         </mat-form-field>
                     </div>
-
-                    <button mat-button matStepperNext>Next</button>
                 </div>
+                <button mat-button matStepperNext>Next</button>
             </form>
         </mat-step>
 
         <!-- Your Information Stepper -->
-        <mat-step>
+        <mat-step [stepControl]="donorInformationForm">
             <form [formGroup]="donorInformationForm">
                 <ng-template matStepLabel>Your Information</ng-template>
-                <div>
-                    <p>Go to a different step to see the error state</p>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                
+                <div class="user-information-parent">
+                    <div class="inputs-container">
+                        <div class="donation-input">
+                            <!-- Card Holder Name -->
+                            <mat-form-field>
+                                <mat-label>Card Holder Name</mat-label>
+                                <input formControlName="cardHolderName" matInput type="text" >
+                            </mat-form-field> 
+                            
+                            <!-- Expiration Date-->
+                            <mat-form-field>
+                                <mat-label>Card Expiration Date</mat-label>
+                                <input formControlName="cardExpirationDate" matInput type="tel" ccExp>
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+                    <div class="inputs-container">
+                        <div class="donation-input">
+                            <!-- Card Number -->
+                            <mat-form-field>
+                                <mat-label>Card Number</mat-label>
+                                <input formControlName="cardNumber" matInput type="tel" ccNumber>
+                                <mat-hint> Hint: Do NOT input real CC number</mat-hint>
+                            </mat-form-field>
+
+                            <!-- Card CVC-->
+                            <mat-form-field>
+                                <mat-label>CVC</mat-label>
+                                <input formControlName="cardCVC" matInput type="tel" ccCVC>
+                            </mat-form-field>
+                        </div>
+                    </div>
                 </div>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="goToConfirmationStep(stepper)">Go To Confirmation Page!</button>
+                </div>
+                
             </form>
         </mat-step>
 
         <!-- Confirmation Stepper -->
         <mat-step>
             <form [formGroup]="confirmationForm">
-                <ng-template matStepLabel>Confirmation</ng-template>
+                <ng-template matStepLabel>Confirm Your Donation</ng-template>
+
                 <div>
-                    <p>Go to a different step to see the error state</p>
-                    <button mat-button matStepperPrevious>Back</button>
+                    <p>
+                        The amount you wish to donate and your payment information
+                        is displayed below. Please confirm your information and go back
+                        and make any changes should something be incorrect.
+                    </p>
+                    <div class="inputs-container">
+                        <div class="donation-input">
+                            <!-- Card Holder Name -->
+                            <p> Card Holder Name: </p>
+
+                            <!-- Expiration Date-->
+                            <p> Expiration Date: </p>
+                        </div>
+                    </div>
+                    <div class="inputs-container">
+                        <div class="donation-input">
+                            <!-- Card Number -->
+                            <p> Card Number Name: </p>
+
+                            <!-- Card CVC-->
+                            <p> Card CVC: </p>
+                        </div>
+                    </div>
                 </div>
+
+                <button mat-button matStepperPrevious>Back</button>
             </form>
         </mat-step>
-    </mat-horizontal-stepper>
+    </mat-vertical-stepper>
 </div>
 
 

@@ -5,6 +5,7 @@ import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from "ngx-currency";
+import { MatStep, MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-nonprofit-page',
@@ -68,8 +69,9 @@ export class NonprofitPageComponent implements OnInit {
         nonprofitName: this.nonprofitName,
         someString: "testing string data injection!"
       },
-      height: '50%',
-      width: '50%',
+      height: '30rem', // Height of donation dialog
+      width: '50rem', // Width of donation dialog
+      minWidth: '20rem',
       // Prevents user form closing dialog when clicking outside of dialog
       // Useful in cause user clicks outside on accident. They won't have to re-enter data
       disableClose: true
@@ -113,14 +115,22 @@ export class DonationDialog {
 
     // Donor Information Form
     this.donorInformationForm = this.formBuilder.group({
-      
+      cardHolderName: ['', Validators.required],
+      cardExpirationDate: ['', Validators.required],
+      cardNumber: ['', Validators.required],
+      cardCVC: ['', Validators.required]
     });
 
     // Confirmation Form
     this.confirmationForm = this.formBuilder.group({
       
     });
+  }
 
+  goToConfirmationStep(stepper: MatStepper) {
+    stepper.next()
+    console.log(this.donorInformationForm.get('cardHolderName')?.value);
 
   }
+
 }
