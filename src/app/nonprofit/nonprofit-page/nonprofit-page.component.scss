@@ -2,6 +2,8 @@
 
 .icon {
     font-size: 30px;
+    height: 30px;
+    width: 30px;
 }
 
 .divider {
@@ -9,8 +11,6 @@
     background: silver;
 }
 
-// TODO: adding height to the parent container and just using flex is the way to go: need to fix home.component styling 
-// and other components where the height is constantly cascaded (bad practice)
 .main-container {
     .column {
         display: flex; 
@@ -18,60 +18,57 @@
         align-items: center;
     }
     height: 100%;
-    display: flex; 
+    display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
-    flex-wrap: wrap;
+    // TODO: add flex rows using media queries to stack the buttons using the 
+    // example in CSS Flexbox Guide FCC
     .nonprofit-toolbar {
         display: flex;
         flex-direction: row;
-        flex: 0.15;
+        flex: 0 0 100px;
         background-color: $accent-3;
-        justify-content: center;
         .title-box {
-            // nested flexbox to align title text properly in center
             display: flex;
-            flex: 0.15 0.25 auto;
-            overflow: hidden;
-            background-color: $accent-4;
-            color: $primary-off-white;
+            flex: 0.15 0 auto; 
+            background-color: $accent-4; 
+            color: $primary-off-white; 
+
             margin: 1%;
-            border-radius: 15px;
-            align-items: center;
-            justify-content: center;
+            border-radius: 20px;
             font-size: 25px;
-            flex-wrap: wrap;
+
+            justify-content: center;
+            align-items: center;
         }
         .links-box {
-            display: flex;
-            flex-direction: row;
-            flex: 0.15 0.2 auto;
+            display: flex; 
+            flex-direction: row; 
+            flex: 0.05 0 50px; 
             background-color: $accent-4;
             color: $primary-off-white;
+
             margin: 1%;
             border-radius: 15px;
+
             align-items: center;
             justify-content: center;
-            .links-btn {
-                font-size: 15px;
-                flex: 0.5;
-                height: 100%;
-            }
         }
         .donate-box {
             display: flex;
             flex-direction: column;
-            flex: 0.15;
+            flex: 0.05 0 50px;
             background-color: $accent-4;
             color: $primary-off-white;
+
             margin: 1%;
             border-radius: 15px;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
         }
         .toggle-box {
             display: flex;
-            flex: 0.1;
+            flex: 0.05 0 50px;
             color: $primary-off-white;
             align-items: center;
             justify-content: center;
@@ -80,105 +77,102 @@
         }
     }
 
-    // wrapper for angular sidenav container overall
-    .sidenav-container {
-        flex: 1;
-        background-color: $primary-1;
+    .content-container {
+        flex: 1 0 auto; 
+        background-color: $primary-3;
+    }
 
-        // container for sidebar contents (ratings, etc.)
-        .sidebar-container {
-            flex: 1;
-            background-color: $accent-1;
-            // controls width of sidebar
-            width: 50%;
-            .card-container {
-                height: 100%;
-                width: 96%;
-                margin-left: 2%;
-                margin-right: 2%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-evenly;
-                .card-title {
-                    font-size: 30px;
-                    text-align: center;
-                }
-                .rating-card {
-                    flex: 0.15;
-                    .rating-content-container {
-                        display: flex; 
-                        flex-direction: row;
-                        flex: 1;
-                        .current-rating-container {
-                            display: flex; 
-                            flex-direction: column;
-                            flex: 0.5;
-                            .current-rating-title {
-                                text-align: center;
-                                font-size: 20px;
-                            }
-                            .current-rating-value {
-                                font-size: 30px;
-                                text-align: center;
-                            }
-                            .current-rating-subtitle {
-                                text-align: center;
-                                font-size: 10px;
-                            }
-                        }
-                        .your-rating-container {
-                            display: flex; 
-                            flex-direction: column;
-                            flex: 0.5;
-                            .your-rating-title {
-                                text-align: center;
-                                font-size: 20px;
-                            }
-                            .rating-bar {
-                                flex: 1;
-                                align-self: center;
-                            }
-                        }
-                    }
-                }
-                .mission-card{
-                    flex: 0.2;
-                }
-                .efficiency-card{
+    .sidebar-container {
+        display: flex; 
+        flex: 0.15 0 350px; 
+        flex-direction: column;
+        overflow: scroll;
+
+        position: absolute; 
+        // TODO: will need to fix this crap (really bad on responsive design)
+        right: 0;
+        top: 228px;
+        z-index: 1;
+        height: calc(100% - 100px - 128px);
+        background-color: $accent-3;
+        .mat-card {
+            margin: 5px 5px 0 5px;
+        }
+        .card-title {
+            font-size: 30px;
+            text-align: center;
+        }
+        .rating-card {
+            flex: 0.15 0 auto;
+            .rating-content-container {
+                display: flex; 
+                flex-direction: row;
+                flex: 1 0 0;
+                .current-rating-container {
                     display: flex; 
                     flex-direction: column;
-                    flex: 0.125;
-                    .efficiency-title-container {
-                        flex: 0.2;
+                    flex: 0.5 0 0;
+                    .current-rating-title {
+                        text-align: center;
+                        font-size: 20px;
                     }
-                    .efficiency-content-container {
-                        flex: 0.8;
-                        .efficiency-value {
-                            font-size: 40px;
-                            font-weight: bold;
-                            text-align: center;
-                        }
+                    .current-rating-value {
+                        font-size: 30px;
+                        text-align: center;
+                    }
+                    .current-rating-subtitle {
+                        text-align: center;
+                        font-size: 10px;
                     }
                 }
-                .compensation-card{
-                    flex: 0.2;
-                }
-                .more-stats-card {
-                    flex: 0.1;
+                .your-rating-container {
+                    display: flex; 
+                    flex-direction: column;
+                    flex: 0.5 0 0;
+                    .your-rating-title {
+                        text-align: center;
+                        font-size: 20px;
+                    }
+                    .rating-bar {
+                        flex: 1 0 0;
+                        align-self: center;
+                    }
                 }
             }
         }
-
-        // angular material wrapper for sidenav main content
-        .sidenav-content-container {
-            flex: 1;
-            // container for the "main content" of nonprofit page
-            .nonprofit-container {
-                flex: 1;
-                margin: 2%;
-                height: 100%;
-                background-color: $primary-2;
-                border-radius: 15px;
+        .mission-card{
+            flex: 0.2 0 auto;
+            word-wrap: break-word;
+            width: 350px;
+        }
+        .efficiency-card {
+            display: flex; 
+            flex-direction: column;
+            flex: 0.15 0 auto;
+            .efficiency-title-container {
+                flex: 0.2;
+            }
+            .efficiency-content-container {
+                flex: 0.8;
+                .efficiency-value {
+                    font-size: 80px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin-top: 40px;
+                }
+            }        
+        }
+        .compensation-card{
+            flex: 0.2 0 100px;
+            .mat-list-item {
+                height: 20px
+            }
+        }
+        .more-stats-card {
+            flex: 0.1 0 auto;
+            margin-bottom: 5px;
+            .mat-button {
+                width: 100%;
             }
         }
     }
