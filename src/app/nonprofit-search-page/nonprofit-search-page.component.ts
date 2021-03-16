@@ -14,15 +14,20 @@ export class NonprofitSearchPageComponent implements OnInit {
   paginatorLength = 0;
   pageSize: number;
   pageEvent: PageEvent;
+  nonprofitOrganizations: Nonprofit[] = [];
 
   constructor(private nonprofitService: NonprofitsService) {
     this.pageEvent = new PageEvent();
     this.pageEvent.pageIndex = 0;
     this.pageSize = 10;
+
+    this.nonprofitService.getNonprofits().subscribe((response) => {
+      this.nonprofitOrganizations = response;
+    });
   }
 
   getNonprofits(pageEvent: PageEvent): Nonprofit[] {
-    this.paginatorLength = this.nonprofitService.getNonprofits().length;
+    this.paginatorLength = this.nonprofitOrganizations.length;
     // page has been triggered, get the index
     if (pageEvent) {
       const pageIndex = pageEvent.pageIndex;
@@ -30,9 +35,9 @@ export class NonprofitSearchPageComponent implements OnInit {
       const lastPosition = this.pageSize + pageIndex * this.pageSize;
       // TODO: perform pagination via backend (server-side)
       // so that app doesn't have to load in entire list of nonprofits each time
-      return this.nonprofitService.getNonprofits().slice(firstPosition, lastPosition);
+      return this.nonprofitOrganizations.slice(firstPosition, lastPosition);
     } else {
-      return this.nonprofitService.getNonprofits().slice(0, this.pageSize);
+      return this.nonprofitOrganizations.slice(0, this.pageSize);
     }
   }
 

@@ -1,26 +1,30 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { baseUrl } from '../utils/Constants';
+import { Observable } from 'rxjs';
+import { baseOrganizationsUrl, baseOrganizationUrl } from '../utils/Constants';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class NonprofitsService {
-  testFetchURL = `${baseUrl}`;
-  nonprofits: Nonprofit[] = [];
+  organizationsBaseURL = `${baseOrganizationsUrl}`;
+  organizationBaseURL = `${baseOrganizationUrl}`;
 
   constructor(private httpClient: HttpClient) {
-    console.log(this.testFetchURL);
-
-    this.httpClient.get<Nonprofit[]>(this.testFetchURL).subscribe((response) => {
-      this.nonprofits = response;
-      console.log(this.nonprofits);
-    });
   }
 
-  getNonprofits(): Nonprofit[] {
-    return this.nonprofits;
+  // TODO: Add params to this method
+  getNonprofits(): Observable<Nonprofit[]> {
+    const organizationsURL = this.organizationsBaseURL;
+    console.log(organizationsURL);
+    return this.httpClient.get<Nonprofit[]>(organizationsURL);
+  }
+
+  getNonprofit(ein: string): Observable<Nonprofit> {
+    const organizationURL = this.organizationsBaseURL + ein;
+    console.log(this.organizationBaseURL);
+    return this.httpClient.get<Nonprofit>(this.organizationBaseURL);
   }
 }
 
