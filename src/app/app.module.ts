@@ -18,18 +18,51 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatTabsModule} from '@angular/material/tabs';
+
+// Angular Firebase Imports
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+// Custom Component Imports & Project Config Imports
+import { environment } from '../environments/environment';
+import { NonprofitPageComponent } from './nonprofit/nonprofit-page/nonprofit-page.component';
+import { ProfilePageComponent } from './user/profile-page/profile-page.component';
+import { NonprofitSearchPageComponent } from './nonprofit-search-page/nonprofit-search-page.component';
+import { AccountStatsPageComponent } from './user/account-stats-page/account-stats-page.component';
+import { FriendsPageComponent } from './user/friends-page/friends-page.component';
+import { FavoriteNonprofitsComponent } from './user/favorite-nonprofits/favorite-nonprofits.component';
+
+// 3rd Party Modules
+import { BarRatingModule } from 'ngx-bar-rating';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NonprofitPageComponent,
+    ProfilePageComponent,
+    NonprofitSearchPageComponent,
+    AccountStatsPageComponent,
+    FriendsPageComponent,
+    FavoriteNonprofitsComponent
   ],
   imports: [
+    // Angular Core
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    // Angular Material
     MatSidenavModule,
     MatCardModule,
     MatDividerModule,
@@ -37,7 +70,18 @@ import {MatIconModule} from '@angular/material/icon';
     MatProgressBarModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatTabsModule,
+    // Firebase
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    // 3rd Party
+    BarRatingModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

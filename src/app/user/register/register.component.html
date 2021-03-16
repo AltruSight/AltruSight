@@ -1,3 +1,59 @@
-<div class="register-main-container">
+<div class="main-container-register" id="main-register-container">
+    <div class="register-container">
+        <div class="register-inputs-container">
+            <!-- Container for register title-->
+            <div class="register-title">
+                <h2>Create your AltruSight Account </h2>
+            </div>
+
+            <!-- Register Error Container -->
+            <div class="register-error">
+                {{registerErrorMessage}}
+            </div>
+
+            <!-- Container for register inputs-->
+            <form [formGroup]="registerForm" class="register-inputs">
+                <!-- Email input -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input [formControl]="userEmailControl" matInput placeholder="Enter a Valid Email Address">
+                    <mat-icon matSuffix>email</mat-icon>
+                    <mat-error *ngIf="userEmailControl.hasError('required')">Please enter an email address</mat-error>
+                    <mat-error *ngIf="userEmailControl.hasError('email')">Please enter a <b>valid</b> email address </mat-error>
+                </mat-form-field>
+    
+                <div formGroupName="userPasswordsGroup">
+                    <!-- Password input -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input [formControl]="userPasswordControl" matInput [type]="hidePasswords ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hidePasswords = !hidePasswords" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswords">
+                            <mat-icon>{{hidePasswords ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="userPasswordControl.hasError('required')">Please enter a password</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Confirm</mat-label>
+                        <input [formControl]="userPasswordConfirmControl" matInput [type]="hidePasswords ? 'password' : 'text'" [errorStateMatcher]="confirmPasswordsMatch">
+                        <button mat-icon-button matSuffix (click)="hidePasswords = !hidePasswords" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswords">
+                            <mat-icon>{{hidePasswords ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <!-- <mat-error *ngIf="userPasswordConfirmControl.hasError('required')">Please enter a password</mat-error> -->
+                        <mat-error>{{errorMessage}}</mat-error>
+
+                        <mat-hint>Use 8 or more characters with atleast one letter, number & symbol</mat-hint>
+                    </mat-form-field>
+                </div>
+                
+
+                <!-- Sign in button -->
+                <button (click)="register(userEmailControl.value, userPasswordControl.value, userPasswordConfirmControl.value)" class="register-button" mat-raised-button color="primary">Register</button>
+            </form>
+            <div class="sign-in-instead">
+                <a href="/login"> Sign in instead</a>
+            </div>
+        </div>
+    </div>
 </div>
 

@@ -1,5 +1,86 @@
-.register-main-container {
-    height: 90vh;
+.main-container-register {
+    display: flex;
     background-color: purple;
-    flex: 1;
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    .register-container {
+        border-radius: 0.50rem;
+        display: flex;
+        background-color: #FBFAF5;
+        height: 35rem;
+        width: 30rem;
+        max-width: 90%;
+        max-height: 93%;
+        margin: auto;
+        opacity: 97%;
+        overflow: auto;
+
+        .register-inputs-container {
+            width: 90%;
+            height: 70%;
+            margin: auto;
+
+            .register-title {
+                width: 100%;
+                text-align: center;
+
+            }
+
+            .register-error {
+                text-align: center;
+                width: 100%;
+                font-weight: bold;
+                color: #ff0033;
+            }
+
+            .register-inputs {
+                margin-top: 1rem;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .register-button {
+                border-radius: 1rem;
+                width: 50%;
+                margin-top: 1rem;
+            }
+
+            .sign-in-instead {
+                border-radius: 1rem;
+                width: 100%;
+                margin-top: 1rem;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+            }
+            
+        }
+    }
 }
+
+.image-credits-container {
+    font-size: 0.80rem;
+    color: #FBFAF5;
+    bottom: 1.5%;
+    left: 1.5%;
+    position: absolute;
+}
+
+.image-credits {
+    text-decoration: underline;
+    color: #FBFAF5;
+}
+
+mat-form-field {
+     width: 100%;
+ }
+
+ mat-hint {
+     font-size: 0.75rem;
+ }

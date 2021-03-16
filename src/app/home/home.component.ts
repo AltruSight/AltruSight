@@ -1,6 +1,7 @@
 // ng generate component home was used to create boilerplate
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   sidenavOpened = true;
+  altViewOpened = false;
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
   }
@@ -34,6 +36,7 @@ export class HomeComponent implements OnInit {
       'Wikipedia',
       'Charitywatch',
       'FIFA',
+      'Super Long Charity Name, It Is Super Long Bro',
       'St. Jude',
       'Salvation Army',
     ];
@@ -62,5 +65,17 @@ export class HomeComponent implements OnInit {
 
   getProgressPercentage(): number {
     return this.getProgress() / this.getGoal() * 100;
+  }
+
+  toggleAltView(): void {
+    this.altViewOpened = !this.altViewOpened;
+  }
+
+  navigateTo(page: string): void {
+    this.router.navigateByUrl(`${page}`);
+  }
+
+  navigateToNonprofit(nonprofitId: string): void {
+    this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
   }
 }

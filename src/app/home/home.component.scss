@@ -6,13 +6,17 @@
     background-color: orange;
 }
 
+.card-title-button {
+    font-size: 25px;
+}
+
 .sidenav-content-container {
     display: flex;
     flex-direction: column;
     flex: 1;
     height: 100%;
     width: 40%;
-    background-color: #00796B;
+    background-color: green; 
     .card-container {
         margin-left: 2%;
         margin-right: 2%;
@@ -106,12 +110,25 @@
         background-color: teal;
         align-items: center;
         justify-content: center;
+        .altViewNavigation {
+            display: flex;
+            flex: 1;
+            margin-bottom: -727px;
+        }
         .payment-feed-container {
             width: 90%;
             flex: 0.9;
             background-color: #00BFA5;
             border-radius: 20px;
         }
+        .home-view-placeholder {
+            width: 90%;
+            flex: 0.9;
+            background-color: orange;
+            border-radius: 20px;
+        }
+
+
     }
     .vertical-toggle-button {
         min-width: 3vh;
@@ -120,5 +137,17 @@
     .vertical-toggle-button:hover {
         background-color: #A7FFEB;
     }
-}
+
+}   
+
+
+
+
+
+
+
+
+
+
+
 
