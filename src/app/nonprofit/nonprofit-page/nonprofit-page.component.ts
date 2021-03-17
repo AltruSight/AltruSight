@@ -9,8 +9,8 @@ import { MatStep, MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-nonprofit-page',
-  templateUrl: './nonprofit-page2.component.html',
-  styleUrls: ['./nonprofit-page2.component.scss']
+  templateUrl: './nonprofit-page.component.html',
+  styleUrls: ['./nonprofit-page.component.scss']
 })
 export class NonprofitPageComponent implements OnInit {
   nonprofitName = '';
