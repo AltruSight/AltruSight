@@ -68,8 +68,8 @@
             <mat-list dense>
                 <div mat-subheader>Your Favorite Nonprofits</div>
                 <div class="divider"></div>
-                <mat-list-item class="favorite-nonprofit" (click)="navigateToNonprofit(nonprofit)" *ngFor="let nonprofit of getFavoriteNonprofits().slice(0, 4)">
-                    {{nonprofit}}
+                <mat-list-item class="favorite-nonprofit" (click)="navigateToNonprofit(nonprofit.ein)" *ngFor="let nonprofit of getFavoriteNonprofits().slice(0, 4)">
+                    {{nonprofit.charityName}}
                     <mat-divider color="primary"></mat-divider>
                 </mat-list-item>
             </mat-list>

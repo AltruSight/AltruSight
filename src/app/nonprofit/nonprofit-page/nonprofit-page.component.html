@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="nonprofit-toolbar">
         <div class="title-box">
-            {{nonprofitName}}
+            {{nonprofit?.charityName}}
         </div>
         <div class="links-box">
             <button (click)="goToNonprofitHomePageExternal()" class="links-btn" mat-button>
@@ -42,7 +42,7 @@
                 <div class="rating-content-container">
                     <div class="current-rating-container">
                         <p class="current-rating-title">Current Rating:</p>
-                        <p class="current-rating-value">{{getNonprofitRating()}}</p>
+                        <p class="current-rating-value">{{calculateNonprofitRating()}}</p>
                         <p class="current-rating-subtitle">out of 5</p>
                     </div>
                     <div class="divider"></div>
@@ -57,7 +57,7 @@
         <mat-card class="mission-card">
             <mat-card-content>
                 <p class="card-title">Mission</p>
-                <p>{{getNonprofitMission()}}</p>
+                <p>{{nonprofit?.mission}}</p>
             </mat-card-content>
         </mat-card>
 

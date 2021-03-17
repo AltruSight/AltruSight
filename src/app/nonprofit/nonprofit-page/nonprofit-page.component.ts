@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Nonprofit, NonprofitsService, Rating } from 'src/app/misc-services/nonprofits.service';
+import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-nonprofit-page',
@@ -7,15 +10,27 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./nonprofit-page.component.scss']
 })
 export class NonprofitPageComponent implements OnInit {
-  nonprofitName = '';
+  nonprofit?: Nonprofit;
+  nonprofitRating?: Rating;
   nonprofitFavorited = false;
   sidenavOpened = true;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private nonprofitService: NonprofitsService) {
+
+  }
 
   ngOnInit(): void {
     // TODO: need to make sure this route is only accessible when id is passed in
-    this.nonprofitName = this.route.snapshot.paramMap.get('nonprofit-id') as string;
+    const ein = this.route.snapshot.paramMap.get('nonprofit-id') as string;
+    this.nonprofitService.getNonprofit(ein).pipe(
+      switchMap((response) => {
+        this.nonprofit = response;
+        const ratingID = response.currentRating?.ratingID ? response.currentRating.ratingID : -1;
+        return this.nonprofitService.getRatingForNonprofit(ein, ratingID);
+      })
+    ).subscribe((response) => {
+      this.nonprofitRating = response;
+    });
   }
 
   // TODO: fetch from database
@@ -24,22 +39,20 @@ export class NonprofitPageComponent implements OnInit {
   }
 
   getUserNonprofitRating(): number {
-    return 4;
+    return 0;
   }
 
   // TODO: package these getters into a single object later
-  getNonprofitRating(): number {
+  calculateNonprofitRating(): string {
     // use "score" field - out of 100.
     // score / 100 = x / 5
     // x = score / 100 * 5 (out of 5 stars)
-    return 4.4;
-  }
-
-  getNonprofitMission(): string {
-    return `The mission of ${this.nonprofitName} is to serve the world
-            for good, and to increase the transparency of other nonprofits.
-            We want each and every person to be able to make informed
-            donation decisions.`;
+    if (this.nonprofitRating) {
+      const rating = this.nonprofitRating.score;
+      const ratingOutOf5 = (rating / 100 * 5).toFixed(1);
+      return ratingOutOf5;
+    }
+    return 'N/A';
   }
 
   getNonprofitSpendingEfficiency(): number {
@@ -52,9 +65,10 @@ export class NonprofitPageComponent implements OnInit {
   }
 
   goToNonprofitHomePageExternal(): void {
-    // replace with making a modal appear with yes or no, and then modal
+    // TODO: replace with making a modal appear with yes or no, and then modal
     // will navigate to home page based on yes / no
-    console.log('Navigating to external home page');
+    console.log(`navigating to ${this.nonprofit?.websiteURL}`);
+    window.open(`${this.nonprofit?.websiteURL}`, '_blank');
   }
 
   donationButtonClicked(): void {
