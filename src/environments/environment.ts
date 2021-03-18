@@ -16,14 +16,14 @@ export const environment = {
 };
 
 export const firebaseConfig = {
-    apiKey: "AIzaSyAVri_yX0V1mDZpInMfR4ZuftjjZrvOvR8",
-    authDomain: "altrusight-a1259.firebaseapp.com",
-    projectId: "altrusight-a1259",
-    storageBucket: "altrusight-a1259.appspot.com",
-    messagingSenderId: "1080844724672",
-    appId: "1:1080844724672:web:6b1211767bd2fb12408025",
-    measurementId: "G-LCJMQLRNXF"
-}
+    apiKey: 'AIzaSyAVri_yX0V1mDZpInMfR4ZuftjjZrvOvR8',
+    authDomain: 'altrusight-a1259.firebaseapp.com',
+    projectId: 'altrusight-a1259',
+    storageBucket: 'altrusight-a1259.appspot.com',
+    messagingSenderId: '1080844724672',
+    appId: '1:1080844724672:web:6b1211767bd2fb12408025',
+    measurementId: 'G-LCJMQLRNXF'
+};
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -1,0 +1,26 @@
+[1mdiff --git a/src/app/home/home.component.html b/src/app/home/home.component.html[m
+[1mindex 2ad0045..c15c2e8 100644[m
+[1m--- a/src/app/home/home.component.html[m
+[1m+++ b/src/app/home/home.component.html[m
+[36m@@ -75,7 +75,7 @@[m
+         <div class="main-content">[m
+             <div class="payment-feed-container">[m
+                 <br>[m
+[31m-                <mat-card class="paymentFeed" *ngFor="let donations of getDonations().slice(0,3)">[m
+[32m+[m[32m                <mat-card class="paymentFeedCards" *ngFor="let donations of getDonations().slice(0,3)">[m
+                     <mat-card-header>[m
+                         <mat-card-title class="paymentFeedDonor">[m
+                             {{donations.donorName}} donated to {{donations.donationCharityName}}[m
+[1mdiff --git a/src/app/home/home.component.scss b/src/app/home/home.component.scss[m
+[1mindex 9036794..519a1ce 100644[m
+[1m--- a/src/app/home/home.component.scss[m
+[1m+++ b/src/app/home/home.component.scss[m
+[36m@@ -115,7 +115,7 @@[m
+             flex: 0.9;[m
+             background-color: #00BFA5;[m
+             border-radius: 20px;[m
+[31m-            .paymentFeed {[m
+[32m+[m[32m            .paymentFeedCards {[m
+                 margin: 10px;[m
+                 width: 80%;             [m
+             }[m

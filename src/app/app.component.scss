@@ -1,44 +1,130 @@
+@import '../styles/variables';
+
 .main-container {
     height: 100%;
     display: flex;
     flex-direction: column;
-    flex: 1;
-    background-color: grey;
-}
-
-.spacer {
-    flex: 0.99 0.99 auto;
-}
-
-.nav-bar {
-    height: 15%;
-    flex: 0.1;
-    .nav-toolbar {
-        height: 100%;
-        .top-toolbar-row {
-            background-image: linear-gradient(to right,#0077b6, #56a6e9);
-            .icon {
-                font-size: 40px;
+    .nav-bar {
+        flex: 0.1;
+        .nav-toolbar {
+            .top-toolbar-row {
+                background-image: linear-gradient(to right,#0077b6, #56a6e9);
+                .centered-content {
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                    .search-bar {
+                        height: 100%;
+                        font-size: 15px;
+                        margin-right: 10px;
+                    }
+                    .account-button {
+                        height: 100%;
+                    }
+                    .icon {
+                        font-size: 40px;
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
             }
-        }
-        .bottom-toolbar-row {
-            display: flex;
-            background-color: #004c86;
-            overflow: hidden;
-            align-items: center;
-            justify-content: center;
-            .search-bar {
-                height: 100%;
-                font-size: 15px;
-            }
-            .toolbar-main-button {
-                font-size: 25px;
+            .bottom-toolbar-row {
+                display: flex;
+                background-color: $accent-4;
+                align-items: center;
+                justify-content: center;
+                .vertical-divider {
+                    height: 70%; 
+                    width: 0.08px; 
+                    background-color: $accent-2;
+                    opacity: 0.3;
+                }
+                .toolbar-main-button {
+                    font-size: 20px;
+                    height: 100%;
+                    border-radius: 0px;
+                }
             }
         }
     }
+    .content-container {
+        display: flex; 
+        flex-direction: row;
+        flex: 1 1 0;
+        background-color: $primary-1;
+        .content-scroll-container {
+            flex: 1;
+        }
+        .sidebar-content {
+            display: flex;
+            flex-direction: column;
+            overflow: scroll;
+            flex: 0.1 0 300px;
+
+            position: absolute;
+            height: calc(100% - 128px);
+            right: 0;
+            z-index: 1;
+            background-color: $accent-3;
+            // global styles for sidebar 
+            .mat-card {
+                margin-left: 2%;
+                margin-right: 2%;
+                margin-top: 2%;
+            }
+            .card-title-button-container {
+                text-align: center;
+                .card-title-button {
+                    font-size: 20px;
+                }
+                .card-title-button:hover {
+                    background-color: $accent-3; 
+                    color: #FEFEFA;
+                }
+            }
+            // individual card styles
+            .profile-card {
+                flex: 0.2 0.25 0;
+                .favorite-nonprofit {
+                    cursor: pointer;
+                    font-size: 15px;
+                }
+                .favorite-nonprofit:hover {
+                    background-color: $accent-4;
+                    color: $accent-1;
+                }
+                .more-button-container {
+                    text-align: center;
+                    .more-button {
+                        background-color: $accent-3;
+                        color: #FEFEFA;
+                    }
+                }
+            }  
+            .friends-card {
+                flex: 0.15 0.2 0;
+                .badge-container {
+                    display: flex; 
+                    justify-content: space-around;
+                }
+
+            }  
+            .progress-bar-card {
+                flex: 0.15 0.2 0;
+                .progress-bar {
+                    height: 12px;
+                }
+                .progress-bar-caption {
+                    font-style: italic;
+                }
+            }  
+            .account-stats-card {
+                flex: 0.15 0.2 0;
+            }  
+        }
+    }
 }
-.content-scroll-container {
-    height: 90%;
-    flex: 0.9;
-    background-color: aqua;
+
+.spacer {
+    flex: 0.99 100 0;
 }

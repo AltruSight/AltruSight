@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { MessagesService } from 'src/app/services/messages.service';
+import { MessagesService } from 'src/app/misc-services/messages.service';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { ErrorStateMatcher} from '@angular/material/core';
 import { AuthService } from 'src/app/auth/auth.service';

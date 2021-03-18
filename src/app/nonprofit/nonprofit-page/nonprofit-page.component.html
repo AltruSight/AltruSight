@@ -1,10 +1,9 @@
 <div class="main-container">
-    <!--TOOLBAR for nonprofit page containing quick access buttons-->
     <div class="nonprofit-toolbar">
         <div class="title-box">
             {{nonprofitName}}
         </div>
-        <div class="links-box" mat-button>
+        <div class="links-box">
             <button (click)="goToNonprofitHomePageExternal()" class="links-btn" mat-button>
                 <div class="column">
                     <mat-icon class="icon">assistant_direction</mat-icon>
@@ -29,76 +28,65 @@
         <button (click)="toggleSidenavOpened()" class="toggle-box" mat-button>
             <mat-icon class="icon" *ngIf="!sidenavOpened">menu_open</mat-icon>
             <mat-icon class="icon" *ngIf="sidenavOpened">menu</mat-icon>
-    </button>
+        </button>
     </div>
 
-    <!--MAIN CONTENT PANEL-->
-    <mat-sidenav-container class="sidenav-container">
-        <!--SIDEBAR CONTENT-->
-        <mat-sidenav 
-            class="sidebar-container"
-            position="end" 
-            mode="side"
-            [opened]="sidenavOpened">
-            <div class="card-container">
-                <mat-card class="rating-card">
-                    <mat-card-content>
-                        <p class="card-title">Rating</p>
-                        <div class="rating-content-container">
-                            <div class="current-rating-container">
-                                <p class="current-rating-title">Current Rating:</p>
-                                <p class="current-rating-value">{{getNonprofitRating()}}</p>
-                                <p class="current-rating-subtitle">out of 5</p>
-                            </div>
-                            <div class="divider"></div>
-                            <div class="your-rating-container">
-                                <p class="your-rating-title">Your Rating:</p>
-                                <bar-rating class="rating-bar" [rate]="getUserNonprofitRating()" (rateChange)="userNonprofitRatingChanged($event)" [max]="5"></bar-rating>
-                            </div>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-    
-                <mat-card class="mission-card">
-                    <mat-card-content>
-                        <p class="card-title">Mission</p>
-                        <p>{{getNonprofitMission()}}</p>
-                    </mat-card-content>
-                </mat-card>
-    
-                <mat-card class="efficiency-card">
-                    <mat-card-content>
-                        <div class="efficiency-title-container">
-                            <p class="card-title">Useful Spending %</p>
-                        </div>
-                        <div class="efficiency-content-container">
-                            <p class="efficiency-value">{{getNonprofitSpendingEfficiency() * 100}}%</p>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-    
-                <mat-card class="compensation-card">
-                    <mat-card-content>
-                        <p class="card-title">Top Compensation</p>
-                        <p>1. {{getNonprofitTopCompensation().name}}: ${{getNonprofitTopCompensation().compensation}}</p>
-                        <p>2. {{getNonprofitTopCompensation().name}}: ${{getNonprofitTopCompensation().compensation}}</p>
-                        <p>3. {{getNonprofitTopCompensation().name}}: ${{getNonprofitTopCompensation().compensation}}</p>
-                    </mat-card-content>
-                </mat-card>
+    <div class="content-container">
 
-                    <button mat-button>
-                        <mat-card class="more-stats-card">
-                            More Stats...
-                        </mat-card>
-                    </button>
-            </div>
-        </mat-sidenav>
-    
-        <!--MAIN CONTENT-->
-        <mat-sidenav-content class="sidenav-content-container">
-            <div class="nonprofit-container">
+    </div>
 
-            </div>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
+    <div *ngIf="sidenavOpened" class="sidebar-container">
+        <mat-card class="rating-card">
+            <mat-card-content>
+                <p class="card-title">Rating</p>
+                <div class="rating-content-container">
+                    <div class="current-rating-container">
+                        <p class="current-rating-title">Current Rating:</p>
+                        <p class="current-rating-value">{{getNonprofitRating()}}</p>
+                        <p class="current-rating-subtitle">out of 5</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="your-rating-container">
+                        <p class="your-rating-title">Your Rating:</p>
+                        <bar-rating class="rating-bar" [rate]="getUserNonprofitRating()" (rateChange)="userNonprofitRatingChanged($event)" [max]="5"></bar-rating>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="mission-card">
+            <mat-card-content>
+                <p class="card-title">Mission</p>
+                <p>{{getNonprofitMission()}}</p>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="efficiency-card">
+            <mat-card-content>
+                <div class="efficiency-title-container">
+                    <p class="card-title">Useful Spending %</p>
+                </div>
+                <div class="efficiency-content-container">
+                    <p class="efficiency-value">{{getNonprofitSpendingEfficiency() * 100}}%</p>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="compensation-card">
+            <mat-card-content>
+                <p class="card-title">Top Compensation</p>
+                <mat-list>
+                    <mat-list-item>1. {{getNonprofitTopCompensation().name}}: ${{getNonprofitTopCompensation().compensation}}</mat-list-item>
+                    <mat-list-item>2. {{getNonprofitTopCompensation().name}}: ${{getNonprofitTopCompensation().compensation}}</mat-list-item>
+                    <mat-list-item>3. {{getNonprofitTopCompensation().name}}: ${{getNonprofitTopCompensation().compensation}}</mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="more-stats-card">
+            <button mat-button>
+                More Stats...
+            </button>
+        </mat-card>
+    </div>
 </div>

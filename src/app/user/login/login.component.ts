@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, Va
 import { ErrorStateMatcher} from '@angular/material/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { MessagesService } from 'src/app/services/messages.service';
+import { MessagesService } from 'src/app/misc-services/messages.service';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
