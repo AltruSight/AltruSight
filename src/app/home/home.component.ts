@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  sidenavOpened = true;
   altViewOpened = false;
   // TODO: Add donation time
   donations: Donation[] = [

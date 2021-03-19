@@ -21,15 +21,8 @@
         margin: 1%;
         .altViewNavigation {
             display: flex;
-            flex: 0.1 0 20px;
-            justify-content: center;
-        }
-        .home-view-placeholder {
-            display: flex;
-            flex-direction: column;
-            flex: 1 1 500px;
-            background-color: $primary-1;
-            border-radius: 20px;
+            flex: 1;
+            margin: auto;
         }
         .payment-feed-container {
             display: flex; 
@@ -38,6 +31,7 @@
             overflow: scroll;
             flex: 1 1 500px;
             border-radius: 20px;
+            margin-top: -150px;
 
             .paymentFeedCards {
                 margin-top: 2px;
@@ -75,6 +69,14 @@
                 }
             }
         }
+        .home-view-placeholder {
+            display: flex;
+            flex: 1;
+            background-color: orange;
+            border-radius: 20px;
+            margin-top: -643px;
+        }
+
     }
     .sidebar-button {    
         flex: 0 0 10px;
@@ -83,68 +85,5 @@
     .sidebar-button:hover {
         background-color: $accent-4;
     }
+}   
 
-    // SIDEBAR
-    .sidebar-content{
-        display: flex;
-        flex-direction: column;
-        min-height: 100%;
-        flex: 0.2 0 350px; 
-        background-color: $accent-3;
-        justify-content: space-around;
-
-        // global styles for sidebar 
-        .mat-card {
-            margin-left: 1%;
-            margin-right: 1%;
-        }
-        .card-title-button-container {
-            text-align: center;
-            .card-title-button {
-                font-size: 20px;
-            }
-            .card-title-button:hover {
-                background-color: $accent-3; 
-                color: #FEFEFA;
-            }
-        }
-        // individual card styles
-        .profile-card {
-            flex: 0.2 0.25 0;
-            .favorite-nonprofit {
-                font-size: 15px;
-            }
-            .favorite-nonprofit:hover {
-                background-color: $accent-4;
-                color: $accent-1;
-            }
-            .more-button-container {
-                text-align: center;
-                .more-button {
-                    background-color: $accent-3;
-                    color: #FEFEFA;
-                }
-            }
-        }  
-        .friends-card {
-            flex: 0.15 0.2 0;
-            .badge-container {
-                display: flex; 
-                justify-content: space-around;
-            }
-
-        }  
-        .progress-bar-card {
-            flex: 0.15 0.2 0;
-            .progress-bar {
-                height: 12px;
-            }
-            .progress-bar-caption {
-                font-style: italic;
-            }
-        }  
-        .account-stats-card {
-            flex: 0.15 0.2 0;
-        }  
-    }
-}
