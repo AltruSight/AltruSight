@@ -31,6 +31,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatTabsModule} from '@angular/material/tabs';
 import {MatListModule} from '@angular/material/list';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
@@ -80,6 +81,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatSnackBarModule,
     MatToolbarModule,
     MatMenuModule,
+    MatTabsModule,
     MatListModule,
     MatPaginatorModule,
     // Firebase

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  altViewOpened = false;
   // TODO: Add donation time
   donations: Donation[] = [
     {id: 0, donorName: 'Jules Winnfield', donationDescription: 'Le Big Mac',
@@ -74,6 +75,10 @@ export class HomeComponent implements OnInit {
 
   getProgressPercentage(): number {
     return this.getProgress() / this.getGoal() * 100;
+  }
+
+  toggleAltView(): void {
+    this.altViewOpened = !this.altViewOpened;
   }
 
   navigateTo(page: string): void {
