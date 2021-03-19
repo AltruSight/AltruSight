@@ -2,33 +2,29 @@
     <div class="main-content">
         <div class="altViewNavigation">
             <mat-tab-group (selectedTabChange)="toggleAltView()" class="altViewButtons">
-                    <mat-tab label="Payment Feed"></mat-tab>
                     <mat-tab label="Home"></mat-tab> 
+                    <mat-tab label="Payment Feed"></mat-tab>
             </mat-tab-group>
         </div>
-       <ng-container *ngIf="!altViewOpened">
-            <div class="payment-feed-container">
-                <mat-card class="paymentFeedCards" *ngFor="let donations of getDonations()">
-                    <mat-card-header>
-                        <mat-card-title>
-                            <span class="paymentFeedTitleUsername">{{donations.donorName}}</span> 
-                            <span class="paymentFeedTitleNotImportant"> donated to </span> 
-                            <span class="paymentFeedTitleNonprofitName" (click)="navigateToNonprofit(donations.donationCharityName)">{{donations.donationCharityName}}</span> 
-                        </mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content class="paymentFeedCardDescription">
-                        {{donations.donationDescription}}
-                    </mat-card-content>
-                    <mat-card-actions class="paymentFeedCardActions">
-                        <button mat-button>LIKE</button>
-                        <button mat-button>SHARE</button>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-        </ng-container>
-        <ng-container *ngIf="altViewOpened">
-            <div class="home-view-placeholder" >
-            </div>
-        </ng-container>
+        <div *ngIf="altViewOpened" class="payment-feed-container">
+            <mat-card class="paymentFeedCards" *ngFor="let donations of getDonations()">
+                <mat-card-header>
+                    <mat-card-title>
+                        <span class="paymentFeedTitleUsername">{{donations.donorName}}</span> 
+                        <span class="paymentFeedTitleNotImportant"> donated to </span> 
+                        <span class="paymentFeedTitleNonprofitName" (click)="navigateToNonprofit(donations.donationCharityName)">{{donations.donationCharityName}}</span> 
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="paymentFeedCardDescription">
+                    {{donations.donationDescription}}
+                </mat-card-content>
+                <mat-card-actions class="paymentFeedCardActions">
+                    <button mat-button>LIKE</button>
+                    <button mat-button>SHARE</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div *ngIf="!altViewOpened" class="home-view-placeholder" >
+        </div>
     </div>
 </div>

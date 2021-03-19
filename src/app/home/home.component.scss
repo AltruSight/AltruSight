@@ -21,8 +21,12 @@
         margin: 1%;
         .altViewNavigation {
             display: flex;
-            flex: 1;
-            margin: auto;
+            align-self: center;
+        }
+        .home-view-placeholder {
+            flex: 1 1 500px;
+            background-color: $primary-1;
+            border-radius: 20px;
         }
         .payment-feed-container {
             display: flex; 
@@ -31,7 +35,6 @@
             overflow: scroll;
             flex: 1 1 500px;
             border-radius: 20px;
-            margin-top: -150px;
 
             .paymentFeedCards {
                 margin-top: 2px;
@@ -69,14 +72,6 @@
                 }
             }
         }
-        .home-view-placeholder {
-            display: flex;
-            flex: 1;
-            background-color: orange;
-            border-radius: 20px;
-            margin-top: -643px;
-        }
-
     }
     .sidebar-button {    
         flex: 0 0 10px;
