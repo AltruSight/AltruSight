@@ -40,12 +40,12 @@ import { AccountStatsPageComponent } from './user/account-stats-page/account-sta
 import { FriendsPageComponent } from './user/friends-page/friends-page.component';
 import { FavoriteNonprofitsComponent } from './user/favorite-nonprofits/favorite-nonprofits.component';
 import  {DonationDialog } from './nonprofit/nonprofit-page/nonprofit-page.component'
+import { CreditCardDirectivesModule } from 'angular-cc-library';
+import { NgxCurrencyModule } from "ngx-currency";
 
 // 3rd Party Modules
 import { BarRatingModule } from 'ngx-bar-rating';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CreditCardDirectivesModule } from 'angular-cc-library';
-import { NgxCurrencyModule } from "ngx-currency";
 import { OtherUserProfilePageComponent } from './user/other-user-profile-page/other-user-profile-page.component';
 
 @NgModule({
