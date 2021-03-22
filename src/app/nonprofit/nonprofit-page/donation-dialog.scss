@@ -44,17 +44,3 @@
 {
     transform: scale(0.75);
 }
-
-// The following CSS hides increment/decrement arrows for numbers
-// only inputs for the 'donationAmount' input box
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
