@@ -1,0 +1,46 @@
+.donation-stepper-container
+{
+    width: 100%;
+}
+
+.donation-input
+{
+    width: 80%;
+    margin: auto;
+    // background-color: green;
+}
+
+.donation-inputs-container
+{
+    width: 100%;
+    height: 100%;
+    // background-color: red;
+    text-align: center;
+}
+
+.user-information-parent
+{
+    width: 100%;
+    height: 100%;
+    // background-color: red;
+}
+
+.inputs-container
+{
+    width: 50%;
+    display: inline-block;
+}
+
+
+.close-icon-button 
+{
+    z-index: 1;
+    float: right;
+    top: -1rem;
+    right: -1rem;
+}
+
+.close-icon 
+{
+    transform: scale(0.75);
+}
