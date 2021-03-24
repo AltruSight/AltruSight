@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 // Custom Component Imports & Project Config Imports
 import { AppRoutingModule } from './app-routing.module';
@@ -15,7 +16,7 @@ import { NonprofitSearchPageComponent } from './nonprofit-search-page/nonprofit-
 import { AccountStatsPageComponent } from './user/account-stats-page/account-stats-page.component';
 import { FriendsPageComponent } from './user/friends-page/friends-page.component';
 import { FavoriteNonprofitsComponent } from './user/favorite-nonprofits/favorite-nonprofits.component';
-import { DonationDialog } from './nonprofit/nonprofit-page/nonprofit-page.component';
+import { DonationDialogComponent } from './nonprofit/nonprofit-page/nonprofit-page.component';
 import { OtherUserProfilePageComponent } from './user/other-user-profile-page/other-user-profile-page.component';
 
 // Material Design Imports
@@ -60,7 +61,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
     AccountStatsPageComponent,
     FriendsPageComponent,
     FavoriteNonprofitsComponent,
-    DonationDialog,
+    DonationDialogComponent,
     OtherUserProfilePageComponent
   ],
   imports: [
@@ -70,6 +71,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     // Angular Material
     MatSidenavModule,
     MatCardModule,
