@@ -17,7 +17,7 @@
                     <div class="donation-input">
                         <mat-form-field>
                             <mat-label>Enter Amount to Donate</mat-label>
-                            <input formControlName="donationAmount" matInput type="tel" currencyMask>
+                            <input formControlName="donationAmount" matInput type="text" currencyMask>
                         </mat-form-field>
                     </div>
                 </div>
@@ -28,10 +28,11 @@
         <!-- Your Information Stepper -->
         <mat-step [stepControl]="donorInformationForm">
             <form [formGroup]="donorInformationForm">
-                <ng-template matStepLabel>Your Information</ng-template>
+                <ng-template matStepLabel>Your Billing Information</ng-template>
                 
                 <div class="user-information-parent">
                     <div class="inputs-container">
+                        <!-- LEFT INPUTS CONTAINER -->
                         <div class="donation-input">
                             <!-- Card Holder Name -->
                             <mat-form-field>
@@ -39,27 +40,52 @@
                                 <input formControlName="cardHolderName" matInput type="text" >
                             </mat-form-field> 
                             
-                            <!-- Expiration Date-->
+                            <!-- Street Address -->
                             <mat-form-field>
-                                <mat-label>Card Expiration Date</mat-label>
-                                <input formControlName="cardExpirationDate" matInput type="tel" ccExp>
+                                <mat-label>Street Address</mat-label>
+                                <input formControlName="streetAddress" matInput type="text">
+                            </mat-form-field>
+
+                            <!-- City -->
+                            <mat-form-field>
+                                <mat-label>City</mat-label>
+                                <input formControlName="city" matInput type="text">
+                            </mat-form-field>
+
+                            <!-- State -->
+                            <mat-form-field>
+                                <mat-label>State</mat-label>
+                                <input formControlName="state" matInput type="text">
                             </mat-form-field>
 
                         </div>
                     </div>
+                    <!-- RIGHT INPUTS CONTAINER -->
                     <div class="inputs-container">
                         <div class="donation-input">
                             <!-- Card Number -->
                             <mat-form-field>
                                 <mat-label>Card Number</mat-label>
-                                <input formControlName="cardNumber" matInput type="tel" ccNumber>
+                                <input formControlName="cardNumber" matInput type="text" ccNumber>
                                 <mat-hint> Hint: Do NOT input real CC number</mat-hint>
+                            </mat-form-field>
+                            
+                            <!-- Expiration Date-->
+                            <mat-form-field>
+                                <mat-label>Card Expiration Date</mat-label>
+                                <input formControlName="cardExpirationDate" matInput type="text" ccExp>
                             </mat-form-field>
 
                             <!-- Card CVC-->
                             <mat-form-field>
                                 <mat-label>CVC</mat-label>
-                                <input formControlName="cardCVC" matInput type="tel" ccCVC>
+                                <input formControlName="cardCVC" matInput type="text" ccCVC>
+                            </mat-form-field>
+
+                            <!-- Email Address -->
+                            <mat-form-field>
+                                <mat-label>Email Adress</mat-label>
+                                <input formControlName="emailAddress" matInput type="email">
                             </mat-form-field>
                         </div>
                     </div>
@@ -79,6 +105,9 @@
 
                 <div>
                     <p>
+                        Again, thank you for choosing to donate to <b>{{getOrgName()}}</b>!
+                    </p>
+                    <p>
                         The amount you wish to donate and your payment information
                         is displayed below. Please confirm your information and go back
                         and make any changes should something be incorrect.
@@ -87,7 +116,7 @@
                         <div class="donation-input">
                             <!-- Donation Amunt -->
                             <p style="content: '$';"> 
-                                <b>Donation Amount: </b> ${{getDonationAmount()}} 
+                                <b>Your Donation Amount: </b> ${{getDonationAmount()}} 
                             </p>
                             
                             <!-- Card Holder Name -->
@@ -95,9 +124,19 @@
                                 <b>Card Holder Name:</b> {{getCardHolderName()}} 
                             </p>
 
-                            <!-- Expiration Date-->
+                            <!-- Street Address-->
                             <p> 
-                                <b>Expiration Date:</b> {{getCardExpDate()}}
+                                <b>Street Address:</b> {{getStreetAddress()}}
+                            </p>
+
+                            <!-- City -->
+                            <p> 
+                                <b>City:</b> {{getCity()}}
+                            </p>
+
+                            <!-- State -->
+                            <p> 
+                                <b>State:</b> {{getState()}}
                             </p>
                         </div>
                     </div>
@@ -108,16 +147,28 @@
                                 <b>Card Number:</b> {{getCardNumber()}} 
                             </p>
 
+                            <!-- Expiration Date-->
+                            <p> 
+                                <b>Expiration Date:</b> {{getCardExpDate()}}
+                            </p>
+
                             <!-- Card CVC-->
                             <p>
                                 <b>Card CVC:</b> {{getCardCVC()}} 
                             </p>
+
+                            <!-- Email Address -->
+                            <p> 
+                                <b>Email Address:</b> {{getEmail()}}
+                            </p>
+
+                            
                         </div>
                     </div>
                 </div>
 
                 <button mat-button matStepperPrevious>Back</button>
-                <button mat-button >Submit Donation</button>
+                <button mat-button (click)="submitDonation()">Submit Donation</button>
             </form>
         </mat-step>
     </mat-vertical-stepper>
