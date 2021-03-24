@@ -79,6 +79,7 @@ export class AppComponent {
   }
 
   navigateToNonprofit(nonprofitId: string): void {
+    console.log(`Navigating to nonprofit with EIN of :${nonprofitId}`);
     this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
     this.sidebarOpened = false;
   }

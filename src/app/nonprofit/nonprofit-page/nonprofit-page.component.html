@@ -7,7 +7,7 @@
             <button (click)="goToNonprofitHomePageExternal()" class="links-btn" mat-button>
                 <div class="column">
                     <mat-icon class="icon">assistant_direction</mat-icon>
-                    home website
+                    their website
                 </div>
             </button>
             <mat-divider style="height: 100%" [vertical]="true"></mat-divider>
@@ -32,7 +32,113 @@
     </div>
 
     <div class="content-container">
-
+        <div class="content-row">
+            <div class="info-box">
+                <span class="info-title">Contact Info</span>
+                <span class="info-subtitle">Email</span>
+                <span class="info-content" *ngIf="nonprofit?.generalEmail">{{nonprofit?.generalEmail}}</span>
+                <span class="info-subtitle">Office Address</span>
+                <span class="info-content" *ngIf="nonprofit?.mailingAddress">{{nonprofit?.mailingAddress?.streetAddress1}}, {{nonprofit?.mailingAddress?.city}}, {{nonprofit?.mailingAddress?.stateOrProvince}} {{nonprofit?.mailingAddress?.postalCode}}</span>
+                <span class="info-subtitle">{{nonprofit?.currentCEO?.title}}</span>
+                <span class="info-content" *ngIf="nonprofit?.currentCEO">{{nonprofit?.currentCEO?.name}}</span>
+                <span class="info-subtitle">{{nonprofit?.currentBoardChair?.title}}</span>
+                <span class="info-content" *ngIf="nonprofit?.currentBoardChair">{{nonprofit?.currentBoardChair?.name}}</span>
+            </div>
+            <div class="info-box">
+                <span class="info-title">Category</span>
+                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.category?.categoryName}}</span>
+                <span class="info-title">Cause</span>
+                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.cause?.causeName}}</span>
+                <span class="info-title">Tagline</span>
+                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.tagLine}}</span>
+            </div>
+            <div class="info-box">
+                <span class="info-title">Tax Status</span>
+                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.irsClassification?.subsection}}</span>
+                <span class="info-title">Tax Deductibility</span>
+                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.irsClassification?.deductibility}}</span>
+                <span class="info-title">Latest 990</span>
+                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.irsClassification?.latest990}}</span>
+            </div>
+        </div>
+        <div class="content-row">
+            <div class="info-box">
+                <span class="content-title">Financials</span>
+                <div class="financials-container">
+                    <table class="financials-table">
+                        <tr class="table-header">
+                            <th>Stat</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr class="primary-row">
+                            <td>Fundraising Efficiency</td>
+                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.fundraisingEfficiency}}</td>
+                        </tr>
+                        <tr class="alternate-row">
+                            <td>Fundraising Expenses Ratio</td>
+                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.fundraisingExpensesRatio}}</td>
+                        </tr>
+                        <tr class="primary-row">
+                            <td>Program Expenses Growth</td>
+                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.programExpensesGrowth}}</td>
+                        </tr>
+                        <tr class="alternate-row">
+                            <td>Program Expenses Ratio</td>
+                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.programExpensesRatio}}</td>
+                        </tr>
+                        <tr class="primary-row">
+                            <td>Administration Expenses Ratio</td>
+                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.administrationExpensesRatio}}</td>
+                        </tr>
+                        <tr class="alternate-row">
+                            <td>Liabilities to Assets Ratio</td>
+                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.liabilitiesToAssetsRatio}}</td>
+                        </tr>
+                        <tr class="primary-row">
+                            <td>Working Capital Ratio</td>
+                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.workingCapitalRatio}}</td>
+                        </tr>
+                    </table>
+                    <table class="financials-table">
+                        <tr class="table-header">
+                            <th>Stat</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr class="primary-row">
+                            <td>Primary Revenue Growth</td>
+                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.primaryRevenueGrowth}}</td>
+                        </tr>
+                        <tr class="alternate-row">
+                            <td>Fundraising Expenses</td>
+                            <td>{{nonprofitRating?.form990?.fundraisingExpenses}}</td>
+                        </tr>
+                        <tr class="primary-row">
+                            <td>Administrative Expenses</td>
+                            <td>{{nonprofitRating?.form990?.administrativeExpenses}}</td>
+                        </tr>
+                        <tr class="alternate-row">
+                            <td>Program Expenses</td>
+                            <td>{{nonprofitRating?.form990?.programExpenses}}</td>
+                        </tr>
+                        <tr class="primary-row">
+                            <td>Total Expenses</td>
+                            <td>{{nonprofitRating?.form990?.totalExpenses}}</td>
+                        </tr>
+                        <tr class="alternate-row">
+                            <td>Total Revenue</td>
+                            <td>{{nonprofitRating?.form990?.totalRevenue}}</td>
+                        </tr>
+                        <tr class="primary-row">
+                            <td>Total Net Assets</td>
+                            <td>{{nonprofitRating?.form990?.totalNetAssets}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="content-row">
+            
+        </div>
     </div>
 
     <div *ngIf="sidenavOpened" class="sidebar-container">

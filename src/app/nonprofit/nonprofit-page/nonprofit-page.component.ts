@@ -13,20 +13,23 @@ export class NonprofitPageComponent implements OnInit {
   nonprofit?: Nonprofit;
   nonprofitRating?: Rating;
   nonprofitFavorited = false;
-  sidenavOpened = true;
+  sidenavOpened = false;
 
   constructor(private route: ActivatedRoute, private nonprofitService: NonprofitsService) {
 
   }
 
   ngOnInit(): void {
-    // TODO: need to make sure this route is only accessible when id is passed in
-    const ein = this.route.snapshot.paramMap.get('nonprofit-id') as string;
-    this.nonprofitService.getNonprofit(ein).pipe(
-      switchMap((response) => {
-        this.nonprofit = response;
-        const ratingID = response.currentRating?.ratingID ? response.currentRating.ratingID : -1;
-        return this.nonprofitService.getRatingForNonprofit(ein, ratingID);
+    this.route.params.pipe(
+      switchMap((param) => {
+        const ein = param['nonprofit-id'];
+        return this.nonprofitService.getNonprofit(ein).pipe(
+          switchMap((response) => {
+            this.nonprofit = response;
+            const ratingID = response.currentRating?.ratingID ? response.currentRating.ratingID : -1;
+            return this.nonprofitService.getRatingForNonprofit(ein, ratingID);
+          })
+        );
       })
     ).subscribe((response) => {
       this.nonprofitRating = response;

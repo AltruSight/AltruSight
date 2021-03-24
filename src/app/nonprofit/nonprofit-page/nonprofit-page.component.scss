@@ -78,8 +78,71 @@
     }
 
     .content-container {
+        display: flex;
         flex: 1 0 auto; 
-        background-color: $primary-3;
+        flex-direction: column;
+        background-color: $primary-2;
+        overflow: scroll;
+        .content-row {
+            display: flex;
+            flex-direction: row;
+            flex: 1 0 100px; 
+            .info-box {
+                display: flex;
+                flex-direction: column;
+                flex: 1 0 200px;
+                margin: 2%;
+                background-color: $accent-4;
+                border-radius: 20px;
+                justify-content: space-around;
+                .info-title {
+                    margin-top: 5px;
+                    align-self: center;
+                    font-size: 25px;
+                    color: $primary-off-white;
+                    opacity: 0.95;
+                }
+                .info-subtitle {
+                    margin-left: 7.5px;
+                    margin-right: 7.5px;
+                    font-size: 19px;
+                    color: $primary-off-white;
+                    opacity: 0.95;
+                }
+                .info-content {
+                    margin-left: 7.5px;
+                    color: $primary-off-white;
+                    opacity: 0.83;
+                }
+                .content-title {
+                    margin: 0 auto;
+                    font-size: 30px;
+                }
+                .financials-container {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    .financials-table {
+                        border-collapse: collapse;
+                        .table-header {
+                            background-color: $accent-4;
+                            color: $primary-off-white;
+                            opacity: 0.8;
+                            .th {
+                                font-size: 19px;
+                            }
+                        }
+                        .primary-row {
+                            background-color: $accent-3;
+                        }
+                        .alternate-row {
+                            background-color: $accent-2;
+                        }
+                    }
+                }
+            }
+
+        }
     }
 
     .sidebar-container {
