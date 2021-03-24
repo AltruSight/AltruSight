@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="content-row">
-            <div class="info-box">
+            <div class="info-box" style="flex: 2 0 200px">
                 <span class="content-title">Financials</span>
                 <div class="financials-container">
                     <table class="financials-table">
@@ -71,32 +71,32 @@
                             <th>Value</th>
                         </tr>
                         <tr class="primary-row">
-                            <td>Fundraising Efficiency</td>
-                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.fundraisingEfficiency}}</td>
+                            <td class="title">Fundraising Efficiency</td>
+                            <td class="value">{{nonprofitRating?.financialRating?.performanceMetrics?.fundraisingEfficiency}}</td>
                         </tr>
                         <tr class="alternate-row">
-                            <td>Fundraising Expenses Ratio</td>
-                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.fundraisingExpensesRatio}}</td>
+                            <td class="title">Fundraising Expenses Ratio</td>
+                            <td class="value">{{nonprofitRating?.financialRating?.performanceMetrics?.fundraisingExpensesRatio}}</td>
                         </tr>
                         <tr class="primary-row">
-                            <td>Program Expenses Growth</td>
-                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.programExpensesGrowth}}</td>
+                            <td class="title">Program Expenses Growth</td>
+                            <td class="value">{{nonprofitRating?.financialRating?.performanceMetrics?.programExpensesGrowth}}</td>
                         </tr>
                         <tr class="alternate-row">
-                            <td>Program Expenses Ratio</td>
-                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.programExpensesRatio}}</td>
+                            <td class="title">Program Expenses Ratio</td>
+                            <td class="value">{{nonprofitRating?.financialRating?.performanceMetrics?.programExpensesRatio}}</td>
                         </tr>
                         <tr class="primary-row">
-                            <td>Administration Expenses Ratio</td>
-                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.administrationExpensesRatio}}</td>
+                            <td class="title">Administration Expenses Ratio</td>
+                            <td class="value">{{nonprofitRating?.financialRating?.performanceMetrics?.administrationExpensesRatio}}</td>
                         </tr>
                         <tr class="alternate-row">
-                            <td>Liabilities to Assets Ratio</td>
-                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.liabilitiesToAssetsRatio}}</td>
+                            <td class="title">Liabilities to Assets Ratio</td>
+                            <td class="value">{{nonprofitRating?.financialRating?.performanceMetrics?.liabilitiesToAssetsRatio}}</td>
                         </tr>
                         <tr class="primary-row">
-                            <td>Working Capital Ratio</td>
-                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.workingCapitalRatio}}</td>
+                            <td class="title">Working Capital Ratio</td>
+                            <td class="value">{{nonprofitRating?.financialRating?.performanceMetrics?.workingCapitalRatio}}</td>
                         </tr>
                     </table>
                     <table class="financials-table">
@@ -105,32 +105,32 @@
                             <th>Value</th>
                         </tr>
                         <tr class="primary-row">
-                            <td>Primary Revenue Growth</td>
-                            <td>{{nonprofitRating?.financialRating?.performanceMetrics?.primaryRevenueGrowth}}</td>
+                            <td class="title">Primary Revenue Growth</td>
+                            <td class="value">{{nonprofitRating?.financialRating?.performanceMetrics?.primaryRevenueGrowth}}</td>
                         </tr>
                         <tr class="alternate-row">
-                            <td>Fundraising Expenses</td>
-                            <td>{{nonprofitRating?.form990?.fundraisingExpenses}}</td>
+                            <td class="title">Fundraising Expenses</td>
+                            <td class="value">{{nonprofitRating?.form990?.fundraisingExpenses}}</td>
                         </tr>
                         <tr class="primary-row">
-                            <td>Administrative Expenses</td>
-                            <td>{{nonprofitRating?.form990?.administrativeExpenses}}</td>
+                            <td class="title">Administrative Expenses</td>
+                            <td class="value">{{nonprofitRating?.form990?.administrativeExpenses}}</td>
                         </tr>
                         <tr class="alternate-row">
-                            <td>Program Expenses</td>
-                            <td>{{nonprofitRating?.form990?.programExpenses}}</td>
+                            <td class="title">Program Expenses</td>
+                            <td class="value">{{nonprofitRating?.form990?.programExpenses}}</td>
                         </tr>
                         <tr class="primary-row">
-                            <td>Total Expenses</td>
-                            <td>{{nonprofitRating?.form990?.totalExpenses}}</td>
+                            <td class="title">Total Expenses</td>
+                            <td class="value">{{nonprofitRating?.form990?.totalExpenses}}</td>
                         </tr>
                         <tr class="alternate-row">
-                            <td>Total Revenue</td>
-                            <td>{{nonprofitRating?.form990?.totalRevenue}}</td>
+                            <td class="title">Total Revenue</td>
+                            <td class="value">{{nonprofitRating?.form990?.totalRevenue}}</td>
                         </tr>
                         <tr class="primary-row">
-                            <td>Total Net Assets</td>
-                            <td>{{nonprofitRating?.form990?.totalNetAssets}}</td>
+                            <td class="title">Total Net Assets</td>
+                            <td class="value">{{nonprofitRating?.form990?.totalNetAssets}}</td>
                         </tr>
                     </table>
                 </div>
