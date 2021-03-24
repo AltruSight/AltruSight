@@ -34,7 +34,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatTabsModule} from '@angular/material/tabs';
 import {MatListModule} from '@angular/material/list';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 // Angular Firebase Imports
 import { AngularFireModule } from '@angular/fire';
@@ -84,6 +86,8 @@ import { NgxCurrencyModule } from 'ngx-currency';
     MatDialogModule,
     MatStepperModule,
     MatListModule,
+    MatTabsModule,
+    MatPaginatorModule,
     // Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
