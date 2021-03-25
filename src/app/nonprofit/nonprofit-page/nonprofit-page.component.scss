@@ -86,11 +86,11 @@
         .content-row {
             display: flex;
             flex-direction: row;
-            flex: 1 0 270px; 
+            flex: 0 0 250px; 
             .info-box {
                 display: flex;
                 flex-direction: column;
-                flex: 1 0 200px;
+                flex: 1 0 300px;
                 margin: 2%;
                 background-color: $accent-4;
                 border-radius: 20px;
@@ -116,23 +116,26 @@
                 }
                 .content-title {
                     text-align: center;
+                    height: 30px;
                     font-size: 30px;
                     color: $primary-off-white;
                     opacity: 0.85;
+                    padding: 5px;
                 }
                 .financials-container {
                     display: flex;
                     flex-direction: row;
                     justify-content: center;
+                    flex: 0 0 auto;
                     .financials-table {
+                        flex: 0 0 auto;
                         border-collapse: collapse;
+                        font-size: 25px;
                         .table-header {
                             background-color: $accent-4;
                             color: $primary-off-white;
                             opacity: 0.85;
-                            .th {
-                                font-size: 19px;
-                            }
+                            font-size: 20px;
                         }
                         .title {
                             font-weight: bold;
@@ -141,13 +144,14 @@
                             text-align: right;
                         }
                         .primary-row {
-                            background-color: $accent-3;
+                            background-color: $accent-4;
                             color: $primary-off-white;
-                            opacity: 0.85;
+                            height: 35px;
                         }
                         .alternate-row {
                             background-color: $accent-1;
                             opacity: 0.85;
+                            height: 35px;
                         }
                     }
                 }
