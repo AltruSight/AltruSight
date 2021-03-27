@@ -137,10 +137,146 @@
             </div>
         </div>
         <div class="content-row">
-            
+            <div class="info-box">
+                <table class="accountability-table">
+                    <tr class="table-header">
+                        <th>Accountability Test</th>
+                        <th>Result</th>
+                    </tr>
+                    <tr class="primary-row">
+                        <td class="title">Has Independent Governing Board</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.independentBoard?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>
+                        </td>
+                    </tr>
+                    <tr class="alternate-row">
+                        <td class="title">Does NOT Divert Material Assets</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.materialDiversionOfAssets?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'remediated'">remove_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>                        
+                        </td>
+                    </tr>
+                    <tr class="primary-row">
+                        <td class="title">Financials are Audited Independently</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.independentAudit?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>
+                        </td>
+                    </tr>
+                    <tr class="alternate-row">
+                        <td class="title">Does NOT Make Loans to Officers</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.loansToOfficers?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>                        
+                        </td>
+                    </tr>
+                    <tr class="primary-row">
+                        <td class="title">Board Meetings are Documented</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.boardMeetingMinutes?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>
+                        </td>
+                    </tr>
+                    <tr class="alternate-row">
+                        <td class="title">Form 990 Reviewed by Overseers Before Filing</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.distributes990ToBoard?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>                        
+                        </td>
+                    </tr>
+                    <tr class="primary-row">
+                        <td class="title">Implementation of a Conflict of Interest Policy</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.conflictOfInterestPolicy?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>
+                        </td>
+                    </tr>
+                    <tr class="alternate-row">
+                        <td class="title">Implementation of Whistleblower Protection Policy</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.whistleBlowerPolicy?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>                        
+                        </td>
+                    </tr>
+                    <tr class="primary-row">
+                        <td class="title">Implementation of Policy for Documenting and Archiving Records</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.recordsRetentionPolicy?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>
+                        </td>
+                    </tr>
+                    <tr class="alternate-row">
+                        <td class="title">CEO Salary Reported</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.reportsCEOAndSalary?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>                        
+                        </td>
+                    </tr>
+                    <tr class="primary-row">
+                        <td class="title">Implementation of CEO Compensation Guidelines</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.ceoCompensationProcedure?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>
+                        </td>
+                    </tr>
+                    <tr class="alternate-row">
+                        <td class="title">Governing Board Members Listed on 990</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.boardListStatus?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>                        
+                        </td>
+                    </tr>
+                    <tr class="primary-row">
+                        <td class="title">Governing Board Members NOT Compensated</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.compensatesBoard?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>
+                        </td>
+                    </tr>
+                    <tr class="alternate-row">
+                        <td class="title">Key Staff Members Accessible to the Public</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.staffListStatus?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>                        
+                        </td>
+                    </tr>
+                    <tr class="primary-row">
+                        <td class="title">Form 990 Accessible to the Public</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.form990Status?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchDefault>N/A</p>                        
+                        </td>
+                    </tr>
+                    <tr class="alternate-row">
+                        <td class="title">Does NOT Share or Sell Donor Information without Permission</td>
+                        <td class="value" [ngSwitch]="nonprofitRating?.accountabilityRating?.accountabilityTests?.privacyStatus?.toLowerCase()">
+                            <mat-icon *ngSwitchCase="'pass'" style="color: green">check_circle_outline</mat-icon>
+                            <mat-icon *ngSwitchCase="'fail'" style="color: red">cancel</mat-icon>
+                            <p *ngSwitchCase="'opt-out'">Allows user to opt out</p>
+                            <p *ngSwitchDefault>N/A</p>                        
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <div class="content-row">
-            
         </div>
         <div class="content-row">
             

@@ -122,6 +122,25 @@
                     opacity: 0.85;
                     padding: 5px;
                 }
+                .accountability-table {
+                    margin: 0px 10px 0px 10px;
+                    font-size: 25px;
+                    border-collapse: collapse;
+                    .table-header {
+                        color: $primary-off-white;
+                        opacity: 0.85;
+                    }
+                    .primary-row {
+                        color: $primary-off-white;
+                        height: 35px;
+                        border-radius: 5px;
+                    }
+                    .alternate-row {
+                        background-color: $accent-1;
+                        opacity: 0.85;
+                        height: 35px;
+                    }
+                }
                 .financials-container {
                     display: flex;
                     flex-direction: row;
@@ -132,7 +151,6 @@
                         border-collapse: collapse;
                         font-size: 25px;
                         .table-header {
-                            background-color: $accent-4;
                             color: $primary-off-white;
                             opacity: 0.85;
                             font-size: 20px;
@@ -144,7 +162,6 @@
                             text-align: right;
                         }
                         .primary-row {
-                            background-color: $accent-4;
                             color: $primary-off-white;
                             height: 35px;
                         }
