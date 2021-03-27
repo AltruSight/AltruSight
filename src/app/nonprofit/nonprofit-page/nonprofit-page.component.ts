@@ -17,6 +17,7 @@ import { MatStep, MatStepper } from '@angular/material/stepper';
 export class NonprofitPageComponent implements OnInit {
   nonprofit?: Nonprofit;
   nonprofitRating?: Rating;
+
   nonprofitFavorited = false;
   sidenavOpened = false;
 
