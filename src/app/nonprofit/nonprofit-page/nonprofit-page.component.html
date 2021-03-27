@@ -1,3 +1,8 @@
+<!--
+    TODO: Make financial and accountability tables same width 
+    TODO: Make financial table into single column for phones
+-->
+
 <div class="main-container">
     <div class="nonprofit-toolbar">
         <div class="title-box">
@@ -62,7 +67,7 @@
             </div>
         </div>
         <div class="content-row">
-            <div class="info-box" style="flex: 1 0 1000px;">
+            <div class="info-box" style="flex: 1 0 1000px">
                 <div class="content-title">Financials</div>
                 <div class="financials-container">
                     <table class="financials-table">
@@ -137,10 +142,11 @@
             </div>
         </div>
         <div class="content-row">
-            <div class="info-box">
+            <div class="info-box" style="flex: 1 0 1000px">
+                <div class="info-title" style="margin: 10px 0 0 0; font-size: 35px; height: 45px;">Best Practices Checklist</div>
                 <table class="accountability-table">
                     <tr class="table-header">
-                        <th>Accountability Test</th>
+                        <th>Accountability Tests</th>
                         <th>Result</th>
                     </tr>
                     <tr class="primary-row">
@@ -277,12 +283,18 @@
             </div>
         </div>
         <div class="content-row">
-        </div>
-        <div class="content-row">
-            
+            <div class="info-box">
+                <h1 class="content-title">Similar Nonprofits</h1>
+                <ul class="similar-nonprofit-list">
+                    <li (click)="goToNonprofitPage(nonprofit.ein)" class="list-item" *ngFor="let nonprofit of getSimilarNonprofits()">
+                        {{nonprofit.charityName}}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
+    <!--SIDEBAR HTML-->
     <div *ngIf="sidenavOpened" class="sidebar-container">
         <mat-card class="rating-card">
             <mat-card-content>

@@ -1,4 +1,4 @@
-export const baseOrganizationsUrl = 'http://localhost:8080/api/organizations?rated=true&sort=NAME:ASC';
+export const baseOrganizationsUrl = 'http://localhost:8080/api/organizations?rated=true&sort=NAME:ASC&pageSize=1000';
 export const baseOrganizationUrl = 'http://localhost:8080/api/organization?ein=';
 export const baseRatingsUrl = 'http://localhost:8080/api/ratings?ein=';
 export const baseRatingUrl = 'http://localhost:8080/api/rating?ein=';

@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Nonprofit, NonprofitsService, Rating } from 'src/app/misc-services/nonprofits.service';
-import { switchMap } from 'rxjs/operators';
+import { concatMap, map, switchMap } from 'rxjs/operators';
 import {Inject} from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
-import { MatStep, MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-nonprofit-page',
@@ -17,28 +14,55 @@ import { MatStep, MatStepper } from '@angular/material/stepper';
 export class NonprofitPageComponent implements OnInit {
   nonprofit?: Nonprofit;
   nonprofitRating?: Rating;
+  similarNonprofits?: Nonprofit[];
 
   nonprofitFavorited = false;
   sidenavOpened = false;
 
-  constructor(private route: ActivatedRoute, private nonprofitService: NonprofitsService, public dialog: MatDialog) {
-
+  constructor(private route: ActivatedRoute,
+              private nonprofitService: NonprofitsService,
+              public dialog: MatDialog,
+              private router: Router) {
   }
 
   ngOnInit(): void {
     this.route.params.pipe(
-      switchMap((param) => {
+      concatMap((param) => {
         const ein = param['nonprofit-id'];
         return this.nonprofitService.getNonprofit(ein).pipe(
-          switchMap((response) => {
-            this.nonprofit = response;
-            const ratingID = response.currentRating?.ratingID ? response.currentRating.ratingID : -1;
-            return this.nonprofitService.getRatingForNonprofit(ein, ratingID);
+          concatMap((nonprofit) => {
+            this.nonprofit = nonprofit;
+            const ratingID = nonprofit.currentRating?.ratingID ? nonprofit.currentRating.ratingID : -1;
+            return this.nonprofitService.getRatingForNonprofit(ein, ratingID).pipe(
+              concatMap((nonprofitRating) => {
+                this.nonprofitRating = nonprofitRating;
+                const causeID = this.nonprofit?.cause?.causeID ? this.nonprofit?.cause?.causeID : 0;
+                return this.nonprofitService.getSimilarNonprofits(causeID);
+              })
+            );
           })
         );
       })
     ).subscribe((response) => {
-      this.nonprofitRating = response;
+      this.similarNonprofits = response;
+    });
+  }
+
+  getSimilarNonprofits(): Nonprofit[] {
+    const randomNumbers: number[] = [];
+    const similarNonprofits = this.similarNonprofits ? this.similarNonprofits : [];
+
+    while (randomNumbers.length < 4 && similarNonprofits.length !== 0) {
+      const randomNumber = Math.floor(Math.random() * similarNonprofits.length) + 1;
+      if (randomNumbers.indexOf(randomNumber) === -1) {
+        randomNumbers.push(randomNumber);
+      }
+    }
+
+    randomNumbers.push(similarNonprofits.length - 47);
+
+    return similarNonprofits.filter((nonprofit, index) => {
+      return randomNumbers.indexOf(index) !== -1;
     });
   }
 
@@ -105,6 +129,19 @@ export class NonprofitPageComponent implements OnInit {
 
   userNonprofitRatingChanged(rating: number): void {
     console.log('nonprofit rating changed to: ' + rating);
+  }
+
+  goToNonprofitPage(ein: string): void {
+    this.router.navigateByUrl(`nonprofit/${ein}`);
+
+    const scrollToTop = window.setInterval(() => {
+      const pos = window.pageYOffset;
+      if ( pos > 0 ) {
+          window.scrollTo( 0, pos - 20 ); // how far to scroll on each step
+      } else {
+          window.clearInterval( scrollToTop );
+      }
+    }, 16);
   }
 }
 
