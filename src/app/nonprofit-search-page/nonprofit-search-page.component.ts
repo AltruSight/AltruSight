@@ -3,6 +3,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { Nonprofit, NonprofitsService } from '../misc-services/nonprofits.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class NonprofitSearchPageComponent implements OnInit {
   pageEvent: PageEvent;
   nonprofitOrganizations: Nonprofit[] = [];
 
-  constructor(private nonprofitService: NonprofitsService) {
+  constructor(private nonprofitService: NonprofitsService, private router: Router) {
     this.pageEvent = new PageEvent();
     this.pageEvent.pageIndex = 0;
     this.pageSize = 10;
@@ -39,6 +40,10 @@ export class NonprofitSearchPageComponent implements OnInit {
     } else {
       return this.nonprofitOrganizations.slice(0, this.pageSize);
     }
+  }
+
+  navigateToNonprofit(nonprofitId: string): void {
+    this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
   }
 
   ngOnInit(): void {

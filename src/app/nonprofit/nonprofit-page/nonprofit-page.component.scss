@@ -78,8 +78,85 @@
     }
 
     .content-container {
+        display: flex;
         flex: 1 0 auto; 
-        background-color: $primary-3;
+        flex-direction: column;
+        background-color: $primary-2;
+        overflow: scroll;
+        .content-row {
+            display: flex;
+            flex-direction: row;
+            flex: 0 0 250px; 
+            .info-box {
+                display: flex;
+                flex-direction: column;
+                flex: 1 0 300px;
+                margin: 2%;
+                background-color: $accent-4;
+                border-radius: 20px;
+                justify-content: space-around;
+                .info-title {
+                    margin-top: 5px;
+                    align-self: center;
+                    font-size: 25px;
+                    color: $primary-off-white;
+                    opacity: 0.95;
+                }
+                .info-subtitle {
+                    margin-left: 7.5px;
+                    margin-right: 7.5px;
+                    font-size: 19px;
+                    color: $primary-off-white;
+                    opacity: 0.95;
+                }
+                .info-content {
+                    margin-left: 7.5px;
+                    color: $primary-off-white;
+                    opacity: 0.83;
+                }
+                .content-title {
+                    text-align: center;
+                    height: 30px;
+                    font-size: 30px;
+                    color: $primary-off-white;
+                    opacity: 0.85;
+                    padding: 5px;
+                }
+                .financials-container {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    flex: 0 0 auto;
+                    .financials-table {
+                        flex: 0 0 auto;
+                        border-collapse: collapse;
+                        font-size: 25px;
+                        .table-header {
+                            background-color: $accent-4;
+                            color: $primary-off-white;
+                            opacity: 0.85;
+                            font-size: 20px;
+                        }
+                        .title {
+                            font-weight: bold;
+                        }
+                        .value {
+                            text-align: right;
+                        }
+                        .primary-row {
+                            background-color: $accent-4;
+                            color: $primary-off-white;
+                            height: 35px;
+                        }
+                        .alternate-row {
+                            background-color: $accent-1;
+                            opacity: 0.85;
+                            height: 35px;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .sidebar-container {

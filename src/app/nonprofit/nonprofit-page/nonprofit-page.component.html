@@ -1,13 +1,13 @@
 <div class="main-container">
     <div class="nonprofit-toolbar">
         <div class="title-box">
-            {{nonprofitName}}
+            {{nonprofit?.charityName}}
         </div>
         <div class="links-box">
             <button (click)="goToNonprofitHomePageExternal()" class="links-btn" mat-button>
                 <div class="column">
                     <mat-icon class="icon">assistant_direction</mat-icon>
-                    home website
+                    their website
                 </div>
             </button>
             <mat-divider style="height: 100%" [vertical]="true"></mat-divider>
@@ -32,7 +32,119 @@
     </div>
 
     <div class="content-container">
-
+        <div class="content-row">
+            <div class="info-box">
+                <span class="info-title">Contact Info</span>
+                <span class="info-subtitle">Email</span>
+                <span class="info-content" *ngIf="nonprofit?.generalEmail">{{nonprofit?.generalEmail}}</span>
+                <span class="info-subtitle">Office Address</span>
+                <span class="info-content" *ngIf="nonprofit?.mailingAddress">{{nonprofit?.mailingAddress?.streetAddress1}}, {{nonprofit?.mailingAddress?.city}}, {{nonprofit?.mailingAddress?.stateOrProvince}} {{nonprofit?.mailingAddress?.postalCode}}</span>
+                <span class="info-subtitle">{{nonprofit?.currentCEO?.title}}</span>
+                <span class="info-content" *ngIf="nonprofit?.currentCEO">{{nonprofit?.currentCEO?.name}}</span>
+                <span class="info-subtitle">{{nonprofit?.currentBoardChair?.title}}</span>
+                <span class="info-content" *ngIf="nonprofit?.currentBoardChair">{{nonprofit?.currentBoardChair?.name}}</span>
+            </div>
+            <div class="info-box">
+                <span class="info-title">Category</span>
+                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.category?.categoryName}}</span>
+                <span class="info-title">Cause</span>
+                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.cause?.causeName}}</span>
+                <span class="info-title">Tagline</span>
+                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.tagLine}}</span>
+            </div>
+            <div class="info-box">
+                <span class="info-title">Tax Status</span>
+                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.irsClassification?.subsection}}</span>
+                <span class="info-title">Tax Deductibility</span>
+                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.irsClassification?.deductibility}}</span>
+                <span class="info-title">Latest 990</span>
+                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.irsClassification?.latest990}}</span>
+            </div>
+        </div>
+        <div class="content-row">
+            <div class="info-box" style="flex: 1 0 1000px;">
+                <div class="content-title">Financials</div>
+                <div class="financials-container">
+                    <table class="financials-table">
+                        <tr class="table-header">
+                            <th>Stat</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr class="primary-row">
+                            <td class="title">Fundraising Efficiency</td>
+                            <td class="value">{{(1 - nonprofitRating?.financialRating?.performanceMetrics?.fundraisingEfficiency! | percent: '0.1') || "N/A"}}</td>
+                        </tr>
+                        <tr class="alternate-row">
+                            <td class="title">Fundraising Expenses Ratio</td>
+                            <td class="value">{{(nonprofitRating?.financialRating?.performanceMetrics?.fundraisingExpensesRatio | percent: '0.1') || "N/A"}}</td>
+                        </tr>
+                        <tr class="primary-row">
+                            <td class="title">Program Expenses Growth</td>
+                            <td class="value">{{(nonprofitRating?.financialRating?.performanceMetrics?.programExpensesGrowth | percent: '0.1') || "N/A"}}</td>
+                        </tr>
+                        <tr class="alternate-row">
+                            <td class="title">Program Expenses Ratio</td>
+                            <td class="value">{{(nonprofitRating?.financialRating?.performanceMetrics?.programExpensesRatio  | percent: '0.1') || "N/A"}}</td>
+                        </tr>
+                        <tr class="primary-row">
+                            <td class="title">Administration Expenses Ratio</td>
+                            <td class="value">{{(nonprofitRating?.financialRating?.performanceMetrics?.administrationExpensesRatio | percent: '0.1') || "N/A"}}</td>
+                        </tr>
+                        <tr class="alternate-row">
+                            <td class="title">Liabilities to Assets Ratio</td>
+                            <td class="value">{{(nonprofitRating?.financialRating?.performanceMetrics?.liabilitiesToAssetsRatio | percent: '0.1') || "N/A"}}</td>
+                        </tr>
+                        <tr class="primary-row">
+                            <td class="title">Working Capital</td>
+                            <td class="value">{{nonprofitRating?.financialRating?.performanceMetrics?.workingCapitalRatio || "N/A"}} Years</td>
+                        </tr>
+                    </table>
+                    <table class="financials-table">
+                        <tr class="table-header">
+                            <th>Stat</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr class="primary-row">
+                            <td class="title">Primary Revenue Growth</td>
+                            <td class="value">{{(nonprofitRating?.financialRating?.performanceMetrics?.primaryRevenueGrowth | percent: '0.1') || "N/A"}}</td>
+                        </tr>
+                        <tr class="alternate-row">
+                            <td class="title">Fundraising Expenses</td>
+                            <td class="value">{{(nonprofitRating?.form990?.fundraisingExpenses | currency) || "N/A"}}</td>
+                        </tr>
+                        <tr class="primary-row">
+                            <td class="title">Administrative Expenses</td>
+                            <td class="value">{{(nonprofitRating?.form990?.administrativeExpenses | currency) || "N/A"}}</td>
+                        </tr>
+                        <tr class="alternate-row">
+                            <td class="title">Program Expenses</td>
+                            <td class="value">{{(nonprofitRating?.form990?.programExpenses | currency) || "N/A"}}</td>
+                        </tr>
+                        <tr class="primary-row">
+                            <td class="title">Total Expenses</td>
+                            <td class="value">{{(nonprofitRating?.form990?.totalExpenses | currency) || "N/A"}}</td>
+                        </tr>
+                        <tr class="alternate-row">
+                            <td class="title">Total Revenue</td>
+                            <td class="value">{{(nonprofitRating?.form990?.totalRevenue | currency) || "N/A"}}</td>
+                        </tr>
+                        <tr class="primary-row">
+                            <td class="title">Total Net Assets</td>
+                            <td class="value">{{(nonprofitRating?.form990?.totalNetAssets | currency) || "N/A"}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="content-row">
+            
+        </div>
+        <div class="content-row">
+            
+        </div>
+        <div class="content-row">
+            
+        </div>
     </div>
 
     <div *ngIf="sidenavOpened" class="sidebar-container">
@@ -42,7 +154,7 @@
                 <div class="rating-content-container">
                     <div class="current-rating-container">
                         <p class="current-rating-title">Current Rating:</p>
-                        <p class="current-rating-value">{{getNonprofitRating()}}</p>
+                        <p class="current-rating-value">{{calculateNonprofitRating()}}</p>
                         <p class="current-rating-subtitle">out of 5</p>
                     </div>
                     <div class="divider"></div>
@@ -57,7 +169,7 @@
         <mat-card class="mission-card">
             <mat-card-content>
                 <p class="card-title">Mission</p>
-                <p>{{getNonprofitMission()}}</p>
+                <p>{{nonprofit?.mission}}</p>
             </mat-card-content>
         </mat-card>
 

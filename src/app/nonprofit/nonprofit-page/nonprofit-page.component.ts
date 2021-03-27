@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Nonprofit, NonprofitsService, Rating } from 'src/app/misc-services/nonprofits.service';
+import { switchMap } from 'rxjs/operators';
 import {Inject} from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import { CurrencyMaskInputMode, NgxCurrencyModule } from "ngx-currency";
+import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { MatStep, MatStepper } from '@angular/material/stepper';
 
 @Component({
@@ -13,15 +15,31 @@ import { MatStep, MatStepper } from '@angular/material/stepper';
   styleUrls: ['./nonprofit-page.component.scss']
 })
 export class NonprofitPageComponent implements OnInit {
-  nonprofitName = '';
-  nonprofitFavorited = false;
-  sidenavOpened = true;
+  nonprofit?: Nonprofit;
+  nonprofitRating?: Rating;
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog) { }
+  nonprofitFavorited = false;
+  sidenavOpened = false;
+
+  constructor(private route: ActivatedRoute, private nonprofitService: NonprofitsService, public dialog: MatDialog) {
+
+  }
 
   ngOnInit(): void {
-    // TODO: need to make sure this route is only accessible when id is passed in
-    this.nonprofitName = this.route.snapshot.paramMap.get('nonprofit-id') as string;
+    this.route.params.pipe(
+      switchMap((param) => {
+        const ein = param['nonprofit-id'];
+        return this.nonprofitService.getNonprofit(ein).pipe(
+          switchMap((response) => {
+            this.nonprofit = response;
+            const ratingID = response.currentRating?.ratingID ? response.currentRating.ratingID : -1;
+            return this.nonprofitService.getRatingForNonprofit(ein, ratingID);
+          })
+        );
+      })
+    ).subscribe((response) => {
+      this.nonprofitRating = response;
+    });
   }
 
   // TODO: fetch from database
@@ -30,22 +48,20 @@ export class NonprofitPageComponent implements OnInit {
   }
 
   getUserNonprofitRating(): number {
-    return 4;
+    return 0;
   }
 
   // TODO: package these getters into a single object later
-  getNonprofitRating(): number {
+  calculateNonprofitRating(): string {
     // use "score" field - out of 100.
     // score / 100 = x / 5
     // x = score / 100 * 5 (out of 5 stars)
-    return 4.4;
-  }
-
-  getNonprofitMission(): string {
-    return `The mission of ${this.nonprofitName} is to serve the world
-            for good, and to increase the transparency of other nonprofits.
-            We want each and every person to be able to make informed
-            donation decisions.`;
+    if (this.nonprofitRating) {
+      const rating = this.nonprofitRating.score;
+      const ratingOutOf5 = (rating / 100 * 5).toFixed(1);
+      return ratingOutOf5;
+    }
+    return 'N/A';
   }
 
   getNonprofitSpendingEfficiency(): number {
@@ -58,16 +74,17 @@ export class NonprofitPageComponent implements OnInit {
   }
 
   goToNonprofitHomePageExternal(): void {
-    // replace with making a modal appear with yes or no, and then modal
+    // TODO: replace with making a modal appear with yes or no, and then modal
     // will navigate to home page based on yes / no
-    console.log('Navigating to external home page');
+    console.log(`navigating to ${this.nonprofit?.websiteURL}`);
+    window.open(`${this.nonprofit?.websiteURL}`, '_blank');
   }
 
   openDonateDialog(): void {
-    this.dialog.open(DonationDialog, {
+    this.dialog.open(DonationDialogComponent, {
       data: {
-        nonprofitName: this.nonprofitName,
-        someString: "testing string data injection!"
+        nonprofitName: this.nonprofit?.charityName,
+        someString: 'testing string data injection!'
       },
       height: '30rem', // Height of donation dialog
       width: '50rem', // Width of donation dialog
@@ -97,11 +114,11 @@ export class NonprofitPageComponent implements OnInit {
 // ===================================================
 
 @Component({
-  selector: './donation-dialog',
+  selector: './app-donation-dialog',
   templateUrl: './donation-dialog.html',
   styleUrls: ['./donation-dialog.scss']
 })
-export class DonationDialog {
+export class DonationDialogComponent {
   organizationName: string;
 
   // Defining Step Forms
@@ -125,15 +142,15 @@ export class DonationDialog {
     this.organizationName = data.nonprofitName;
 
     // Initializing confirmation variables
-    this.confCardHolderName = "";
-    this.confExpDate = "";
-    this.confCardNumber = "";
-    this.confCardCVC = "";
-    this.confDonationAmount = "";
-    this.confStreetAddress = "";
-    this.confCity = "";
-    this.confState = "";
-    this.confEmailAddress = "";
+    this.confCardHolderName = '';
+    this.confExpDate = '';
+    this.confCardNumber = '';
+    this.confCardCVC = '';
+    this.confDonationAmount = '';
+    this.confStreetAddress = '';
+    this.confCity = '';
+    this.confState = '';
+    this.confEmailAddress = '';
 
     // Donation Amount Form
     this.donationAmountForm = this.formBuilder.group({
@@ -154,30 +171,30 @@ export class DonationDialog {
 
     // Confirmation Form
     this.confirmationForm = this.formBuilder.group({
-      
+
     });
   }
 
-  submitDonation()
+  submitDonation(): void
   {
     // Clearing variables
-    this.confDonationAmount = "";
-    this.confCardHolderName = "";
-    this.confStreetAddress = "";
-    this.confCity = "";
-    this.confState = "";
-    this.confCardNumber = "";
-    this.confExpDate = "";
-    this.confCardCVC = "";
-    this.confEmailAddress = "";
-    
+    this.confDonationAmount = '';
+    this.confCardHolderName = '';
+    this.confStreetAddress = '';
+    this.confCity = '';
+    this.confState = '';
+    this.confCardNumber = '';
+    this.confExpDate = '';
+    this.confCardCVC = '';
+    this.confEmailAddress = '';
+
     this.dialogRef.closeAll();
   }
 
 
   // The following 'get' methods are used in the
   // html file to display user information on confirmation tab
-  getCardHolderName() : string {
+  getCardHolderName(): string {
     const cardHolderName = this.donorInformationForm.get('cardHolderName')?.value;
     this.confCardHolderName = cardHolderName;
 
@@ -191,21 +208,21 @@ export class DonationDialog {
     return cardNumber;
   }
 
-  getCardExpDate():string {
+  getCardExpDate(): string {
     const cardExpDate = this.donorInformationForm.get('cardExpirationDate')?.value;
     this.confExpDate = cardExpDate;
 
     return cardExpDate;
   }
 
-  getCardCVC():string {
-    const cardCVC = this.donorInformationForm.get('cardCVC')?.value
+  getCardCVC(): string {
+    const cardCVC = this.donorInformationForm.get('cardCVC')?.value;
     this.confCardCVC = cardCVC;
 
     return cardCVC;
   }
 
-  getDonationAmount():string {
+  getDonationAmount(): string {
     const donationAmount = this.donationAmountForm.get('donationAmount')?.value;
     this.confDonationAmount = donationAmount;
 
