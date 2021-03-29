@@ -22,9 +22,9 @@ export class NonprofitsService {
   }
 
   getNonprofit(ein: string): Observable<Nonprofit> {
-    const organizationURL = this.organizationsBaseURL + ein;
-    console.log(this.organizationBaseURL);
-    return this.httpClient.get<Nonprofit>(this.organizationBaseURL);
+    const organizationURL = this.organizationBaseURL + ein;
+    console.log(organizationURL);
+    return this.httpClient.get<Nonprofit>(organizationURL);
   }
 }
 
