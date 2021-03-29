@@ -8,9 +8,24 @@
         <span class="spacer"></span>
         <div class="centered-content">
           <mat-form-field class="search-bar" color="primary" appearance="outline">
+
+            <!-- Search Nonprofits input -->
             <mat-label>Search Nonprofits</mat-label>
-            <input matInput placeholder="Search">
-            <mat-icon matPrefix>search</mat-icon>
+            <input #searchNonprofitValue 
+              (keydown.enter)="searchNonProfits(searchNonprofitValue.value)"
+              matInput 
+              placeholder="Search"
+              type="text"
+              [formControl]="searchInput"
+              [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let nonprofits of filteredNonProfits | async" [value]="nonprofits">
+                  {{nonprofits}}
+                </mat-option>
+              </mat-autocomplete>
+
+
+            <mat-icon style="cursor: pointer;" (click)="searchNonProfits(searchNonprofitValue.value)" matSuffix>search</mat-icon>
           </mat-form-field>
           <button mat-button class="account-button" [mat-menu-trigger-for]="accountMenu">
             <mat-icon class="icon">admin_panel_settings</mat-icon>
