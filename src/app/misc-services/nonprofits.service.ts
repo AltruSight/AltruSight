@@ -33,6 +33,12 @@ export class NonprofitsService {
     console.log(ratingURL);
     return this.httpClient.get<Rating>(ratingURL);
   }
+
+  getSimilarNonprofits(categoryID: number): Observable<Nonprofit[]> {
+    const similarNonprofitURL = this.organizationsBaseURL + `&causeID=${categoryID}`;
+    console.log(similarNonprofitURL);
+    return this.httpClient.get<Nonprofit[]>(similarNonprofitURL);
+  }
 }
 
 export interface Nonprofit {
@@ -50,8 +56,8 @@ export interface Nonprofit {
     categoryID: number | null;
   };
   cause?: {
-    causeName: string | null;
-    causeID: number | null;
+    causeName: string;
+    causeID: number;
   };
   irsClassification?: {
     deductibility: string | null;

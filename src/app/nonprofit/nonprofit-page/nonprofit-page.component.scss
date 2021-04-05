@@ -90,7 +90,7 @@
             .info-box {
                 display: flex;
                 flex-direction: column;
-                flex: 1 0 300px;
+                flex: 1 0 auto;
                 margin: 2%;
                 background-color: $accent-4;
                 border-radius: 20px;
@@ -122,6 +122,54 @@
                     opacity: 0.85;
                     padding: 5px;
                 }
+                .similar-nonprofit-list {
+                    display: flex;
+                    flex-direction: column;
+                    list-style-type: none;
+                    padding: 5px;
+                    margin: 20px;
+                    .list-item {
+                        color: $primary-off-white;
+                        font-weight: bold;
+                        font-size: 25px;
+                        height: 30px;
+                    }
+                    .list-item:hover {
+                        cursor: pointer;
+                        background-color: $accent-2;
+                    }
+                }
+                .accountability-table {
+                    margin: 0px 30px 0px 30px;
+                    font-size: 25px;
+                    border-collapse: collapse;
+                    flex: 0 0 auto;
+                    .table-header {
+                        color: $primary-off-white;
+                        opacity: 0.85;
+                    }
+                    .title {
+                        text-align: left;
+                        text-indent: 5px;
+                        font-weight: bold;
+                    }
+                    .value {
+                        text-align: center;
+                        .mat-icon {
+                            font-size: 35px;
+                            height: 35px;
+                            width: 35px;
+                        }
+                    }
+                    .primary-row {
+                        color: $primary-off-white;
+                        height: 35px;
+                    }
+                    .alternate-row {
+                        background-color: $accent-1;
+                        height: 35px;
+                    }
+                }
                 .financials-container {
                     display: flex;
                     flex-direction: row;
@@ -132,7 +180,6 @@
                         border-collapse: collapse;
                         font-size: 25px;
                         .table-header {
-                            background-color: $accent-4;
                             color: $primary-off-white;
                             opacity: 0.85;
                             font-size: 20px;
@@ -144,7 +191,6 @@
                             text-align: right;
                         }
                         .primary-row {
-                            background-color: $accent-4;
                             color: $primary-off-white;
                             height: 35px;
                         }
