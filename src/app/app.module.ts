@@ -42,6 +42,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 // Angular Firebase Imports
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 // 3rd Party Modules
 import { BarRatingModule } from 'ngx-bar-rating';
@@ -93,6 +94,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
     // Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFirestoreModule,
     // 3rd Party
     BarRatingModule,
     FontAwesomeModule,
