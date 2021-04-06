@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { baseOrganizationsUrl, baseOrganizationUrl } from '../utils/Constants';
+import { baseOrganizationsUrl, baseOrganizationUrl, searchOrganizationsUrl} from '../utils/Constants';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,15 @@ import { baseOrganizationsUrl, baseOrganizationUrl } from '../utils/Constants';
 export class NonprofitsService {
   organizationsBaseURL = `${baseOrganizationsUrl}`;
   organizationBaseURL = `${baseOrganizationUrl}`;
-
+  searchOrgUrl = `${searchOrganizationsUrl}`;
+  
   constructor(private httpClient: HttpClient) {
+  }
+
+  searchNonprofitsByName(searchparam: string): Observable<Nonprofit[]>
+  {
+    const searchOrgUrl = this.searchOrgUrl + searchparam;
+    return this.httpClient.get<Nonprofit[]>(searchOrgUrl);
   }
 
   // TODO: Add params to this method

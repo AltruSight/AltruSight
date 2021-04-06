@@ -4,6 +4,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Nonprofit, NonprofitsService } from '../misc-services/nonprofits.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
 
 @Component({
   selector: 'app-nonprofit-search-page',
@@ -16,14 +18,37 @@ export class NonprofitSearchPageComponent implements OnInit {
   pageEvent: PageEvent;
   nonprofitOrganizations: Nonprofit[] = [];
 
-  constructor(private nonprofitService: NonprofitsService) {
+
+  // Defining variables for search functionality
+  searchNonProfitResults: Nonprofit[] = [];
+
+
+  constructor(private nonprofitService: NonprofitsService, private route: ActivatedRoute) {
     this.pageEvent = new PageEvent();
     this.pageEvent.pageIndex = 0;
     this.pageSize = 10;
 
-    this.nonprofitService.getNonprofits().subscribe((response) => {
-      this.nonprofitOrganizations = response;
-    });
+
+    const searchParam = this.route.snapshot.paramMap.get('searchParam') as string;
+
+    console.log(searchParam);
+
+    // Check if we are being redirected to this page from search query
+    if(searchParam != null)
+    {
+      // this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
+      this.nonprofitService.searchNonprofitsByName(searchParam).
+        subscribe((response) => {
+          this.nonprofitOrganizations = response;
+      });
+    }
+    else
+    {
+      this.nonprofitService.getNonprofits().subscribe((response) => {
+        this.nonprofitOrganizations = response;
+      });
+    }
+
   }
 
   getNonprofits(pageEvent: PageEvent): Nonprofit[] {

@@ -9,9 +9,12 @@
         <div class="centered-content">
           <mat-form-field class="search-bar" color="primary" appearance="outline">
 
+
             <!-- Search Nonprofits input -->
             <mat-label>Search Nonprofits</mat-label>
-            <input #searchNonprofitValue 
+            <!-- KEEP CODE BELOW: In case we want to improve search funtinality -->
+            <!-- 
+              <input #searchNonprofitValue 
               (keydown.enter)="searchNonProfits(searchNonprofitValue.value)"
               matInput 
               placeholder="Search"
@@ -19,10 +22,13 @@
               [formControl]="searchInput"
               [matAutocomplete]="auto">
               <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let nonprofits of filteredNonProfits | async" [value]="nonprofits">
-                  {{nonprofits}}
-                </mat-option>
-              </mat-autocomplete>
+            -->
+            <input #searchNonprofitValue 
+              matInput
+              (keydown.enter)="searchNonProfits(searchNonprofitValue.value)"
+              placeholder="Search"
+              type="text"
+              autocomplete="auto">     
 
 
             <mat-icon style="cursor: pointer;" (click)="searchNonProfits(searchNonprofitValue.value)" matSuffix>search</mat-icon>

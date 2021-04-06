@@ -18,8 +18,8 @@ export class AppComponent {
   sidebarOpened: boolean;
   allNonProfitsNames: string[] = [];
 
-  searchInput = new FormControl();
-  filteredNonProfits: Observable<string[]>;
+  // searchInput = new FormControl();
+  // filteredNonProfits: Observable<string[]>;
 
 
   // TODO: issue with auth --> auth service is not instantiated until AFTER app component is
@@ -29,20 +29,24 @@ export class AppComponent {
       this.sidebarOpened = this.authService.isLoggedIn;
       this.nonProfitsService.getNonprofit('')
 
+      // KEEP CODE BELOW: In case we want to improve search functinality
+      // as a drop down -->
       // Initialize array that will hold nonprofit names
-      this.initializeNonProfitsNamesArr();
-      this.filteredNonProfits = this.searchInput.valueChanges.pipe(
-        // startWith(''),
-        map(value => this._filter(value))
-      );
+      // this.initializeNonProfitsNamesArr();
+      // this.filteredNonProfits = this.searchInput.valueChanges.pipe(
+      //   // startWith(''),
+      //   map(value => this._filter(value))
+      // );
   }
 
   //========================================================
-  // Helper function to filer nonprofits as user types
+  // Helper function to filer nonprofits as user types. 
+  // This function wil trigger on user input
   //========================================================
-  private _filter(value: string): string[] {
-    if(value.length != 0) {
-      const filterValue = value.toLowerCase();
+  private _filter(searchParam: string): string[] {
+    if(searchParam.length != 0) {
+
+      const filterValue = searchParam.toLowerCase();
       return this.allNonProfitsNames.filter(option => option.toLowerCase().indexOf(filterValue) >= 0);    
     }
 
@@ -56,43 +60,51 @@ export class AppComponent {
   // Need to find a way to make this better. 
   //========================================================
   private initializeNonProfitsNamesArr(): void {
+
     this.nonProfitsService.getNonprofits().subscribe((response) => {
-      console.log(response);
-  
       for(var val of response) {
         this.allNonProfitsNames.push(val.charityName);
-        // console.log(val.charityName);
       }
     });
   }
 
+  //========================================================
+  // Toggle side bar
+  //========================================================
   toggleSidebarOpened(): void {
     this.sidebarOpened = !this.sidebarOpened;
   }
 
-  searchNonProfits(nonprofit: string): void
+  //========================================================
+  // Will redirect web app to non-profits search page with 
+  // search parameter to display resutls
+  //========================================================
+  searchNonProfits(searchParam: string): void
   {
     // Only search if input is not empty
-    if(0 < nonprofit.length )
-    {
-      console.log("Searching for: " + nonprofit);
-      
-      // const IchHabeEinenTraum_EIN = '133355315'
-      // this.nonProfitsService.getNonprofit(IchHabeEinenTraum_EIN).subscribe((response) => {
-      //   console.log("Response for http request");
-      //   console.log(response);
-      //   //this.nonprofit = response;
-      // });
+    if(0 < searchParam.length )
+    {      
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigate([`nonprofits/${searchParam}`]));
     }
   }
 
+  //========================================================
+  // Get prfile pic from assets for now
+  //========================================================
   // TODO: Move these methods to user-info service
   getProfilePictureURL(): string {
     return '../../assets/profile-placeholder.png';
   }
 
+  //========================================================
+  // Get user name
+  //========================================================
   getUsername(): string { return this.authService.username; }
 
+  //========================================================
+  // Get favorite nonprofits
+  //======================================================== 
   getFavoriteNonprofits(): string[] {
     return [
       'Wikipedia',
@@ -104,6 +116,9 @@ export class AppComponent {
     ];
   }
 
+  //========================================================
+  // Get friends' usernames
+  //========================================================
   getFriendsUsernames(): string[] {
     return [
       'Andrew',
@@ -113,27 +128,45 @@ export class AppComponent {
     ];
   }
 
+  //========================================================
+  // Get friends' profile pictures
+  //========================================================
   getFriendProfilePictureURL(friend: string): string {
     return '../../assets/profile-placeholder.png';
   }
 
+  //========================================================
+  // Get progress?
+  //========================================================
   getProgress(): number {
     return 35;
   }
 
+  //========================================================
+  // Get goal
+  //========================================================
   getGoal(): number {
     return 76;
   }
 
+  //========================================================
+  // Get percentage
+  //========================================================
   getProgressPercentage(): number {
     return this.getProgress() / this.getGoal() * 100;
   }
 
+  //========================================================
+  // Navigate to page router
+  //========================================================
   navigateTo(page: string): void {
     this.router.navigateByUrl(`${page}`);
     this.sidebarOpened = false;
   }
 
+  //========================================================
+  // Navigate to nonprofit page router
+  //========================================================
   navigateToNonprofit(nonprofitId: string): void {
     this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
     this.sidebarOpened = false;
