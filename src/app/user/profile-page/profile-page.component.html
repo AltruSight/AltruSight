@@ -2,10 +2,39 @@
     <h1 class="title">Welcome, {{username}}</h1>
     <div class="row">
         <div class="col1">
-            <div class="account-settings"></div>
+            <!--TODO: open specific settings when clicked -->
+            <h2 class="subtitle">Account Settings</h2>
+            <div class="account-settings">
+                <div class="account-settings-edit-profile">
+                    <p>Edit Profile</p>
+                </div>
+                <div class="account-settings-payment-methods">
+                    <p>Payment Methods</p>
+                </div>
+                <div class="account-settings-privacy">
+                    <p>Privacy</p>
+                </div>
+                <div class="account-settings-notifications">
+                    <p>Notifications</p>
+                </div>
+            </div>
         </div>
         <div class="col2">
-            <div class="donation-history"></div>
+            <h2 class="subtitle">Donation History</h2>
+            <div class="donation-history">
+                <mat-card class="donationHistoryCards" *ngFor="let donations of getDonations()">
+                    <mat-card-header>
+                        <mat-card-title> 
+                            <span class="paymentFeedTitleNotImportant"> You donated ${{donations.donationAmount}} to </span> 
+                            <span class="paymentFeedTitleNonprofitName">{{donations.donationCharityName}}</span> 
+                            <span class="paymentFeedTitleDonationAmount"> on {{donations.donationDate}}</span>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content class="paymentFeedCardDescription">
+                        {{donations.donationDescription}}
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
     </div>
 </div>
