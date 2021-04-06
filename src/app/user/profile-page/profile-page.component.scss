@@ -19,6 +19,22 @@
             flex: 1 1 0; 
             background-color: $accent-1;
             margin: 0 10px 0 10px;
+            text-align: center;
+            .account-settings {
+                background-color:white;
+                text-align:left;
+                width:90%;
+                margin-left: auto;
+                margin-right: auto;
+                div:hover {
+                    background-color:lightgray;
+                }
+                div {
+                    border-width:1px;
+                    border-color:gray;
+                    border-style: none none solid none;
+                }
+            }
         }
         .col2 {
             display: flex; 
@@ -26,6 +42,16 @@
             flex: 1 1 0; 
             background-color: $accent-2;
             margin: 0 10px 0 10px;
+            text-align: center;
+            .donation-history {
+                text-align: left;
+                margin: 10px;
+                border-radius: 20px;
+                .whitespace {
+                    height:2px;
+                }
+            }
+
         }
     }
 }
