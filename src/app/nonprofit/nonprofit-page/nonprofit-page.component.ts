@@ -5,6 +5,9 @@ import { concatMap, map, switchMap } from 'rxjs/operators';
 import {Inject} from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import firebase from 'firebase/app';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-nonprofit-page',
@@ -22,7 +25,9 @@ export class NonprofitPageComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private nonprofitService: NonprofitsService,
               public dialog: MatDialog,
-              private router: Router) {
+              private router: Router,
+              private firestoreDB: AngularFirestore,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -52,6 +57,9 @@ export class NonprofitPageComponent implements OnInit {
     const randomNumbers: number[] = [];
     const similarNonprofits = this.similarNonprofits ? this.similarNonprofits : [];
 
+    return similarNonprofits.slice(0, 4);
+
+    /*
     while (randomNumbers.length < 4 && similarNonprofits.length !== 0) {
       const randomNumber = Math.floor(Math.random() * similarNonprofits.length) + 1;
       if (randomNumbers.indexOf(randomNumber) === -1) {
@@ -64,6 +72,7 @@ export class NonprofitPageComponent implements OnInit {
     return similarNonprofits.filter((nonprofit, index) => {
       return randomNumbers.indexOf(index) !== -1;
     });
+    */
   }
 
   // TODO: fetch from database
@@ -120,7 +129,27 @@ export class NonprofitPageComponent implements OnInit {
   }
 
   toggleNonprofitFavorited(): void {
-    this.nonprofitFavorited = !this.nonprofitFavorited;
+    if (this.authService.isLoggedIn) {
+      const userID = this.authService.userId;
+      const ein = this.nonprofit?.ein;
+
+      if (this.nonprofitFavorited) {
+        this.firestoreDB.collection('users').doc(userID).set({
+          favorites: firebase.firestore.FieldValue.arrayRemove(ein),
+        }, {merge: true}).then(() => {
+          this.nonprofitFavorited = !this.nonprofitFavorited;
+        });
+      } else {
+        this.firestoreDB.collection('users').doc(userID).set({
+          favorites: firebase.firestore.FieldValue.arrayUnion(ein),
+        }, {merge: true}).then(() => {
+          this.nonprofitFavorited = !this.nonprofitFavorited;
+        });
+      }
+    } else {
+      // TODO: Open toast notification / dialog
+      console.log('Must be logged in!');
+    }
   }
 
   toggleSidenavOpened(): void {

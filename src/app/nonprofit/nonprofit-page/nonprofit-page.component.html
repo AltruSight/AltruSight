@@ -55,7 +55,7 @@
                 <span class="info-title">Cause</span>
                 <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.cause?.causeName}}</span>
                 <span class="info-title">Tagline</span>
-                <span class="info-subtitle" style="align-self: center; font-size: 15px; opacity: 0.83">{{nonprofit?.tagLine}}</span>
+                <span class="info-subtitle" style="width: 350px; align-self: center; text-align: center; font-size: 15px; opacity: 0.83">{{nonprofit?.tagLine}}</span>
             </div>
             <div class="info-box">
                 <span class="info-title">Tax Status</span>
@@ -282,7 +282,7 @@
                 </table>
             </div>
         </div>
-        <div class="content-row">
+        <div class="content-row" *ngIf="similarNonprofits">
             <div class="info-box">
                 <h1 class="content-title">Similar Nonprofits</h1>
                 <ul class="similar-nonprofit-list">
