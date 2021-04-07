@@ -32,15 +32,22 @@ export class AuthService {
   }
 
   // returns error message (or blank error message)
-  register(userEmail: string, userPassword: string): Promise<string> {
+  register(userEmail: string, userPassword: string, username: string): Promise<string> {
     return this.auth.createUserWithEmailAndPassword(userEmail, userPassword)
-    .then(() => {
+    .then((response) => {
+
+      // Set display name for user
+      response.user?.updateProfile({
+        displayName: username
+      })
+      
       this.router.navigateByUrl('/').then((navigated: boolean) => {
         if (navigated) {
           this.messagesService.openSnackBar('Account registered successfully!', 'Close', 5000);
         }
       });
       return '';
+
     })
     .catch((error) => {
       console.error(error);
@@ -51,10 +58,9 @@ export class AuthService {
   // returns an error message (or blank error message)
   signIn(userEmail: string, userPassword: string): Promise<string> {
     return this.auth.signInWithEmailAndPassword(userEmail, userPassword)
-      .then(() => {
+      .then((response) => {
         // Successfully signed in
-        console.log('Signed in!');
-
+        // console.log("Welcome: " + response.user?.displayName);
         this.router.navigateByUrl('/').then((navigated: boolean) => {
           if (navigated) {
             this.messagesService.openSnackBar('Logged in successfully!', 'Close', 5000);

@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   userEmailControl: FormControl;
+  userNameControl: FormControl;
 
   userPasswordsGroup: FormGroup;
   userPasswordControl: FormControl;
@@ -30,6 +31,10 @@ export class RegisterComponent implements OnInit {
   constructor(public router: Router,
               private messagesService: MessagesService,
               private authService: AuthService) {
+    // Username
+    this.userNameControl = new FormControl('', [
+      Validators.required
+    ]);
 
     // User Email
     this.userEmailControl = new FormControl('', [
@@ -92,22 +97,24 @@ export class RegisterComponent implements OnInit {
     return null;
   }
 
-  register(userEmail: string, userPassword: string, userConfirmPassword: string): void {
+  register(userEmail: string, userPassword: string, userConfirmPassword: string, userName: string): void {
     this.registerErrorMessage = '';
     // Double checking that passwords are equal to each other but redundant as its
     // alread checked by the form --> (this.userPasswordsGroup.valid)
     const passwordsEqual = userPassword === userConfirmPassword;
 
-    if (this.userPasswordsGroup.valid && this.userEmailControl.valid && passwordsEqual) {
-      console.log('Creating user!');
+    if (this.userPasswordsGroup.valid && 
+          this.userEmailControl.valid && 
+          passwordsEqual &&
+          this.userNameControl.valid) {
 
-      this.authService.register(userEmail, userPassword)
-      .then((message) => {
-        this.registerErrorMessage = message;
-      })
-      .catch((error) => {
-        this.registerErrorMessage = error;
-      });
+      this.authService.register(userEmail, userPassword, userName)
+        .then((message) => {
+          this.registerErrorMessage = message;
+        })
+        .catch((error) => {
+          this.registerErrorMessage = error;
+        });
     }
     else {
       this.registerErrorMessage = ErrorMessages.makeSureInputFieldsValid;
