@@ -28,10 +28,7 @@ export class NonprofitSearchPageComponent implements OnInit {
     this.pageEvent.pageIndex = 0;
     this.pageSize = 10;
 
-
     const searchParam = this.route.snapshot.paramMap.get('searchParam') as string;
-
-    console.log(searchParam);
 
     // Check if we are being redirected to this page from search query
     if(searchParam != null)

@@ -47,7 +47,7 @@ export class AppComponent {
     if(searchParam.length != 0) {
 
       const filterValue = searchParam.toLowerCase();
-      return this.allNonProfitsNames.filter(option => option.toLowerCase().indexOf(filterValue) >= 0);    
+      return this.allNonProfitsNames.filter(possibleResult => possibleResult.toLowerCase().indexOf(filterValue) >= 0);    
     }
 
     return [];

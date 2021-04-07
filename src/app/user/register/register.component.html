@@ -13,16 +13,24 @@
 
             <!-- Container for register inputs-->
             <form [formGroup]="registerForm" class="register-inputs">
-                <!-- Email input -->
-                <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input [formControl]="userEmailControl" matInput placeholder="Enter a Valid Email Address">
-                    <mat-icon matSuffix>email</mat-icon>
-                    <mat-error *ngIf="userEmailControl.hasError('required')">Please enter an email address</mat-error>
-                    <mat-error *ngIf="userEmailControl.hasError('email')">Please enter a <b>valid</b> email address </mat-error>
-                </mat-form-field>
-    
                 <div formGroupName="userPasswordsGroup">
+                    <!-- Username input -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Your Desired Username</mat-label>
+                        <input [formControl]="userNameControl" matInput placeholder="Enter a Username">
+                        <mat-icon matSuffix>face</mat-icon>
+                        <mat-error *ngIf="userNameControl.hasError('required')">Please enter a username</mat-error>
+                    </mat-form-field>
+
+                    <!-- Email input -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input [formControl]="userEmailControl" matInput placeholder="Enter a Valid Email Address">
+                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-error *ngIf="userEmailControl.hasError('required')">Please enter an email address</mat-error>
+                        <mat-error *ngIf="userEmailControl.hasError('email')">Please enter a <b>valid</b> email address </mat-error>
+                    </mat-form-field>
+
                     <!-- Password input -->
                     <mat-form-field appearance="outline">
                         <mat-label>Password</mat-label>
@@ -48,8 +56,7 @@
                 
 
                 <!-- Sign in button -->
-                <button (click)="register(userEmailControl.value, userPasswordControl.value, userPasswordConfirmControl.value)" class="register-button" mat-raised-button color="primary">Register</button>
-            </form>
+                <button (click)="register(userEmailControl.value, userPasswordControl.value, userPasswordConfirmControl.value, userNameControl.value)" class="register-button" mat-raised-button color="primary">Register</button>            </form>
             <div class="sign-in-instead">
                 <a href="/login"> Sign in instead</a>
             </div>
