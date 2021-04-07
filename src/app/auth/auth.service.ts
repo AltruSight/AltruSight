@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 import { MessagesService } from '../misc-services/messages.service';
 
 @Injectable({
@@ -10,7 +11,6 @@ export class AuthService {
 
   isLoggedIn = false;
   username = 'Default Profile Name';
-  userId = 'Default User ID';
 
   // TODO: Make sidebar pop up immediately upon logging in
   // My theory is that it's not being rerendered until a click
@@ -20,15 +20,16 @@ export class AuthService {
         if (user) {
           console.log('signed in');
           this.isLoggedIn = true;
-          this.username = user.displayName ? user.displayName : 'Default Profile Name';
-          this.userId = user.uid;
         } else {
           this.isLoggedIn = false;
-          this.username = 'Default Profile Name';
-          this.userId = '';
         }
       }
     );
+  }
+
+  async getUserId(): Promise<string | undefined> {
+    const user = await this.auth.authState.pipe(first()).toPromise();
+    return user?.uid;
   }
 
   // returns error message (or blank error message)

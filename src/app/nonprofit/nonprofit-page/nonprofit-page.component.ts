@@ -18,6 +18,7 @@ export class NonprofitPageComponent implements OnInit {
   nonprofit?: Nonprofit;
   nonprofitRating?: Rating;
   similarNonprofits?: Nonprofit[];
+  userID: any;
 
   nonprofitFavorited = false;
   sidenavOpened = false;
@@ -34,20 +35,38 @@ export class NonprofitPageComponent implements OnInit {
     this.route.params.pipe(
       concatMap((param) => {
         const ein = param['nonprofit-id'];
+        // TODO: fix this nested subscribe within concatMap, for now it can stay
+        // getting firebase user information
+        this.authService.getUserId().then((userID) => {
+          this.userID = userID;
+          this.firestoreDB.collection('users').doc(`${userID}`).get()
+          .subscribe((snapshot: any) => {
+            const data = snapshot.data();
+            const favorites: string[] = data.favorites;
+            // check if the nonprofit is in list of favorites in DB
+            if (favorites.includes(ein)){
+              this.nonprofitFavorited = true;
+            } else {
+              this.nonprofitFavorited = false;
+            }
+          });
+        });
         return this.nonprofitService.getNonprofit(ein).pipe(
-          concatMap((nonprofit) => {
-            this.nonprofit = nonprofit;
-            const ratingID = nonprofit.currentRating?.ratingID ? nonprofit.currentRating.ratingID : -1;
-            return this.nonprofitService.getRatingForNonprofit(ein, ratingID).pipe(
-              concatMap((nonprofitRating) => {
-                this.nonprofitRating = nonprofitRating;
-                const causeID = this.nonprofit?.cause?.causeID ? this.nonprofit?.cause?.causeID : 0;
-                return this.nonprofitService.getSimilarNonprofits(causeID);
-              })
-            );
-          })
+          map(nonprofit => [ein, nonprofit])
         );
-      })
+      }),
+      concatMap(([ein, nonprofit]) => {
+        this.nonprofit = nonprofit;
+        const ratingID = nonprofit.currentRating?.ratingID ? nonprofit.currentRating.ratingID : -1;
+        return this.nonprofitService.getRatingForNonprofit(ein, ratingID).pipe((
+          map(nonprofitRating => [nonprofitRating, nonprofit])
+        ));
+      }),
+      concatMap(([nonprofitRating, nonprofit]) => {
+        this.nonprofitRating = nonprofitRating;
+        const causeID = nonprofit.cause.causeID ? nonprofit.cause.causeID : 0;
+        return this.nonprofitService.getSimilarNonprofits(causeID);
+      }),
     ).subscribe((response) => {
       this.similarNonprofits = response;
     });
@@ -75,7 +94,6 @@ export class NonprofitPageComponent implements OnInit {
     */
   }
 
-  // TODO: fetch from database
   getNonprofitFavorited(): boolean {
     return this.nonprofitFavorited;
   }
@@ -130,17 +148,16 @@ export class NonprofitPageComponent implements OnInit {
 
   toggleNonprofitFavorited(): void {
     if (this.authService.isLoggedIn) {
-      const userID = this.authService.userId;
       const ein = this.nonprofit?.ein;
 
       if (this.nonprofitFavorited) {
-        this.firestoreDB.collection('users').doc(userID).set({
+        this.firestoreDB.collection('users').doc(this.userID).set({
           favorites: firebase.firestore.FieldValue.arrayRemove(ein),
         }, {merge: true}).then(() => {
           this.nonprofitFavorited = !this.nonprofitFavorited;
         });
       } else {
-        this.firestoreDB.collection('users').doc(userID).set({
+        this.firestoreDB.collection('users').doc(this.userID).set({
           favorites: firebase.firestore.FieldValue.arrayUnion(ein),
         }, {merge: true}).then(() => {
           this.nonprofitFavorited = !this.nonprofitFavorited;
