@@ -16,6 +16,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent },
   {path: 'nonprofit/:nonprofit-id', component: NonprofitPageComponent},
   {path: 'nonprofits', component: NonprofitSearchPageComponent},
+  {path: 'nonprofits/:searchParam', component: NonprofitSearchPageComponent},
   {path: 'profile', component: ProfilePageComponent},
   {path: 'friends', component: FriendsPageComponent},
   {path: 'account-stats', component: AccountStatsPageComponent},
