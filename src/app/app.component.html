@@ -62,7 +62,7 @@
           <button mat-menu-item (click)="navigateTo('nonprofits')">All Nonprofits</button>
           <button mat-menu-item (click)="navigateTo('favorite-nonprofits')">Your Favorite Nonprofits</button>
         </mat-menu>
-        <button class="toolbar-main-button" mat-button>About Us</button>
+        <button class="toolbar-main-button" (click)="navigateTo('about-us')" mat-button>About Us</button>
         <span class="spacer"></span>
         <button *ngIf="this.authService.isLoggedIn" class="toolbar-main-button" (click)="toggleSidebarOpened()" mat-button>
           <mat-icon class="menu-icon">menu</mat-icon>
