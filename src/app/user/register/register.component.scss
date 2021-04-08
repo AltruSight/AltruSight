@@ -1,6 +1,8 @@
+@import '../../../styles/variables';
+
 .main-container-register {
     display: flex;
-    background-color: purple;
+    background-color: $primary-1;
     height: 100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;

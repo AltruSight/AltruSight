@@ -62,7 +62,6 @@ export class NonprofitSearchPageComponent implements OnInit {
   }
 
   navigateToNonprofit(nonprofitId: string): void {
-    console.log('hello');
     this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
   }
 
