@@ -1,1 +1,8 @@
-@import '../styles/variables';
+
+.main-container {
+    display: flex; 
+    flex-direction: row;
+    min-height: 100%; 
+    flex: 1;
+    background-color: blue;
+} 
