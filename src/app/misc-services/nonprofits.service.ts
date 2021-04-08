@@ -11,7 +11,7 @@ export class NonprofitsService {
   organizationsBaseURL = `${baseOrganizationsUrl}`;
   organizationBaseURL = `${baseOrganizationUrl}`;
   searchOrgUrl = `${searchOrganizationsUrl}`;
-  
+
   constructor(private httpClient: HttpClient) {
   }
 

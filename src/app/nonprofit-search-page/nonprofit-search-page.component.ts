@@ -31,7 +31,7 @@ export class NonprofitSearchPageComponent implements OnInit {
     const searchParam = this.route.snapshot.paramMap.get('searchParam') as string;
 
     // Check if we are being redirected to this page from search query
-    if(searchParam != null)
+    if (searchParam != null)
     {
       // this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
       this.nonprofitService.searchNonprofitsByName(searchParam).
