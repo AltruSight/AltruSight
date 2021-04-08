@@ -24,7 +24,7 @@
             <div class="donation-history">
                 <mat-card class="donationHistoryCards" *ngFor="let donations of getDonations()">
                     <mat-card-header>
-                        <mat-card-title> 
+                        <mat-card-title> <!-- TODO, make it so clicking charityname takes you to its page -->
                             <span class="paymentFeedTitleNotImportant"> You donated ${{donations.donationAmount}} to </span> 
                             <span class="paymentFeedTitleNonprofitName">{{donations.donationCharityName}}</span> 
                             <span class="paymentFeedTitleDonationAmount"> on {{donations.donationDate}}</span>

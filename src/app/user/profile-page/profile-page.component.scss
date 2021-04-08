@@ -23,7 +23,7 @@
             .account-settings {
                 background-color:white;
                 text-align:left;
-                width:90%;
+                width:85%;
                 margin-left: auto;
                 margin-right: auto;
                 div:hover {
@@ -44,11 +44,19 @@
             margin: 0 10px 0 10px;
             text-align: center;
             .donation-history {
-                text-align: left;
-                margin: 10px;
+                display: flex; 
+                flex-direction: column;
+                align-items: center;
+                overflow: scroll;
+                flex: 1 1 500px;
                 border-radius: 20px;
-                .whitespace {
-                    height:2px;
+                text-align: left;
+                .donationHistoryCards{
+                    margin-top: 2px;
+                    width: 85%;
+                    background-color: $primary-off-white;
+                    opacity: 0.95;
+                    justify-content: center;
                 }
             }
 
