@@ -77,7 +77,7 @@ export class AppComponent {
   searchNonProfits(searchParam: string): void
   {
     // Only search if input is not empty
-    if (0 < searchParam.length )
+    if (searchParam.length > 0)
     {
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
       this.router.navigate([`nonprofits/${searchParam}`]));
