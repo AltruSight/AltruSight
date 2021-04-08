@@ -4,7 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Nonprofit, NonprofitsService } from '../misc-services/nonprofits.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -18,12 +18,10 @@ export class NonprofitSearchPageComponent implements OnInit {
   pageEvent: PageEvent;
   nonprofitOrganizations: Nonprofit[] = [];
 
-
   // Defining variables for search functionality
   searchNonProfitResults: Nonprofit[] = [];
 
-
-  constructor(private nonprofitService: NonprofitsService, private route: ActivatedRoute) {
+  constructor(private nonprofitService: NonprofitsService, private route: ActivatedRoute, private router: Router) {
     this.pageEvent = new PageEvent();
     this.pageEvent.pageIndex = 0;
     this.pageSize = 10;
@@ -61,6 +59,11 @@ export class NonprofitSearchPageComponent implements OnInit {
     } else {
       return this.nonprofitOrganizations.slice(0, this.pageSize);
     }
+  }
+
+  navigateToNonprofit(nonprofitId: string): void {
+    console.log('hello');
+    this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
   }
 
   ngOnInit(): void {

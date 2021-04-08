@@ -1,7 +1,7 @@
     <div class="nonprofits-container">
         <h1 class="title">Nonprofit Search Page</h1>
             <mat-list class="nonprofit-list-container">
-                <mat-list-item *ngFor="let nonprofit of getNonprofits(pageEvent)" class="nonprofit-list-item">{{nonprofit.charityName}}</mat-list-item>
+                <mat-list-item *ngFor="let nonprofit of getNonprofits(pageEvent)" (click)="navigateToNonprofit(nonprofit.ein)" class="nonprofit-list-item">{{nonprofit.charityName}}</mat-list-item>
             </mat-list>
             <mat-paginator class="nonprofit-paginator" [length]="paginatorLength"
                            [pageSize]="pageSize"
