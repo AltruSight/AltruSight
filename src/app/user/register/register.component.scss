@@ -1,6 +1,8 @@
+@import '../../../styles/variables';
+
 .main-container-register {
     display: flex;
-    background-color: purple;
+    background-color: $primary-1;
     height: 100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -11,7 +13,7 @@
         border-radius: 0.50rem;
         display: flex;
         background-color: #FBFAF5;
-        height: 35rem;
+        height: 38rem;
         width: 30rem;
         max-width: 90%;
         max-height: 93%;
@@ -21,7 +23,7 @@
 
         .register-inputs-container {
             width: 90%;
-            height: 70%;
+            height: 80%;
             margin: auto;
 
             .register-title {

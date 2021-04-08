@@ -52,6 +52,7 @@ export class NonprofitPageComponent implements OnInit {
     const randomNumbers: number[] = [];
     const similarNonprofits = this.similarNonprofits ? this.similarNonprofits : [];
 
+    /*
     while (randomNumbers.length < 4 && similarNonprofits.length !== 0) {
       const randomNumber = Math.floor(Math.random() * similarNonprofits.length) + 1;
       if (randomNumbers.indexOf(randomNumber) === -1) {
@@ -60,10 +61,9 @@ export class NonprofitPageComponent implements OnInit {
     }
 
     randomNumbers.push(similarNonprofits.length - 47);
+    */
 
-    return similarNonprofits.filter((nonprofit, index) => {
-      return randomNumbers.indexOf(index) !== -1;
-    });
+    return similarNonprofits.slice(0, 4);
   }
 
   // TODO: fetch from database

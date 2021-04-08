@@ -38,6 +38,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatListModule} from '@angular/material/list';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 // Angular Firebase Imports
 import { AngularFireModule } from '@angular/fire';
@@ -90,6 +91,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
     MatListModule,
     MatTabsModule,
     MatPaginatorModule,
+    MatAutocompleteModule,
     // Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
