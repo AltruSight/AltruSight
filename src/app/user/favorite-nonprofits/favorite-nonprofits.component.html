@@ -1,5 +1,8 @@
 <div class="main-container">
     <div class="favorites-container">
         <h1 class="title">Your Favorited Nonprofits</h1>
+        <mat-list class="nonprofit-favorited-container">
+            <mat-list-item *ngFor="let nonprofit of getNonprofits(pageEvent)" (click)="navigateToNonprofit(nonprofit.ein)" class="nonprofit-favorited-item">{{nonprofit.charityName}}</mat-list-item>
+        </mat-list>
     </div>
 </div>
