@@ -11,4 +11,7 @@ import { Router } from '@angular/router';
 
     ngOnInit(): void {
     }
+    navigateTo(page: string): void {
+      this.router.navigateByUrl(`${page}`);
+    }
   }
