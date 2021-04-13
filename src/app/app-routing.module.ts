@@ -9,6 +9,7 @@ import { LoginComponent } from './user/login/login.component';
 import { ProfilePageComponent } from './user/profile-page/profile-page.component';
 import { RegisterComponent } from './user/register/register.component';
 import { NonprofitSearchPageComponent } from './nonprofit-search-page/nonprofit-search-page.component';
+import { AboutUs } from './about-us/about-us.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'friends', component: FriendsPageComponent},
   {path: 'account-stats', component: AccountStatsPageComponent},
   {path: 'favorite-nonprofits', component: FavoriteNonprofitsComponent},
+  {path: 'about-us', component: AboutUs},
 ];
 
 @NgModule({
