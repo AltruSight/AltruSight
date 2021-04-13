@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { baseOrganizationsUrl, baseOrganizationUrl, baseRatingUrl, searchOrganizationsUrl} from '../utils/Constants';
 
 @Injectable({
@@ -19,33 +20,99 @@ export class NonprofitsService {
   searchNonprofitsByName(searchparam: string): Observable<Nonprofit[]>
   {
     const searchOrgUrl = this.searchOrgUrl + searchparam;
+    console.log('searchNonprofitsByName(): ' + searchOrgUrl);
     return this.httpClient.get<Nonprofit[]>(searchOrgUrl);
   }
 
+
+
   // TODO: Add params to this method
-  getNonprofits(): Observable<Nonprofit[]> {
+  getNonprofits(params?: QueryParams): Observable<Nonprofit[]> {
+    // no params provided, return all nonprofits with no filter
+    const pageNums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const organizationsURL = this.organizationsBaseURL;
-    console.log(organizationsURL);
-    return this.httpClient.get<Nonprofit[]>(organizationsURL);
+
+    if (!params) {
+      const url = organizationsURL + '&rated=true&sort=NAME:ASC';
+      // Used to get multiple observables from looped API call
+      // Then we reduce the array of observables into a single array
+      // TODO: Figure out how to do this loop without hardcoded pageNums -- just iterate until response is error
+      return forkJoin(
+        pageNums.map(pageNum => {
+          const newURL = url + `&pageNum=${pageNum}`;
+          console.log('getNonprofits():' + newURL);
+          return this.httpClient.get<Nonprofit[]>(newURL);
+        })
+      ).pipe(
+        map(response => response.reduce((arr, r) => arr.concat(r), []))
+      );
+    // TODO: params provided, use method to return specific nonprofits based on filters
+    } else {
+      let url = organizationsURL;
+      if (params.categoryID) { url += `&categoryID=${params.categoryID}`; }
+      if (params.causeID) { url += `&causeID=${params.causeID}`; }
+      if (params.cfcCharities) { url += `&cfcCharities=${params.cfcCharities}`; }
+      if (params.city) { url += `&city=${params.city}`; }
+      if (params.donorPrivacy) { url += `&donorPrivacy=${params.donorPrivacy}`; }
+      if (params.fundraisingOrgs) { url += `&fundraisingOrgs=${params.fundraisingOrgs}`; }
+      if (params.maxRating) { url += `&maxRating=${params.maxRating}`; }
+      if (params.minRating) { url += `&minRating=${params.minRating}`; }
+      if (params.noGovSupport) { url += `&noGovSupport=${params.noGovSupport}`; }
+      if (params.pageNum) { url += `&pageNum=${params.pageNum}`; }
+      if (params.pageSize) { url += `&pageSize=${params.pageSize}`; }
+      if (params.rated) { url += `&rated=${params.rated}`; }
+      if (params.scopeOfWork) { url += `&scopeOfWork=${params.scopeOfWork}`; }
+      if (params.search) { url += `&search=${params.search}`; }
+      if (params.searchType) { url += `&searchType=${params.searchType}`; }
+      if (params.sizeRange) { url += `&sizeRange=${params.sizeRange}`; }
+      if (params.sort) { url += `&sort=${params.sort}`; }
+      if (params.state) { url += `&state=${params.state}`; }
+      if (params.zip) { url += `&zip=${params.zip}`; }
+
+      console.log('getNonprofits(params):' + url);
+      return this.httpClient.get<Nonprofit[]>(url);
+    }
   }
 
   getNonprofit(ein: string): Observable<Nonprofit> {
     const organizationURL = this.organizationBaseURL + ein;
-    console.log(organizationURL);
+    console.log('getNonprofit(): ' + organizationURL);
     return this.httpClient.get<Nonprofit>(organizationURL);
   }
 
   getRatingForNonprofit(ein: string, ratingID: number): Observable<Rating> {
     const ratingURL = this.ratingBaseURL + ein + `&ratingID=${ratingID}`;
-    console.log(ratingURL);
+    console.log('getRatingForNonprofit(): ' + ratingURL);
     return this.httpClient.get<Rating>(ratingURL);
   }
 
   getSimilarNonprofits(categoryID: number): Observable<Nonprofit[]> {
     const similarNonprofitURL = this.organizationsBaseURL + `&causeID=${categoryID}`;
-    console.log(similarNonprofitURL);
+    console.log('getSimilarNonprofits(): ' + similarNonprofitURL);
     return this.httpClient.get<Nonprofit[]>(similarNonprofitURL);
   }
+}
+
+export interface QueryParams {
+  rated?: string;
+  pageSize?: string;
+  pageNum?: string;
+  search?: string;
+  searchType?: string;
+  categoryID?: string;
+  causeID?: string;
+  fundraisingOrgs?: string;
+  state?: string;
+  city?: string;
+  zip?: string;
+  minRating?: string;
+  maxRating?: string;
+  sizeRange?: string;
+  donorPrivacy?: string;
+  scopeOfWork?: string;
+  cfcCharities?: string;
+  noGovSupport?: string;
+  sort?: string;
 }
 
 export interface Nonprofit {
