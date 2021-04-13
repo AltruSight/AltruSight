@@ -19,7 +19,7 @@ export class NonprofitsService {
 
   searchNonprofitsByName(searchparam: string): Observable<Nonprofit[]>
   {
-    const searchOrgUrl = this.searchOrgUrl + searchparam;
+    const searchOrgUrl = this.organizationsBaseURL + `&search=${searchparam}` + '&rated=true';
     console.log('searchNonprofitsByName(): ' + searchOrgUrl);
     return this.httpClient.get<Nonprofit[]>(searchOrgUrl);
   }
