@@ -18,9 +18,6 @@ export class NonprofitSearchPageComponent implements OnInit {
   pageEvent: PageEvent;
   nonprofitOrganizations: Nonprofit[] = [];
 
-  // Defining variables for search functionality
-  searchNonProfitResults: Nonprofit[] = [];
-
   constructor(private nonprofitService: NonprofitsService, private route: ActivatedRoute, private router: Router) {
     this.pageEvent = new PageEvent();
     this.pageEvent.pageIndex = 0;

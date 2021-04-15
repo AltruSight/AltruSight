@@ -21,6 +21,7 @@ export class NonprofitPageComponent implements OnInit {
   userID: any;
 
   nonprofitFavorited = false;
+  nonprofitUserRating?: number;
   sidenavOpened = false;
 
   constructor(private route: ActivatedRoute,
@@ -42,6 +43,11 @@ export class NonprofitPageComponent implements OnInit {
           this.firestoreDB.collection('users').doc(`${userID}`).get()
           .subscribe((snapshot: any) => {
             const data = snapshot.data();
+
+            // getting undefined, or rating based on ein (if a user has rated the nonprofit before)
+            this.nonprofitUserRating = data.ratings[ein];
+
+            // getting array of favorites
             const favorites: string[] = data.favorites;
             // check if the nonprofit is in list of favorites in DB
             if (favorites.includes(ein)){
@@ -98,8 +104,9 @@ export class NonprofitPageComponent implements OnInit {
     return this.nonprofitFavorited;
   }
 
+  // Remember that -1 means an UNRATED (by the user) organization
   getUserNonprofitRating(): number {
-    return 0;
+    return this.nonprofitUserRating || -1;
   }
 
   // TODO: package these getters into a single object later
@@ -174,7 +181,22 @@ export class NonprofitPageComponent implements OnInit {
   }
 
   userNonprofitRatingChanged(rating: number): void {
-    console.log('nonprofit rating changed to: ' + rating);
+    console.log('userNonprofitRatingChanged(): ' + rating);
+
+    if (this.authService.isLoggedIn && this.nonprofit) {
+      const ein = this.nonprofit.ein;
+
+      // update or write rating to firebase
+      this.firestoreDB.collection('users').doc(this.userID).set({
+        ratings: {
+          [ein]: rating
+        }
+      }, {merge: true}).then(() => {
+        console.log('Rating Updated');
+      });
+    } else {
+      console.log('Must log in to rate a nonprofit!');
+    }
   }
 
   goToNonprofitPage(ein: string): void {
