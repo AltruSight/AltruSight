@@ -34,7 +34,6 @@ export class ProfilePageComponent implements OnInit {
   getDonations(): Donation[] {
     return this.donations;
   }
-
   getProfilePictureURL(): string {
     return '../../assets/profile-placeholder.png';
   }
