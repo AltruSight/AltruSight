@@ -34,6 +34,10 @@ export class ProfilePageComponent implements OnInit {
   getDonations(): Donation[] {
     return this.donations;
   }
+
+  getProfilePictureURL(): string {
+    return '../../assets/profile-placeholder.png';
+  }
 }
 
 //TODO: find a different way to represent date and amount
