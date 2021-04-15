@@ -122,8 +122,10 @@ export class NonprofitPageComponent implements OnInit {
     return 'N/A';
   }
 
-  getNonprofitSpendingEfficiency(): number {
-    return 0.71;
+  // From https://charity.3scale.net/docs/data-api/reference:
+  // The percent of its total expenses a charity spends on the programs and services it exists to deliver
+  getNonprofitSpendingEfficiency(): any {
+    return this.nonprofitRating?.financialRating?.performanceMetrics?.programExpensesRatio || 'N/A';
   }
 
   // Change to actual object once starting to pull from API
