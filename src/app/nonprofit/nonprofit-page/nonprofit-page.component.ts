@@ -174,7 +174,20 @@ export class NonprofitPageComponent implements OnInit {
   }
 
   userNonprofitRatingChanged(rating: number): void {
-    console.log('nonprofit rating changed to: ' + rating);
+    console.log('userNonprofitRatingChanged(): ' + rating);
+
+    if (this.authService.isLoggedIn && this.nonprofit) {
+      const ein = this.nonprofit.ein;
+
+      // update or write rating to firebase
+      this.firestoreDB.collection('users').doc(this.userID).set({
+        ratings: {
+          [ein]: rating
+        }
+      }, {merge: true}).then(() => {
+        console.log('Rating Updated');
+      });
+    }
   }
 
   goToNonprofitPage(ein: string): void {
