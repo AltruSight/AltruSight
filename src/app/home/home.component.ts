@@ -2,6 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Nonprofit } from '../misc-services/nonprofits.service';
 
 @Component({
   selector: 'app-home',
@@ -40,6 +41,16 @@ export class HomeComponent implements OnInit {
   }
 
   getUsername(): string { return 'Anduru'; }
+
+  // TODO: Actually implement a rotating featured nonprofit of the week programmatically
+  getFeaturedNonprofit(): Nonprofit {
+    const wikimedia = {
+      // tslint:disable-next-line:max-line-length
+      charityNavigatorURL: 'https://www.charitynavigator.org/?bay=search.summary&orgid=11212&utm_source=DataAPI&utm_content=6bc9f3c8', currentCEO: {name: 'Katherine Maher ', title: 'Executive Director'}, tagLine: 'Imagine a world in which every single human being can freely share in the sum of all knowledge', charityName: 'Wikimedia Foundation', ein: '200049703', currentBoardChair: {name: 'María Sefidari', title: 'Chair'}, orgID: 11212, mission: 'The Wikimedia Foundation, Inc. is dedicated to encouraging the growth, development and distribution of free, multilingual content, and to providing the full content of these wiki-based projects to the public free of charge. The Foundation operates some of the largest collaboratively edited reference projects in the world, including Wikipedia, the fourth most visited website in the world. In collaboration with a network of chapters, the Foundation provides the essential infrastructure and an organizational framework for the support and development of multilingual wiki projects and other endeavors which serve this mission.', phoneNumber: '4158396885', websiteURL: 'http://wikimediafoundation.org/', generalEmail: 'donate@wikimedia.org', activeAdvisories: {_rapid_links: {related: {href: 'https://api.data.charitynavigator.org/v2/Organizations/200049703/Advisories?status=ACTIVE'}}}, removedAdvisories: {_rapid_links: {related: {href: 'https://api.data.charitynavigator.org/v2/Organizations/200049703/Advisories?status=REMOVED'}}}, ratingHistory: {_rapid_links: {related: {href: 'https://api.data.charitynavigator.org/v2/Organizations/200049703/Ratings'}}}, category: {image: 'https://d20umu42aunjpx.cloudfront.net/_gfx_/icons/categories/arts.png?utm_source=DataAPI&utm_content=6bc9f3c8', charityNavigatorURL: 'https://www.charitynavigator.org/index.cfm?bay=search.categories&categoryid=2&utm_source=DataAPI&utm_content=6bc9f3c8', categoryName: 'Arts, Culture, Humanities', categoryID: 2}, cause: {causeID: 5, charityNavigatorURL: 'https://www.charitynavigator.org/index.cfm?bay=search.results&cgid=2&cuid=5&utm_source=DataAPI&utm_content=6bc9f3c8', causeName: 'Public Broadcasting and Media', image: 'https://d20umu42aunjpx.cloudfront.net/_gfx_/causes/small/public_radio.gif?utm_source=DataAPI&utm_content=6bc9f3c8'}, irsClassification: {deductibility: 'Contributions are deductible', subsection: '501(c)(3)', assetAmount: 176019709, nteeType: 'Educational Institutions and Related Activities', nteeSuffix: null, incomeAmount: 135577430, filingRequirement: '990 (all other) or 990EZ return', classification: 'Educational Organization', latest990: 'June, 2019', rulingDate: 'March, 2005', nteeCode: 'B60', groupName: null, affiliation: 'Independent - the organization is an independent organization or an independent auxiliary (i.e., not affiliated with a National, Regional, or Geographic grouping of organizations).', deductibilityCode: '1', foundationStatus: 'Organization which receives a substantial part of its support from a governmental unit or the general public   170(b)(1)(A)(vi)', nteeClassification: 'Adult, Continuing Education', accountingPeriod: 'June', exemptOrgStatusCode: '01', exemptOrgStatus: 'Unconditional Exemption', deductibilityDetail: null, nteeLetter: 'B'}, mailingAddress: {country: null, stateOrProvince: 'CA', city: 'San Francisco', postalCode: '94104', streetAddress1: '1 Montgomery Street', streetAddress2: 'Suite 1600'}, currentRating: {score: 98.14, ratingID: 147516, publicationDate: '2019-11-01T04:00:00.000Z', ratingImage: {small: 'https://d20umu42aunjpx.cloudfront.net/_gfx_/icons/stars/4starsb.png', large: 'https://d20umu42aunjpx.cloudfront.net/_gfx_/icons/stars/4stars.png'}, rating: 4, _rapid_links: {related: {href: 'https://api.data.charitynavigator.org/v2/Organizations/200049703/Ratings/147516'}}}
+    };
+
+    return wikimedia;
+  }
 
   getFavoriteNonprofits(): string[] {
     return [
