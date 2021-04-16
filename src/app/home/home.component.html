@@ -6,6 +6,84 @@
                     <mat-tab label="Payment Feed"></mat-tab>
             </mat-tab-group>
         </div>
+
+        <div *ngIf="!altViewOpened" class="home-view-placeholder">
+            <div class="featured-nonprofit-container" (click)="navigateToNonprofit(getFeaturedNonprofit().ein)">
+                <p class="featured-nonprofit-title">Featured Nonprofit</p>
+                <p class="featured-nonprofit-value">{{getFeaturedNonprofit().charityName}}</p>
+            </div>
+            <div class="our-mission-container">
+                <p class="mission-title">AltruSight's Pledge</p>
+                <p class="mission-divider"></p>
+                <p class="mission">
+                    Giving back to givers: improving every charitable giver's ability to discover and connect to great causes. 
+                </p>
+            </div>
+            <div class="donation-stats-container">
+                    <ul class="donation-stats-text">
+                        <li>
+                            Within the United States alone, over 300 billion dollars are donated to nonprofits.
+                        </li>
+                        <li>
+                            Individual givers make up around 70% of the total donations, accounting for roughly $1,000 per individual.
+                        </li>
+                        <li>
+                            As charitable giving continues to rise, givers need a way to track their donations and impact in a transparent way, find new causes, and connect with new givers and organizations.
+                        </li>
+                        <li>
+                            Our goal is to place more power in the hands of the individual givers by connecting them with other givers and establishing a platform where transparent giving is the norm.
+                        </li>
+                    </ul>
+                <img class="donation-stats-visual" src="../../assets/images/Rise in Charitable Giving.jpeg" />
+            </div>
+            <div class="features-container">
+                <p class="features-title">Features</p>
+                <div class="features-row">
+                    <div class="feature-visual">
+                        <img src="https://fakeimg.pl/800x400/51c2f1/000">
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">Discover New Nonprofits</div>
+                        <ul>
+                            <li>Search over 9,000 rated nonprofits</li>
+                            <li>Find nonprofits similar to those you already support</li>
+                            <li>View organizations that your friends, and others are already supporting</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="features-row">
+                    <div class="feature-text">
+                        <div class="feature-title">A Transparent Platform For Giving</div>
+                        <ul>
+                            <li>Uncover how organizations are using your money</li>
+                            <li>See what organizations that others are already giving to</li>
+                            <li>Rate and leave comments on nonprofit pages. Your feedback matters.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-visual">
+                        <img src="https://fakeimg.pl/800x400/51c2f1/000">
+                    </div>
+                </div>
+                <div class="features-row">
+                    <div class="feature-visual">
+                        <img src="https://fakeimg.pl/800x400/51c2f1/000">
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">Track your journey of giving</div>
+                        <ul>
+                            <li>Save your favorite nonprofits</li>
+                            <li>Set personal goals and view your stats over a given time</li>
+                            <li>Add friends along the way</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="home-page-bottom-container">
+                <button (click)="navigateTo('register')" mat-raised-button>Get Started</button>
+                <p>Powered by CharityNavigator & Google Firebase</p>
+            </div>
+        </div>
+
         <div *ngIf="altViewOpened" class="payment-feed-container">
             <mat-card class="paymentFeedCards" *ngFor="let donations of getDonations()">
                 <mat-card-header>
@@ -23,8 +101,6 @@
                     <button mat-button>SHARE</button>
                 </mat-card-actions>
             </mat-card>
-        </div>
-        <div *ngIf="!altViewOpened" class="home-view-placeholder" >
         </div>
     </div>
 </div>
