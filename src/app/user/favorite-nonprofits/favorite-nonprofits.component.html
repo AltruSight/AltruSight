@@ -2,7 +2,11 @@
     <div class="favorites-container">
         <h1 class="title">Your Favorited Nonprofits</h1>
         <mat-list class="nonprofit-favorited-container">
-            <mat-list-item *ngFor="let nonprofit of getNonprofits(pageEvent)" (click)="navigateToNonprofit(nonprofit)" class="nonprofit-favorited-item">{{nonprofit}}</mat-list-item>
+            <mat-list-item *ngFor="let nonprofit of getNonprofits(pageEvent)" (click)="navigateToNonprofit(nonprofit)" class="nonprofit-favorited-item">Nonprofit Name: {{nonprofit}}</mat-list-item>
         </mat-list>
+        <mat-paginator class="nonprofit-paginator" [length]="paginatorLength"
+                           [pageSize]="pageSize"
+                           (page)="pageEvent = $event">
+            </mat-paginator>
     </div>
 </div>
