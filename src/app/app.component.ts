@@ -22,7 +22,6 @@ export class AppComponent {
   // https://stackoverflow.com/questions/35191617/how-to-run-a-service-when-the-app-starts-in-angular-2
   constructor(public router: Router, public authService: AuthService, private nonProfitsService: NonprofitsService) {
       this.sidebarOpened = this.authService.isLoggedIn;
-      this.nonProfitsService.getNonprofit('');
 
       // KEEP CODE BELOW: In case we want to improve search functinality
       // as a drop down -->

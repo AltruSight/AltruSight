@@ -11,22 +11,158 @@
     flex-direction: row;
     min-height: 100%; 
     flex: 1;
-    background-color: $primary-2;
 
     // MAIN CONTENT
     .main-content {
         display: flex; 
         flex-direction: column;
         flex: 1 0 0;
-        margin: 1%;
+        background-image: linear-gradient(to bottom right, $primary-1, $accent-2, $primary-1);
         .altViewNavigation {
             display: flex;
             align-self: center;
         }
         .home-view-placeholder {
-            flex: 1 1 500px;
-            background-color: $primary-1;
-            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 1000px;
+            .featured-nonprofit-container {
+                display: flex;
+                flex-direction: column;
+                flex: 0 1 300px;
+                align-items: center;
+                
+                margin: 2%;
+                border-radius: 20px;
+                background-image: url('../../assets/images/Charity_featured_hands.jpeg');
+                background-size: cover;
+                box-shadow: 0 0 5px 5px #555;
+
+                cursor: pointer;
+                .featured-nonprofit-title {
+                    color: $primary-off-white;
+                    text-shadow: 0px 1px 1px $primary-off-black;
+                    line-height: 55px;
+                    font-size: 45px;
+                    text-align: center;
+                }
+                .featured-nonprofit-value {
+                    line-height: 55px;
+                    font-size: 55px;
+                    color: $primary-off-white;
+                    text-shadow: 0px 1px 1px $primary-off-black;
+                    text-align: center;
+                    margin-top: 100px;
+                }
+            }
+            .our-mission-container {
+                display: flex;
+                flex-direction: column;
+                flex: 0 1 65px;
+
+                justify-content: center;
+                align-items: center;
+                .mission-title {
+                    color: $primary-off-white;
+                    line-height: 35px;
+                    font-size: 35px;
+                }
+                .mission-divider {
+                    align-self: center;
+                    width: 350px;
+                    height: 0.1px;
+                    background-color: grey;
+                }
+                .mission {
+                    line-height: 25px;
+                    font-size: 25px;
+                    color: $primary-off-white;
+                    text-align: center;
+                }
+            }
+            .donation-stats-container {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                flex: 0 1 400px;
+                margin: 0 5% 0 5%;
+                .donation-stats-text {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    flex: 1 1 300px;
+                    font-size: 20px;
+                    line-height: 20px;
+                    color: $primary-off-white;
+                    font-weight: bold;
+                    li {
+                        margin-bottom: 15px;
+                    }
+                }
+                .donation-stats-visual {
+                    display: flex;
+                    flex: 1 1 300px;
+                    max-height: 450px;
+                    // max-width: 70%;
+                    object-fit: contain;
+                    align-items: center;
+                }
+            }
+            .features-container {
+                margin-top: 10px;
+                display: flex;
+                flex-direction: column;
+                flex: 0 1 400px;
+                .features-title {
+                    text-align: center;
+                    color: $primary-off-white;
+                    line-height: 35px;
+                    font-size: 35px;
+                }
+                .features-row {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    flex: 1 1 400px;
+                    margin: 0 15% 0 15%;
+                    .feature-text {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        flex: 1 1 300px;
+                        .feature-title {
+                            color: $primary-off-white;
+                            font-size: 25px;
+                            line-height: 25px;
+                            font-weight: bold;
+                            text-align: center;
+                        }
+                        ul { 
+                            li { 
+                                line-height: 20px;
+                                font-size: 20px;
+                                color: $primary-off-white;
+                                opacity: 0.85;
+                            }
+                        }
+                    }
+                    .feature-visual {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex: 1 1 300px;
+                        img {
+                            object-fit: contain;
+                            max-height: 300px;
+                        }
+                    }
+                }
+            }
+            .home-page-bottom-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
         }
         .payment-feed-container {
             display: flex; 

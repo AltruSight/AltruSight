@@ -1,0 +1,76 @@
+@import '../../styles/variables';
+
+.main-container {
+    background-color: $primary-2;
+    color:$primary-off-black;
+    .whoAreWe {
+        width: 85%;
+        padding: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        .member {
+            padding-left:30px;
+            .memberBio {
+                padding-left:25px;
+            }
+        }
+    }
+    .ourMission {
+        width: 85%;
+        padding: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        .missionMessage {
+            padding-left:30px;
+        }
+    }
+    .whyAltrusight {
+        width: 85%;
+        padding: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        .whyMessage {
+            padding-left:30px;
+        }
+    }
+    .proposal {
+        width: 85%;
+        padding: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+
+    }
+    .footer {
+        width:100%;
+        text-align:center;
+        padding-bottom:10px;
+        .signUp {
+            background-color:$accent-4;
+            border-radius:12px;
+            width:100px;
+            height:40px;
+            transition-duration: 0.4s;
+            font-size:14px;
+            font-weight: bold;
+        }
+        .signUp:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+    }
+} 
+
+a {
+    color:$primary-off-black;
+    text-decoration: none;
+    font-size:12pt;
+    display:inline;
+    font-weight: 500;
+    transition-duration: 0.4s;
+}
+a:hover {
+    color:$accent-4;
+}
