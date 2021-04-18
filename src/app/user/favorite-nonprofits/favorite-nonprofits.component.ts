@@ -16,6 +16,7 @@ export class FavoriteNonprofitsComponent implements OnInit {
   pageEvent: PageEvent;
   nonprofitOrganizations: Nonprofit[] = [];
   userID: any;
+  favorites: string[] = [];
 
   constructor(private nonprofitService: NonprofitsService, private router: Router, private firestoreDB: AngularFirestore, private authService: AuthService) {
     this.pageEvent = new PageEvent();
@@ -26,15 +27,17 @@ export class FavoriteNonprofitsComponent implements OnInit {
     //  this.nonprofitOrganizations = response;
     //});
     this.authService.getUserId().then((userID) => {
-      this.firestoreDB.collection('users').doc('favorites').get().subscribe((snapshot: any) => {
+      this.firestoreDB.collection('users').doc(`${userID}`).get().subscribe((snapshot: any) => {
         const data = snapshot.data();
-        console.log(data);
+        this.favorites = data.favorites;
+        console.log(this.favorites);
       })
     });
+
   }
 
-  getNonprofits(pageEvent: PageEvent): Nonprofit[] {
-    this.paginatorLength = this.nonprofitOrganizations.length;
+  getNonprofits(pageEvent: PageEvent): string[] {
+    this.paginatorLength = this.favorites.length;
     // page has been triggered, get the index
     if (pageEvent) {
       const pageIndex = pageEvent.pageIndex;
@@ -42,9 +45,9 @@ export class FavoriteNonprofitsComponent implements OnInit {
       const lastPosition = this.pageSize + pageIndex * this.pageSize;
       // TODO: perform pagination via backend (server-side)
       // so that app doesn't have to load in entire list of nonprofits each time
-      return this.nonprofitOrganizations.slice(firstPosition, lastPosition);
+      return this.favorites.slice(firstPosition, lastPosition);
     } else {
-      return this.nonprofitOrganizations.slice(0, this.pageSize);
+      return this.favorites.slice(0, this.pageSize);
     }
   }
 
