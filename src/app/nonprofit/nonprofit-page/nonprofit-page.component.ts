@@ -327,21 +327,12 @@ export class DonationDialogComponent {
           var userPastDonations:any[] = data.donations;
           userPastDonations.push(usersDonation);
         
-          // // Add donation to the "Donations" table
+          // Add donation to the "Donations" table
           this.firestoreDB.collection(table).doc(userUID).set({
             donations: userPastDonations
           })
           .then(() => {
-            // Clearing variables after successfully saving data
-            this.confDonationAmount = '';
-            this.confCardHolderName = '';
-            this.confStreetAddress = '';
-            this.confCity = '';
-            this.confState = '';
-            this.confCardNumber = '';
-            this.confExpDate = '';
-            this.confCardCVC = '';
-            this.confEmailAddress = '';
+            this.clearVariables();
 
             // Close dialog
             this.dialogRef.closeAll();
@@ -350,23 +341,15 @@ export class DonationDialogComponent {
             console.error("Error writing document: ", error);
           });
         }
+        // Creater user's information in donations table
         else
         {
-          // // Add donation to the "Donations" table
+          // Add donation to the "Donations" table
           this.firestoreDB.collection(table).doc(userUID).set({
             donations: [usersDonation]
           })
           .then(() => {
-            // Clearing variables after successfully saving data
-            this.confDonationAmount = '';
-            this.confCardHolderName = '';
-            this.confStreetAddress = '';
-            this.confCity = '';
-            this.confState = '';
-            this.confCardNumber = '';
-            this.confExpDate = '';
-            this.confCardCVC = '';
-            this.confEmailAddress = '';
+            this.clearVariables();
 
             // Close dialog
             this.dialogRef.closeAll();
@@ -380,6 +363,19 @@ export class DonationDialogComponent {
     });
   }
 
+  clearVariables(): void
+  {
+    // Clearing variables after successfully saving data
+    this.confDonationAmount = '';
+    this.confCardHolderName = '';
+    this.confStreetAddress = '';
+    this.confCity = '';
+    this.confState = '';
+    this.confCardNumber = '';
+    this.confExpDate = '';
+    this.confCardCVC = '';
+    this.confEmailAddress = '';
+  }
 
   // The following 'get' methods are used in the
   // html file to display user information on confirmation tab
