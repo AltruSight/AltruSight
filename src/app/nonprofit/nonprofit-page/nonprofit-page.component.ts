@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import firebase from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/auth/auth.service';
+import { MessagesService } from 'src/app/misc-services/messages.service';
 
 @Component({
   selector: 'app-nonprofit-page',
@@ -29,7 +30,8 @@ export class NonprofitPageComponent implements OnInit {
               public dialog: MatDialog,
               private router: Router,
               private firestoreDB: AngularFirestore,
-              private authService: AuthService) {
+              private messagesService: MessagesService,
+              public authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -39,23 +41,25 @@ export class NonprofitPageComponent implements OnInit {
         // TODO: fix this nested subscribe within concatMap, for now it can stay
         // getting firebase user information
         this.authService.getUserId().then((userID) => {
-          this.userID = userID;
-          this.firestoreDB.collection('users').doc(`${userID}`).get()
-          .subscribe((snapshot: any) => {
-            const data = snapshot.data();
+          if (userID) {
+            this.userID = userID;
+            this.firestoreDB.collection('users').doc(`${userID}`).get()
+            .subscribe((snapshot: any) => {
+              const data = snapshot.data();
 
-            // getting undefined, or rating based on ein (if a user has rated the nonprofit before)
-            this.nonprofitUserRating = data.ratings[ein];
+              // getting undefined, or rating based on ein (if a user has rated the nonprofit before)
+              this.nonprofitUserRating = data.ratings[ein];
 
-            // getting array of favorites
-            const favorites: string[] = data.favorites;
-            // check if the nonprofit is in list of favorites in DB
-            if (favorites.includes(ein)){
-              this.nonprofitFavorited = true;
-            } else {
-              this.nonprofitFavorited = false;
-            }
-          });
+              // getting array of favorites
+              const favorites: string[] = data.favorites;
+              // check if the nonprofit is in list of favorites in DB
+              if (favorites.includes(ein)){
+                this.nonprofitFavorited = true;
+              } else {
+                this.nonprofitFavorited = false;
+              }
+            });
+          }
         });
         return this.nonprofitService.getNonprofit(ein).pipe(
           map(nonprofit => [ein, nonprofit])
@@ -86,9 +90,6 @@ export class NonprofitPageComponent implements OnInit {
       // tslint:disable-next-line:no-non-null-assertion
       return this.nonprofit!.ein === nonprofit.ein;
     });
-
-    console.log(index);
-    console.log(this.similarNonprofits!.length);
 
     // tslint:disable-next-line:no-non-null-assertion
     return index < this.similarNonprofits!.length - 6 ? similarNonprofits.slice(index + 1, index + 6) : similarNonprofits.slice(0, 5);
@@ -167,8 +168,7 @@ export class NonprofitPageComponent implements OnInit {
         });
       }
     } else {
-      // TODO: Open toast notification / dialog
-      console.log('Must be logged in!');
+      this.messagesService.openSnackBar('Must be logged in to save your favorite nonprofits!', 'close', 3000);
     }
   }
 
@@ -191,7 +191,7 @@ export class NonprofitPageComponent implements OnInit {
         console.log('Rating Updated');
       });
     } else {
-      console.log('Must log in to rate a nonprofit!');
+      this.messagesService.openSnackBar('Must be logged in to rate any nonprofits! Your rating will not be saved.', 'close', 3000);
     }
   }
 
