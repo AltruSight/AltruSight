@@ -1,11 +1,18 @@
 <div class="favorites-container">
-    <mat-list class="favorited-list-container">
-        <h1 class="title">Your Favorited Nonprofits</h1>
-        <mat-list-item *ngFor="let nonprofit of getNonprofits(pageEvent)" (click)="navigateToNonprofit(nonprofit)" class="nonprofit-favorited-item">Nonprofit Name: {{nonprofit}}</mat-list-item>
-    </mat-list>
-    <mat-paginator class="nonprofit-paginator" [length]="paginatorLength"
-                        [pageSize]="pageSize"
-                        (page)="pageEvent = $event">
-    </mat-paginator>
+    <ng-container *ngIf="this.authService.isLoggedIn"> 
+        <mat-list class="favorited-list-container"> 
+            <h1 class="title">Your Favorited Nonprofits</h1>
+            <mat-list-item *ngFor="let favorite of getFavorites(pageEvent)" (click)="navigateToNonprofit(getFavoriteEIN(favorite))" class="nonprofit-favorited-item">{{favorite.name}}</mat-list-item>
+        </mat-list>
+        <mat-paginator class="nonprofit-paginator" [length]="paginatorLength"
+        [pageSize]="pageSize"
+        (page)="pageEvent = $event">
+        </mat-paginator>
+    </ng-container>
+    <ng-container *ngIf="!this.authService.isLoggedIn">
+        <div class="logged-out-display">
+            <p class="text">Must be logged in to utilize the favorites feature</p>
+        </div>
+    </ng-container>
 </div>
 
