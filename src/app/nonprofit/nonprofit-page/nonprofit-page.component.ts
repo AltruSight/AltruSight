@@ -9,6 +9,7 @@ import firebase from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/auth/auth.service';
 import { MessagesService } from 'src/app/misc-services/messages.service';
+import { url } from 'inspector';
 
 @Component({
   selector: 'app-nonprofit-page',
@@ -52,8 +53,9 @@ export class NonprofitPageComponent implements OnInit {
 
               // getting array of favorites
               const favorites: string[] = data.favorites;
+
               // check if the nonprofit is in list of favorites in DB
-              if (favorites.includes(ein)){
+              if (Object.keys(favorites).includes(ein)){
                 this.nonprofitFavorited = true;
               } else {
                 this.nonprofitFavorited = false;
@@ -150,19 +152,32 @@ export class NonprofitPageComponent implements OnInit {
     });
   }
 
-  toggleNonprofitFavorited(): void {
-    if (this.authService.isLoggedIn) {
-      const ein = this.nonprofit?.ein;
+  toggleSidenavOpened(): void {
+    this.sidenavOpened = !this.sidenavOpened;
+  }
 
-      if (this.nonprofitFavorited) {
+  toggleNonprofitFavorited(): void {
+    if (this.authService.isLoggedIn && this.nonprofit) {
+      const ein = this.nonprofit.ein;
+
+      if (!this.nonprofitFavorited) {
         this.firestoreDB.collection('users').doc(this.userID).set({
-          favorites: firebase.firestore.FieldValue.arrayRemove(ein),
+          favorites: {
+            [ein]: {
+              name: this.nonprofit.charityName,
+              category: this.nonprofit.category,
+              cause: this.nonprofit.cause,
+              rating: this.nonprofit.currentRating?.rating
+            }
+          }
         }, {merge: true}).then(() => {
           this.nonprofitFavorited = !this.nonprofitFavorited;
         });
       } else {
         this.firestoreDB.collection('users').doc(this.userID).set({
-          favorites: firebase.firestore.FieldValue.arrayUnion(ein),
+          favorites: {
+            [ein]: firebase.firestore.FieldValue.delete()
+          }
         }, {merge: true}).then(() => {
           this.nonprofitFavorited = !this.nonprofitFavorited;
         });
@@ -170,10 +185,6 @@ export class NonprofitPageComponent implements OnInit {
     } else {
       this.messagesService.openSnackBar('Must be logged in to save your favorite nonprofits!', 'close', 3000);
     }
-  }
-
-  toggleSidenavOpened(): void {
-    this.sidenavOpened = !this.sidenavOpened;
   }
 
   userNonprofitRatingChanged(rating: number): void {
