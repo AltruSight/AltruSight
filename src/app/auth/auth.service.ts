@@ -31,7 +31,7 @@ export class AuthService {
     const user = await this.auth.authState.pipe(first()).toPromise();
     return user?.uid;
   }
-
+  
   // returns error message (or blank error message)
   register(userEmail: string, userPassword: string, username: string): Promise<string> {
     return this.auth.createUserWithEmailAndPassword(userEmail, userPassword)

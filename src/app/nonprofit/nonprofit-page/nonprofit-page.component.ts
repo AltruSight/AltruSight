@@ -19,6 +19,7 @@ export class NonprofitPageComponent implements OnInit {
   nonprofitRating?: Rating;
   similarNonprofits?: Nonprofit[];
   userID: any;
+  nonprofitEIN = "";
 
   nonprofitFavorited = false;
   sidenavOpened = false;
@@ -34,7 +35,10 @@ export class NonprofitPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.pipe(
       concatMap((param) => {
+        // Setting company EIN
         const ein = param['nonprofit-id'];
+        this.nonprofitEIN = (param['nonprofit-id']).toString();
+
         // TODO: fix this nested subscribe within concatMap, for now it can stay
         // getting firebase user information
         this.authService.getUserId().then((userID) => {
@@ -134,6 +138,7 @@ export class NonprofitPageComponent implements OnInit {
   openDonateDialog(): void {
     this.dialog.open(DonationDialogComponent, {
       data: {
+        nonprofitEIN: this.nonprofitEIN,
         nonprofitName: this.nonprofit?.charityName,
         someString: 'testing string data injection!'
       },
@@ -203,6 +208,7 @@ export class NonprofitPageComponent implements OnInit {
 })
 export class DonationDialogComponent {
   organizationName: string;
+  nonprofitEIN: string;
 
   // Defining Step Forms
   donationAmountForm: FormGroup;
@@ -220,9 +226,16 @@ export class DonationDialogComponent {
   confState: string;
   confEmailAddress: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private dialogRef: MatDialog) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
+    private formBuilder: FormBuilder, 
+    private dialogRef: MatDialog,
+    private firestoreDB: AngularFirestore,
+    private authService: AuthService) {      
     // Setting Org name
     this.organizationName = data.nonprofitName;
+
+    // Setting org EIN
+    this.nonprofitEIN = data.nonprofitEIN;
 
     // Initializing confirmation variables
     this.confCardHolderName = '';
@@ -260,18 +273,87 @@ export class DonationDialogComponent {
 
   submitDonation(): void
   {
-    // Clearing variables
-    this.confDonationAmount = '';
-    this.confCardHolderName = '';
-    this.confStreetAddress = '';
-    this.confCity = '';
-    this.confState = '';
-    this.confCardNumber = '';
-    this.confExpDate = '';
-    this.confCardCVC = '';
-    this.confEmailAddress = '';
+    // table name
+    const table = 'Donations';
 
-    this.dialogRef.closeAll();
+    const usersDonation = {
+      orgName: this.getOrgName(),
+      orgEIN: this.getNonProfitEIN(),
+      donationDate: new Date(),
+      donationAmount: this.getDonationAmount(),
+      cardHolderName: this.getCardHolderName(),
+      cardHolderStreet: this.getStreetAddress(),
+      cardHolderState: this.getState(),
+      cardHolderEmail: this.getEmail()
+    };
+
+    // Get the user's ID
+    this.authService.getUserId().then((userUID) => {
+
+      // Get user's past donations
+      this.firestoreDB.collection(table).doc(userUID).get()
+      .subscribe((snapshot: any) => {
+
+        // Check to see if user exists on table, if user does not exist
+        // then user has never made donations.
+        if(snapshot.data() != undefined)
+        {
+          const data = snapshot.data();
+
+          var userPastDonations:any[] = data.donations;
+          userPastDonations.push(usersDonation);
+        
+          // // Add donation to the "Donations" table
+          this.firestoreDB.collection(table).doc(userUID).set({
+            donations: userPastDonations
+          })
+          .then(() => {
+            // Clearing variables after successfully saving data
+            this.confDonationAmount = '';
+            this.confCardHolderName = '';
+            this.confStreetAddress = '';
+            this.confCity = '';
+            this.confState = '';
+            this.confCardNumber = '';
+            this.confExpDate = '';
+            this.confCardCVC = '';
+            this.confEmailAddress = '';
+
+            // Close dialog
+            this.dialogRef.closeAll();
+          })
+          .catch((error) => {
+            console.error("Error writing document: ", error);
+          });
+        }
+        else
+        {
+          // // Add donation to the "Donations" table
+          this.firestoreDB.collection(table).doc(userUID).set({
+            donations: [usersDonation]
+          })
+          .then(() => {
+            // Clearing variables after successfully saving data
+            this.confDonationAmount = '';
+            this.confCardHolderName = '';
+            this.confStreetAddress = '';
+            this.confCity = '';
+            this.confState = '';
+            this.confCardNumber = '';
+            this.confExpDate = '';
+            this.confCardCVC = '';
+            this.confEmailAddress = '';
+
+            // Close dialog
+            this.dialogRef.closeAll();
+          })
+          .catch((error) => {
+            console.error("Error writing document: ", error);
+          });
+        }
+        
+      });
+    });
   }
 
 
@@ -289,6 +371,10 @@ export class DonationDialogComponent {
     this.confCardNumber = cardNumber;
 
     return cardNumber;
+  }
+
+  getNonProfitEIN(): string {
+    return this.nonprofitEIN;
   }
 
   getCardExpDate(): string {
