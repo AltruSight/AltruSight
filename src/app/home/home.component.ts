@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   }
 
   getProfilePictureURL(): string {
-    return '../../assets/profile-placeholder.png';
+    return '../../assets/images/profile-placeholder.png';
   }
 
   getUsername(): string { return 'Anduru'; }
@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
   }
 
   getFriendProfilePictureURL(friend: string): string {
-    return '../../assets/profile-placeholder.png';
+    return '../../assets/images/profile-placeholder.png';
   }
 
   getProgress(): number {

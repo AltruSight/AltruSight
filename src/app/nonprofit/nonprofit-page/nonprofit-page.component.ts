@@ -79,25 +79,19 @@ export class NonprofitPageComponent implements OnInit {
   }
 
   getSimilarNonprofits(): Nonprofit[] {
-    const randomNumbers: number[] = [];
     const similarNonprofits = this.similarNonprofits ? this.similarNonprofits : [];
 
-    return similarNonprofits.slice(0, 4);
-
-    /*
-    while (randomNumbers.length < 4 && similarNonprofits.length !== 0) {
-      const randomNumber = Math.floor(Math.random() * similarNonprofits.length) + 1;
-      if (randomNumbers.indexOf(randomNumber) === -1) {
-        randomNumbers.push(randomNumber);
-      }
-    }
-
-    randomNumbers.push(similarNonprofits.length - 47);
-
-    return similarNonprofits.filter((nonprofit, index) => {
-      return randomNumbers.indexOf(index) !== -1;
+    // tslint:disable-next-line:no-non-null-assertion
+    const index = this.similarNonprofits!.findIndex((nonprofit) => {
+      // tslint:disable-next-line:no-non-null-assertion
+      return this.nonprofit!.ein === nonprofit.ein;
     });
-    */
+
+    console.log(index);
+    console.log(this.similarNonprofits!.length);
+
+    // tslint:disable-next-line:no-non-null-assertion
+    return index < this.similarNonprofits!.length - 6 ? similarNonprofits.slice(index + 1, index + 6) : similarNonprofits.slice(0, 5);
   }
 
   getNonprofitFavorited(): boolean {
