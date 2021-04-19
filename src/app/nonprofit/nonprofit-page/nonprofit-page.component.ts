@@ -9,7 +9,6 @@ import firebase from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/auth/auth.service';
 import { MessagesService } from 'src/app/misc-services/messages.service';
-import { url } from 'inspector';
 
 @Component({
   selector: 'app-nonprofit-page',
