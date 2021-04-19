@@ -1,7 +1,6 @@
 @import '../../styles/variables';
 
 .main-container {
-    background-color: $primary-2;
     color:$primary-off-black;
     .whoAreWe {
         width: 85%;
@@ -49,7 +48,7 @@
         text-align:center;
         padding-bottom:10px;
         .signUp {
-            background-color:$accent-4;
+            background-color: $accent-3;
             border-radius:12px;
             width:100px;
             height:40px;
