@@ -18,20 +18,17 @@ export class FavoriteNonprofitsComponent implements OnInit {
   userID: any;
   favorites: string[] = [];
 
-  constructor(private nonprofitService: NonprofitsService, private router: Router, private firestoreDB: AngularFirestore, private authService: AuthService) {
+  constructor(private router: Router, private firestoreDB: AngularFirestore, private authService: AuthService) {
     this.pageEvent = new PageEvent();
     this.pageEvent.pageIndex = 0;
     this.pageSize = 10;
 
-    //this.nonprofitService.getNonprofits().subscribe((response) => {
-    //  this.nonprofitOrganizations = response;
-    //});
     this.authService.getUserId().then((userID) => {
       this.firestoreDB.collection('users').doc(`${userID}`).get().subscribe((snapshot: any) => {
         const data = snapshot.data();
         this.favorites = data.favorites;
         console.log(this.favorites);
-      })
+      });
     });
 
   }
