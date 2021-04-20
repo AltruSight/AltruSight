@@ -14,30 +14,30 @@ export class FavoriteNonprofitsComponent implements OnInit {
   paginatorLength = 0;
   pageSize: number;
   pageEvent: PageEvent;
-  nonprofitOrganizations: Nonprofit[] = [];
   userID: any;
-  favorites: string[] = [];
+  favorites: any[] = [];
+  favoriteValues: Favorite[] = [];
+  favoriteEINs: string[] = [];
 
-  constructor(private nonprofitService: NonprofitsService, private router: Router, private firestoreDB: AngularFirestore, private authService: AuthService) {
+  constructor(private router: Router, private firestoreDB: AngularFirestore, public authService: AuthService) {
     this.pageEvent = new PageEvent();
     this.pageEvent.pageIndex = 0;
     this.pageSize = 10;
 
-    //this.nonprofitService.getNonprofits().subscribe((response) => {
-    //  this.nonprofitOrganizations = response;
-    //});
-    this.authService.getUserId().then((userID) => {
-      this.firestoreDB.collection('users').doc(`${userID}`).get().subscribe((snapshot: any) => {
-        const data = snapshot.data();
-        this.favorites = data.favorites;
-        console.log(this.favorites);
-      })
-    });
-
+    if (this.authService.isLoggedIn) {
+      this.authService.getUserId().then((userID) => {
+        this.firestoreDB.collection('users').doc(`${userID}`).get().subscribe((snapshot: any) => {
+          const favorites = snapshot.data().favorites;
+          this.favorites = favorites;
+          this.favoriteEINs = Object.keys(favorites);
+          this.favoriteValues = Object.values(favorites);
+        });
+      });
+    }
   }
 
-  getNonprofits(pageEvent: PageEvent): string[] {
-    this.paginatorLength = this.favorites.length;
+  getFavorites(pageEvent: PageEvent): Favorite[] {
+    this.paginatorLength = this.favoriteValues.length;
     // page has been triggered, get the index
     if (pageEvent) {
       const pageIndex = pageEvent.pageIndex;
@@ -45,10 +45,18 @@ export class FavoriteNonprofitsComponent implements OnInit {
       const lastPosition = this.pageSize + pageIndex * this.pageSize;
       // TODO: perform pagination via backend (server-side)
       // so that app doesn't have to load in entire list of nonprofits each time
-      return this.favorites.slice(firstPosition, lastPosition);
+      return this.favoriteValues.slice(firstPosition, lastPosition);
     } else {
-      return this.favorites.slice(0, this.pageSize);
+      return this.favoriteValues.slice(0, this.pageSize);
     }
+  }
+
+  getFavoriteEIN(favoriteValue: Favorite): string {
+    const favoriteIndex = this.favoriteValues.findIndex((favorite) => {
+      return favorite === favoriteValue;
+    });
+
+    return this.favoriteEINs[favoriteIndex];
   }
 
   navigateToNonprofit(nonprofitId: string): void {
@@ -57,5 +65,21 @@ export class FavoriteNonprofitsComponent implements OnInit {
 
   ngOnInit(): void {
   }
+}
 
+interface Favorite {
+  category: {
+    categoryID: number,
+    categoryName: string,
+    charityNavigatorURL: string,
+    image: string
+  };
+  cause: {
+    causeID: number,
+    causeName: string,
+    charityNavigatorURL: string,
+    image: string
+  };
+  name: string;
+  rating: number;
 }

@@ -88,7 +88,7 @@ export class AppComponent {
   // ========================================================
   // TODO: Move these methods to user-info service
   getProfilePictureURL(): string {
-    return '../../assets/profile-placeholder.png';
+    return '../../assets/images/profile-placeholder.png';
   }
 
   // ========================================================
@@ -133,7 +133,7 @@ export class AppComponent {
   // Get friends' profile pictures
   // ========================================================
   getFriendProfilePictureURL(friend: string): string {
-    return '../../assets/profile-placeholder.png';
+    return '../../assets/images/profile-placeholder.png';
   }
 
   // ========================================================
