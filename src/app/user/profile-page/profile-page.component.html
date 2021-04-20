@@ -9,11 +9,6 @@
     <div class="settings">
         <h2 class="subtitle">Settings</h2>
         <mat-list class="settingsList">
-            <mat-list-item>
-                <button class="settingsButton" id="logoutButton" mat-menu-item (click)="this.authService.logout()">
-                    Logout
-                </button>
-            </mat-list-item>
             <mat-divider></mat-divider>
             <!-- TODO: make these buttons lead where they should-->
             <mat-list-item>
@@ -25,6 +20,18 @@
             <mat-list-item>
                 <button class="settingsButton" id="paymentMethods">
                     Payment Methods
+                </button>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <button class="settingsButton" id="privacy">
+                    Privacy
+                </button>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <button class="settingsButton" id="logoutButton" mat-menu-item (click)="this.authService.logout()">
+                    Logout
                 </button>
             </mat-list-item>
           </mat-list>

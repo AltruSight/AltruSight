@@ -18,7 +18,12 @@
         .settingsButton {
             background:none;
             border:none;
-            
+        }
+        #logoutButton:hover {
+            color:$accent-4;
+        }
+        #logoutButton {
+            font-weight:600;
         }
     }
     .profilePic-container {
