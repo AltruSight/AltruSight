@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import firebase from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/auth/auth.service';
+import { MessagesService } from '../../misc-services/messages.service';
 
 @Component({
   selector: 'app-nonprofit-page',
@@ -29,6 +30,7 @@ export class NonprofitPageComponent implements OnInit {
               private nonprofitService: NonprofitsService,
               public dialog: MatDialog,
               private router: Router,
+              private messagesService: MessagesService,
               private firestoreDB: AngularFirestore,
               private authService: AuthService) {
   }
@@ -145,18 +147,26 @@ export class NonprofitPageComponent implements OnInit {
   }
 
   openDonateDialog(): void {
-    this.dialog.open(DonationDialogComponent, {
-      data: {
-        nonprofitEIN: this.nonprofitEIN,
-        nonprofitName: this.nonprofit?.charityName,
-        someString: 'testing string data injection!'
-      },
-      height: '30rem', // Height of donation dialog
-      width: '50rem', // Width of donation dialog
-      minWidth: '20rem',
-      // Prevents user form closing dialog when clicking outside of dialog
-      // Useful in cause user clicks outside on accident. They won't have to re-enter data
-      disableClose: true
+
+    this.authService.checkIfUserLoggedIn().then((userLoggedIn) => {
+      // If user is logged in, allow user to open dialog
+      if(userLoggedIn) {
+        this.dialog.open(DonationDialogComponent, {
+          data: {
+            nonprofitEIN: this.nonprofitEIN,
+            nonprofitName: this.nonprofit?.charityName,
+          },
+          height: '30rem', // Height of donation dialog
+          width: '50rem', // Width of donation dialog
+          minWidth: '20rem',
+          // Prevents user form closing dialog when clicking outside of dialog
+          // Useful in cause user clicks outside on accident. They won't have to re-enter data
+          disableClose: true
+        });
+      }
+      else {
+        this.messagesService.openSnackBar('You must be signed in for this action!', 'Close', 5000);
+      }
     });
   }
 
