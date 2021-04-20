@@ -43,7 +43,7 @@ export class NonprofitPageComponent implements OnInit {
         this.authService.getUserId().then((userID) => {
           if (userID) {
             this.userID = userID;
-            this.firestoreDB.collection('users').doc(`${userID}`).get()
+            this.firestoreDB.collection('users').doc(userID).get()
             .subscribe((snapshot: any) => {
               const data = snapshot.data();
 

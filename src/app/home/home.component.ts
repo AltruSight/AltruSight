@@ -1,7 +1,9 @@
 // ng generate component home was used to create boilerplate
 
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 import { Nonprofit } from '../misc-services/nonprofits.service';
 
 @Component({
@@ -11,29 +13,22 @@ import { Nonprofit } from '../misc-services/nonprofits.service';
 })
 export class HomeComponent implements OnInit {
   altViewOpened = false;
-  // TODO: Add donation time
-  donations: Donation[] = [
-    {id: 0, donorName: 'Jules Winnfield', donationDescription: 'Le Big Mac',
-     donationCharityName: 'The Ronald McDonald House'},
-    {id: 1, donorName: 'Tai Lopez', donationDescription: 'You know what I like more than materialistic things? Knowledge.',
-     donationCharityName: 'Wikipedia'},
-    {id: 2, donorName: 'Leo Messi', donationDescription: 'GOAT donating a goat',
-     donationCharityName: 'Heifer International'},
-    {id: 3, donorName: 'Vincent Vega', donationDescription: 'Check them out!',
-     donationCharityName: 'The Hero Foundation'},
-    {id: 4, donorName: 'Buckethead', donationDescription: 'This nonprofit is shredding...',
-     donationCharityName: 'Guitar Heroes Inc.' },
-    {id: 5, donorName: 'Barney Stinson', donationDescription: 'Great plays in this playbook',
-     donationCharityName: 'Playbooks for Free' },
-    {id: 6, donorName: 'Selena Gomez', donationDescription: 'Expecto Patronum!',
-     donationCharityName: 'Novice Spells Database' },
-    {id: 7, donorName: 'Geralt of Rivia', donationDescription: 'A coin for your witcher',
-     donationCharityName: 'Lambert Facial Reconstruction Fund' },
-  ];
 
-  constructor(public router: Router) { }
+  testDonations: Donation[] = [];
+
+  constructor(public router: Router, private firestoreDB: AngularFirestore, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.getUserId().then((userID) => {
+      if (userID) {
+        this.firestoreDB.collection('Donations').get().subscribe((snapshot) => {
+          snapshot.forEach((result) => {
+            // TODO: Order the results by date and display all donations
+            console.log(result.data());
+          });
+        });
+      }
+    });
   }
 
   getProfilePictureURL(): string {
@@ -101,15 +96,17 @@ export class HomeComponent implements OnInit {
   }
 
   getDonations(): Donation[] {
-    return this.donations;
+    return this.testDonations;
   }
 }
 
-export class Donation {
-  constructor(
-    public id: number,
-    public donorName: string,
-    public donationDescription: string,
-    public donationCharityName: string
-  ){}
+export interface Donation {
+  cardHolderEmail: string;
+  cardHolderName: string;
+  cardHolderState: string;
+  cardHolderStreet: string;
+  donationAmount: number;
+  donationDate: Date;
+  orgEIN: string;
+  orgName: string;
 }
