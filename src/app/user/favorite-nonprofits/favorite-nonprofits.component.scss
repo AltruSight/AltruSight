@@ -1,19 +1,49 @@
 @import '../../../styles/variables';
 
 .title {
+    color: $primary-off-white;
     text-align: center;
 }
 
 // TODO: adding height to the parent container and just using flex is the way to go: need to fix home.component styling 
 // and other components where the height is constantly cascaded (bad practice)
-.main-container {
+.favorites-container {
     height: 100%;
     display: flex; 
     flex-direction: column;
-    .favorites-container {
-        flex: 1;
-        background-color: $primary-2;
-        margin: 5%;
-        border-radius: 20px;
+    flex: 1;
+    .favorited-list-container {
+        height: 100%;
+        background-color: $accent-3;
+        margin: 0 5% 0 5%;
+        .nonprofit-favorited-item {
+            color: $primary-off-white;
+            font-size: 20px;
+            line-height: 20px;
+            flex: 1 1 50px;
+        }
+        .nonprofit-favorited-item:hover {
+            background-color: $accent-4;
+            cursor: pointer;
+        }
+    }
+    .nonprofit-paginator {
+        color: silver;
+        margin: 0 5% 0 5%;
+        background-color: $accent-4;
+    }
+    .logged-out-display {
+        display: flex;
+        flex: 1 1 500px;
+        background-color: $accent-3;
+        margin: 5% 10% 5% 10%; 
+        justify-content: center;
+        align-items: center;     
+        border-radius: 25px;
+        .text {
+            color: $primary-off-white;
+            line-height: 30px;
+            font-size: 30px;
+        } 
     }
 }

@@ -20,7 +20,7 @@ export class NonprofitPageComponent implements OnInit {
   nonprofitRating?: Rating;
   similarNonprofits?: Nonprofit[];
   userID: any;
-  nonprofitEIN = "";
+  nonprofitEIN = '';
 
   nonprofitFavorited = false;
   nonprofitUserRating?: number;
@@ -30,9 +30,9 @@ export class NonprofitPageComponent implements OnInit {
               private nonprofitService: NonprofitsService,
               public dialog: MatDialog,
               private router: Router,
-              private messagesService: MessagesService,
               private firestoreDB: AngularFirestore,
-              private authService: AuthService) {
+              private messagesService: MessagesService,
+              public authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -45,23 +45,26 @@ export class NonprofitPageComponent implements OnInit {
         // TODO: fix this nested subscribe within concatMap, for now it can stay
         // getting firebase user information
         this.authService.getUserId().then((userID) => {
-          this.userID = userID;
-          this.firestoreDB.collection('users').doc(`${userID}`).get()
-          .subscribe((snapshot: any) => {
-            const data = snapshot.data();
+          if (userID) {
+            this.userID = userID;
+            this.firestoreDB.collection('users').doc(`${userID}`).get()
+            .subscribe((snapshot: any) => {
+              const data = snapshot.data();
 
-            // getting undefined, or rating based on ein (if a user has rated the nonprofit before)
-            this.nonprofitUserRating = data.ratings[ein];
+              // getting undefined, or rating based on ein (if a user has rated the nonprofit before)
+              this.nonprofitUserRating = data.ratings[ein];
 
-            // getting array of favorites
-            const favorites: string[] = data.favorites;
-            // check if the nonprofit is in list of favorites in DB
-            if (favorites.includes(ein)){
-              this.nonprofitFavorited = true;
-            } else {
-              this.nonprofitFavorited = false;
-            }
-          });
+              // getting array of favorites
+              const favorites: string[] = data.favorites;
+
+              // check if the nonprofit is in list of favorites in DB
+              if (Object.keys(favorites).includes(ein)){
+                this.nonprofitFavorited = true;
+              } else {
+                this.nonprofitFavorited = false;
+              }
+            });
+          }
         });
         return this.nonprofitService.getNonprofit(ein).pipe(
           map(nonprofit => [ein, nonprofit])
@@ -85,25 +88,16 @@ export class NonprofitPageComponent implements OnInit {
   }
 
   getSimilarNonprofits(): Nonprofit[] {
-    const randomNumbers: number[] = [];
     const similarNonprofits = this.similarNonprofits ? this.similarNonprofits : [];
 
-    return similarNonprofits.slice(0, 4);
-
-    /*
-    while (randomNumbers.length < 4 && similarNonprofits.length !== 0) {
-      const randomNumber = Math.floor(Math.random() * similarNonprofits.length) + 1;
-      if (randomNumbers.indexOf(randomNumber) === -1) {
-        randomNumbers.push(randomNumber);
-      }
-    }
-
-    randomNumbers.push(similarNonprofits.length - 47);
-
-    return similarNonprofits.filter((nonprofit, index) => {
-      return randomNumbers.indexOf(index) !== -1;
+    // tslint:disable-next-line:no-non-null-assertion
+    const index = this.similarNonprofits!.findIndex((nonprofit) => {
+      // tslint:disable-next-line:no-non-null-assertion
+      return this.nonprofit!.ein === nonprofit.ein;
     });
-    */
+
+    // tslint:disable-next-line:no-non-null-assertion
+    return index < this.similarNonprofits!.length - 6 ? similarNonprofits.slice(index + 1, index + 6) : similarNonprofits.slice(0, 5);
   }
 
   getNonprofitFavorited(): boolean {
@@ -150,7 +144,7 @@ export class NonprofitPageComponent implements OnInit {
 
     this.authService.checkIfUserLoggedIn().then((userLoggedIn) => {
       // If user is logged in, allow user to open dialog
-      if(userLoggedIn) {
+      if (userLoggedIn) {
         this.dialog.open(DonationDialogComponent, {
           data: {
             nonprofitEIN: this.nonprofitEIN,
@@ -170,31 +164,39 @@ export class NonprofitPageComponent implements OnInit {
     });
   }
 
-  toggleNonprofitFavorited(): void {
-    if (this.authService.isLoggedIn) {
-      const ein = this.nonprofit?.ein;
+  toggleSidenavOpened(): void {
+    this.sidenavOpened = !this.sidenavOpened;
+  }
 
-      if (this.nonprofitFavorited) {
+  toggleNonprofitFavorited(): void {
+    if (this.authService.isLoggedIn && this.nonprofit) {
+      const ein = this.nonprofit.ein;
+
+      if (!this.nonprofitFavorited) {
         this.firestoreDB.collection('users').doc(this.userID).set({
-          favorites: firebase.firestore.FieldValue.arrayRemove(ein),
+          favorites: {
+            [ein]: {
+              name: this.nonprofit.charityName,
+              category: this.nonprofit.category,
+              cause: this.nonprofit.cause,
+              rating: this.nonprofit.currentRating?.rating
+            }
+          }
         }, {merge: true}).then(() => {
           this.nonprofitFavorited = !this.nonprofitFavorited;
         });
       } else {
         this.firestoreDB.collection('users').doc(this.userID).set({
-          favorites: firebase.firestore.FieldValue.arrayUnion(ein),
+          favorites: {
+            [ein]: firebase.firestore.FieldValue.delete()
+          }
         }, {merge: true}).then(() => {
           this.nonprofitFavorited = !this.nonprofitFavorited;
         });
       }
     } else {
-      // TODO: Open toast notification / dialog
-      console.log('Must be logged in!');
+      this.messagesService.openSnackBar('Must be logged in to save your favorite nonprofits!', 'close', 3000);
     }
-  }
-
-  toggleSidenavOpened(): void {
-    this.sidenavOpened = !this.sidenavOpened;
   }
 
   userNonprofitRatingChanged(rating: number): void {
@@ -212,7 +214,7 @@ export class NonprofitPageComponent implements OnInit {
         console.log('Rating Updated');
       });
     } else {
-      console.log('Must log in to rate a nonprofit!');
+      this.messagesService.openSnackBar('Must be logged in to rate any nonprofits! Your rating will not be saved.', 'close', 3000);
     }
   }
 
@@ -260,11 +262,11 @@ export class DonationDialogComponent {
   confState: string;
   confEmailAddress: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
-    private formBuilder: FormBuilder, 
-    private dialogRef: MatDialog,
-    private firestoreDB: AngularFirestore,
-    private authService: AuthService) {      
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              private formBuilder: FormBuilder,
+              private dialogRef: MatDialog,
+              private firestoreDB: AngularFirestore,
+              private authService: AuthService) {
     // Setting Org name
     this.organizationName = data.nonprofitName;
 
@@ -330,13 +332,13 @@ export class DonationDialogComponent {
 
         // Check to see if user exists on table, if user does not exist
         // then user has never made donations.
-        if(snapshot.data() != undefined)
+        if (snapshot.data() !== undefined)
         {
           const data = snapshot.data();
 
-          var userPastDonations:any[] = data.donations;
+          const userPastDonations: any[] = data.donations;
           userPastDonations.push(usersDonation);
-        
+
           // Add donation to the "Donations" table
           this.firestoreDB.collection(table).doc(userUID).set({
             donations: userPastDonations
@@ -348,7 +350,7 @@ export class DonationDialogComponent {
             this.dialogRef.closeAll();
           })
           .catch((error) => {
-            console.error("Error writing document: ", error);
+            console.error('Error writing document: ', error);
           });
         }
         // Creater user's information in donations table
@@ -365,10 +367,10 @@ export class DonationDialogComponent {
             this.dialogRef.closeAll();
           })
           .catch((error) => {
-            console.error("Error writing document: ", error);
+            console.error('Error writing document: ', error);
           });
         }
-        
+
       });
     });
   }

@@ -12,6 +12,10 @@ export class AuthService {
   isLoggedIn = false;
   username = 'Default Profile Name';
 
+  // TODO: Huge problem with using isLoggedIn (auth status is not updated immediately)
+  // at initialization, causing issues with some components that need logic
+  // on what to display based on if a user is logged in or out
+
   // TODO: Make sidebar pop up immediately upon logging in
   // My theory is that it's not being rerendered until a click
   // Utilize some lifecycle method
@@ -56,8 +60,8 @@ export class AuthService {
       // Set display name for user
       response.user?.updateProfile({
         displayName: username
-      })
-      
+      });
+
       this.router.navigateByUrl('/').then((navigated: boolean) => {
         if (navigated) {
           this.messagesService.openSnackBar('Account registered successfully!', 'Close', 5000);
