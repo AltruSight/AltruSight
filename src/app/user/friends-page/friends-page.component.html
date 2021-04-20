@@ -1,5 +1,22 @@
 <div class="main-container">
-    <div class="friends-container">
-        <h1 class="title">Your Friends</h1>
+    <div class="main-content">
+        <div class="friends-container">
+            <h1 class="title">Your Friends</h1>
+            <mat-card class="friendCards" *ngFor="let friends of getFriends()">
+                <mat-card-header>
+                    <img mat-card-avatar src='../../assets/profile-placeholder.png'/>
+                    <mat-card-title> 
+                        <span class="friendName">{{friends.name}}</span> 
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        <span class="friendBio">{{friends.bio}}</span>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-actions class="friendActions">
+                    <button mat-button>MESSAGE</button>
+                    <button mat-button>REMOVE</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
     </div>
 </div>
