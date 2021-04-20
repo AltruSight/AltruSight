@@ -11,6 +11,7 @@ import { RegisterComponent } from './user/register/register.component';
 import { NonprofitSearchPageComponent } from './nonprofit-search-page/nonprofit-search-page.component';
 import { AboutUs } from './about-us/about-us.component';
 
+// TODO: Add route guard for authenticated users
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent },

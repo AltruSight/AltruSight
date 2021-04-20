@@ -51,7 +51,7 @@
         display: flex; 
         flex-direction: row;
         flex: 1 1 0;
-        background-color: $primary-1;
+        background-image: linear-gradient(to bottom right, $primary-1, $accent-2, $primary-1);
         .content-scroll-container {
             flex: 1;
         }
