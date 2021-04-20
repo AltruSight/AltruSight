@@ -45,10 +45,6 @@ export class AuthService {
     })
     .then((response) => {
       return signedIn
-    })
-    .catch((error) => {
-      console.error(error);
-      return error.message;
     });
   }
   
