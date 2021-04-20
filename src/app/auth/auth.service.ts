@@ -36,6 +36,22 @@ export class AuthService {
     return user?.uid;
   }
 
+  // Check if user is logged in
+  checkIfUserLoggedIn(): Promise<boolean> {
+    var signedIn = false;
+    return this.auth.onAuthStateChanged((user) => {
+      if(user) {
+        signedIn = true;
+      }
+      else {
+        signedIn = false;
+      }
+    })
+    .then((response) => {
+      return signedIn
+    });
+  }
+  
   // returns error message (or blank error message)
   register(userEmail: string, userPassword: string, username: string): Promise<string> {
     return this.auth.createUserWithEmailAndPassword(userEmail, userPassword)

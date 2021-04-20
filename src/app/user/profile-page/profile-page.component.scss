@@ -3,28 +3,67 @@
 .title {
     text-align: center;
 }
-
 .main-container {
     height: 100%;
     display: flex; 
     flex-direction: column;
-    .row {
-        display: flex;
-        flex-direction: row;
-        flex: 1 1 500px; 
-        .col1 {
-            display: flex; 
-            flex-direction: column; 
-            flex: 1 1 0; 
-            background-color: $accent-1;
-            margin: 0 10px 0 10px;
+    color: $primary-off-black;
+    .settings {
+        width:85%;
+        margin:auto;
+        .subtitle{
+            text-align:center;
         }
-        .col2 {
-            display: flex; 
-            flex-direction: column; 
-            flex: 1 1 0; 
-            background-color: $accent-2;
-            margin: 0 10px 0 10px;
+        .settingsButton {
+            background:none;
+            border:none;
+        }
+        #logoutButton:hover {
+            color:$accent-4;
+        }
+        #logoutButton {
+            font-weight:600;
+        }
+    }
+    .profilePic-container {
+        text-align:center;
+        padding:10px;
+        .profilePic {
+            border-radius:50%;
+            width:100px;
+            height:100px;
+        }
+    }
+    .donation-history {
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+        flex: 1 1 500px;
+        border-radius: 20px;
+
+        .donationHistoryCards {
+            margin-top: 2px;
+            width: 85%;
+            background-color: $primary-off-white;
+            opacity: 0.95;
+            justify-content: center;
+            color: $primary-off-black;
+            .mat-card-header {
+                margin: 0;
+                .mat-card-title {
+                    margin: 0;
+                }
+            }
+            .paymentFeedTitleNonprofitName {
+                cursor: pointer;
+            }
+            .paymentFeedTitleNonprofitName:hover {
+                color: $accent-2;
+            }
+            .paymentFeedCardDescription {
+                opacity: 0.9;
+                margin: 0px 0px 0px 18px;
+            }
         }
     }
 }

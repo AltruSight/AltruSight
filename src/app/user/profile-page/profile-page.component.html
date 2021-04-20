@@ -1,11 +1,55 @@
 <div class="main-container">
+    <div class="profilePic-container">
+        <img class="profilePic" mat-card-avatar src="{{getProfilePictureURL()}}"/>
+    </div>
     <h1 class="title">Welcome, {{username}}</h1>
-    <div class="row">
-        <div class="col1">
-            <div class="account-settings"></div>
-        </div>
-        <div class="col2">
-            <div class="donation-history"></div>
-        </div>
+    
+    <br>
+
+    <div class="settings">
+        <h2 class="subtitle">Settings</h2>
+        <mat-list class="settingsList">
+            <mat-divider></mat-divider>
+            <!-- TODO: make these buttons lead where they should-->
+            <mat-list-item>
+                <button class="settingsButton" id="editProfile" >
+                    Edit Profile
+                </button>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <button class="settingsButton" id="paymentMethods">
+                    Payment Methods
+                </button>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <button class="settingsButton" id="privacy">
+                    Privacy
+                </button>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <button class="settingsButton" id="logoutButton" mat-menu-item (click)="this.authService.logout()">
+                    Logout
+                </button>
+            </mat-list-item>
+          </mat-list>
+    </div>
+    <div class="donation-history">
+        <h2 class="subtitle">Donation History</h2>
+        <mat-card class="donationHistoryCards" *ngFor="let donations of getDonations()">
+            <mat-card-header>
+                <mat-card-title>  
+                    <span class="paymentFeedTitleNotImportant"> You donated ${{donations.donationAmount}} to </span> 
+                    <span class="paymentFeedTitleNonprofitName">{{donations.donationCharityName}}</span> 
+                    <span class="paymentFeedTitleDonationAmount"> on {{donations.donationDate}}</span>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="paymentFeedCardDescription">
+                {{donations.donationDescription}}
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>
+
