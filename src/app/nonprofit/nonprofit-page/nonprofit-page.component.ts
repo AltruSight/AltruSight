@@ -9,6 +9,7 @@ import firebase from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/auth/auth.service';
 import { MessagesService } from '../../misc-services/messages.service';
+import { Donation } from 'src/app/home/home.component';
 
 @Component({
   selector: 'app-nonprofit-page',
@@ -47,7 +48,7 @@ export class NonprofitPageComponent implements OnInit {
         this.authService.getUserId().then((userID) => {
           if (userID) {
             this.userID = userID;
-            this.firestoreDB.collection('users').doc(`${userID}`).get()
+            this.firestoreDB.collection('users').doc(userID).get()
             .subscribe((snapshot: any) => {
               const data = snapshot.data();
 
@@ -312,66 +313,40 @@ export class DonationDialogComponent {
     // table name
     const table = 'Donations';
 
-    const usersDonation = {
-      orgName: this.getOrgName(),
-      orgEIN: this.getNonProfitEIN(),
-      donationDate: new Date(),
-      donationAmount: this.getDonationAmount(),
-      cardHolderName: this.getCardHolderName(),
-      cardHolderStreet: this.getStreetAddress(),
-      cardHolderState: this.getState(),
-      cardHolderEmail: this.getEmail()
-    };
-
     // Get the user's ID
     this.authService.getUserId().then((userUID) => {
+      if (userUID) {
+        const usersDonation: Donation = {
+          orgName: this.getOrgName(),
+          orgEIN: this.getNonProfitEIN(),
+          donationDate: new Date(),
+          donationAmount: this.getDonationAmount(),
+          cardHolderName: this.getCardHolderName(),
+          cardHolderStreet: this.getStreetAddress(),
+          cardHolderState: this.getState(),
+          cardHolderEmail: this.getEmail(),
+          donorID: userUID,
+        };
 
-      // Get user's past donations
-      this.firestoreDB.collection(table).doc(userUID).get()
-      .subscribe((snapshot: any) => {
-
-        // Check to see if user exists on table, if user does not exist
-        // then user has never made donations.
-        if (snapshot.data() !== undefined)
-        {
-          const data = snapshot.data();
-
-          const userPastDonations: any[] = data.donations;
-          userPastDonations.push(usersDonation);
-
-          // Add donation to the "Donations" table
-          this.firestoreDB.collection(table).doc(userUID).set({
-            donations: userPastDonations
-          })
-          .then(() => {
-            this.clearVariables();
-
-            // Close dialog
-            this.dialogRef.closeAll();
-          })
-          .catch((error) => {
-            console.error('Error writing document: ', error);
-          });
-        }
-        // Creater user's information in donations table
-        else
-        {
-          // Add donation to the "Donations" table
-          this.firestoreDB.collection(table).doc(userUID).set({
-            donations: [usersDonation]
-          })
-          .then(() => {
-            this.clearVariables();
-
-            // Close dialog
-            this.dialogRef.closeAll();
-          })
-          .catch((error) => {
-            console.error('Error writing document: ', error);
-          });
-        }
-
-      });
+        this.firestoreDB.collection('User-Donations').add({
+          orgName: this.getOrgName(),
+          orgEIN: this.getNonProfitEIN(),
+          donationDate: new Date(),
+          donationAmount: this.getDonationAmount(),
+          cardHolderName: this.getCardHolderName(),
+          cardHolderStreet: this.getStreetAddress(),
+          cardHolderState: this.getState(),
+          cardHolderEmail: this.getEmail(),
+          donorID: userUID,
+        }).then(() => {
+          this.firestoreDB.collection('Donations').doc(userUID).set({
+            donations: firebase.firestore.FieldValue.arrayUnion(usersDonation)
+          }, {merge: true});
+        }).then(() => {
+          this.clearVariables();
+          this.dialogRef.closeAll();
+        });
+      }
     });
   }
 

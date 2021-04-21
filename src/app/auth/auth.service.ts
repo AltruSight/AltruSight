@@ -38,9 +38,9 @@ export class AuthService {
 
   // Check if user is logged in
   checkIfUserLoggedIn(): Promise<boolean> {
-    var signedIn = false;
+    let signedIn = false;
     return this.auth.onAuthStateChanged((user) => {
-      if(user) {
+      if (user) {
         signedIn = true;
       }
       else {
@@ -48,10 +48,10 @@ export class AuthService {
       }
     })
     .then((response) => {
-      return signedIn
+      return signedIn;
     });
   }
-  
+
   // returns error message (or blank error message)
   register(userEmail: string, userPassword: string, username: string): Promise<string> {
     return this.auth.createUserWithEmailAndPassword(userEmail, userPassword)
@@ -80,9 +80,6 @@ export class AuthService {
   signIn(userEmail: string, userPassword: string): Promise<string> {
     return this.auth.signInWithEmailAndPassword(userEmail, userPassword)
       .then((response) => {
-        // Successfully signed in
-        console.log('Hello ' + response.user?.displayName);
-
         this.router.navigateByUrl('/').then((navigated: boolean) => {
           if (navigated) {
             this.messagesService.openSnackBar('Logged in successfully!', 'Close', 5000);

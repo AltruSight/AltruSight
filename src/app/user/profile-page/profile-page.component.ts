@@ -2,7 +2,10 @@
 // Will be the overarching page for the account stats, friends, etc...showing a preview of each (potentially)
 
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Donation } from 'src/app/home/home.component';
 
 @Component({
   selector: 'app-profile-page',
@@ -11,44 +14,36 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService, private firestoreDB: AngularFirestore, private router: Router) {
     this.username = this.authService.username;
   }
 
   username: string;
 
-  donations: Donation[] = [
-    {id: 0, donationDescription: 'Lemme get about tree fiddy',
-    donationCharityName: 'The Loch Ness Monsta', donationAmount: 3.50.toFixed(2),
-    donationDate: new Date(2021, 2, 30, 12, 30, 0, 0).toLocaleString()},
-    {id: 1, donationDescription: 'dollah dollah make me hollah',
-    donationCharityName: 'Red cross', donationAmount: 4.00.toFixed(2),
-    donationDate: new Date(2021, 2, 28, 14, 45, 20, 0).toLocaleString()},
-    {id: 2, donationDescription: 'AOT season 4 slaps',
-    donationCharityName: 'Eren Jaeger', donationAmount: 0.62.toFixed(2),
-    donationDate: new Date(2021, 1, 26, 8, 15, 12, 0).toLocaleString()}
-  ];
+  donations: Donation[] = [];
 
   ngOnInit(): void {
+    this.authService.getUserId().then((userID) => {
+      if (userID) {
+        const donations = this.firestoreDB.collection('User-Donations', ref => ref.where('donorID', '==', userID))
+        .get().subscribe((snapshot) => {
+          snapshot.forEach(result => {
+            this.donations.push(result.data() as Donation);
+          });
+        });
+      }
+    });
   }
 
   getDonations(): Donation[] {
     return this.donations;
   }
+
   getProfilePictureURL(): string {
     return '../../assets/images/profile-placeholder.png';
   }
-}
 
-// TODO: find a different way to represent date and amount
-// Could have displayDate and displayDonationAmount that are strings
-// while the actual amount is also displayed
-export class Donation {
-  constructor(
-    public id: number,
-    public donationDescription: string,
-    public donationCharityName: string,
-    public donationAmount: string,
-    public donationDate: string
-  ){}
+  navigateToNonprofit(nonprofitId: string): void {
+    this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
+  }
 }
