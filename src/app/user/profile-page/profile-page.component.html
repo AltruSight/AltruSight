@@ -42,7 +42,7 @@
             <mat-card-header>
                 <mat-card-title>  
                     <span class="paymentFeedTitleNotImportant"> You donated ${{donations.donationAmount}} to </span> 
-                    <span class="paymentFeedTitleNonprofitName">{{donations.orgName}}</span> 
+                    <span class="paymentFeedTitleNonprofitName" (click)="navigateToNonprofit(donations.orgEIN)">{{donations.orgName}}</span> 
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content class="paymentFeedCardDescription">

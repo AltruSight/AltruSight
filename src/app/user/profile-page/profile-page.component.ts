@@ -3,6 +3,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Donation } from 'src/app/home/home.component';
 
@@ -13,7 +14,7 @@ import { Donation } from 'src/app/home/home.component';
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(public authService: AuthService, private firestoreDB: AngularFirestore) {
+  constructor(public authService: AuthService, private firestoreDB: AngularFirestore, private router: Router) {
     this.username = this.authService.username;
   }
 
@@ -37,7 +38,12 @@ export class ProfilePageComponent implements OnInit {
   getDonations(): Donation[] {
     return this.donations;
   }
+
   getProfilePictureURL(): string {
     return '../../assets/images/profile-placeholder.png';
+  }
+
+  navigateToNonprofit(nonprofitId: string): void {
+    this.router.navigateByUrl(`nonprofit/${nonprofitId}`);
   }
 }
