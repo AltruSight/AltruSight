@@ -342,6 +342,9 @@ export class DonationDialogComponent {
           this.firestoreDB.collection('Donations').doc(userUID).set({
             donations: firebase.firestore.FieldValue.arrayUnion(usersDonation)
           }, {merge: true});
+        }).then(() => {
+          this.clearVariables();
+          this.dialogRef.closeAll();
         });
       }
     });

@@ -85,16 +85,16 @@
         </div>
 
         <div *ngIf="altViewOpened" class="payment-feed-container">
-            <mat-card class="paymentFeedCards" *ngFor="let donations of getDonations()">
+            <mat-card class="paymentFeedCards" *ngFor="let donation of getDonations()">
                 <mat-card-header>
                     <mat-card-title>
-                        <span class="paymentFeedTitleUsername">{{donations.cardHolderName}}</span> 
+                        <span class="paymentFeedTitleUsername">{{donation.cardHolderName}}</span> 
                         <span class="paymentFeedTitleNotImportant"> donated to </span> 
-                        <span class="paymentFeedTitleNonprofitName" (click)="navigateToNonprofit(donations.orgEIN)">{{donations.orgName}}</span> 
+                        <span class="paymentFeedTitleNonprofitName" (click)="navigateToNonprofit(donation.orgEIN)">{{donation.orgName}}</span>
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-content class="paymentFeedCardDescription">
-                    {{Default Donation Description
+                    This Is A Default Donation Description
                 </mat-card-content>
                 <mat-card-actions class="paymentFeedCardActions">
                     <button mat-button>LIKE</button>

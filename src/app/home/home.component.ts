@@ -3,6 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
 import { AuthService } from '../auth/auth.service';
 import { Nonprofit } from '../misc-services/nonprofits.service';
 
@@ -21,12 +22,12 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getUserId().then((userID) => {
       if (userID) {
-        const donations = this.firestoreDB.collection('Donations');
+        const donations = this.firestoreDB.collection('User-Donations', ref => ref.orderBy('donationDate', 'desc'));
 
         // TODO: THIS WILL NOT WORK AT SCALE -- WE NEED NEW FIREBASE TABLE
-
         donations.get().subscribe((snapshot) => {
           snapshot.forEach(result => {
+            this.testDonations.push(result.data() as Donation);
           });
         });
       }
