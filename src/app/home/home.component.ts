@@ -1,7 +1,7 @@
 // ng generate component home was used to create boilerplate
 
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { Nonprofit } from '../misc-services/nonprofits.service';
@@ -21,10 +21,12 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getUserId().then((userID) => {
       if (userID) {
-        this.firestoreDB.collection('Donations').get().subscribe((snapshot) => {
-          snapshot.forEach((result) => {
-            // TODO: Order the results by date and display all donations
-            console.log(result.data());
+        const donations = this.firestoreDB.collection('Donations');
+
+        // TODO: THIS WILL NOT WORK AT SCALE -- WE NEED NEW FIREBASE TABLE
+
+        donations.get().subscribe((snapshot) => {
+          snapshot.forEach(result => {
           });
         });
       }
@@ -105,8 +107,9 @@ export interface Donation {
   cardHolderName: string;
   cardHolderState: string;
   cardHolderStreet: string;
-  donationAmount: number;
+  donationAmount: string;
   donationDate: Date;
   orgEIN: string;
   orgName: string;
+  donorID: string;
 }
