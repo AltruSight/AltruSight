@@ -5,13 +5,43 @@
 }
 
 .main-container {
-    height: 100%;
     display: flex; 
-    flex-direction: column;
-    .friends-container {
-        flex: 1;
-        background-color: $primary-2;
-        margin: 5%;
-        border-radius: 20px;
+    flex-direction: row;
+    min-height: 100%; 
+    flex: 1;
+    background-color: $primary-2;
+    .main-content {
+        display: flex; 
+        flex-direction: column;
+        flex: 1 0 0;
+        margin: 1%;
+        .friends-container {
+            display: flex; 
+            flex-direction: column;
+            overflow: scroll;
+            flex: 1 0 500px;
+            border-radius: 20px;
+            .friendsCards {
+                margin-bottom: 30px;
+                width: 100%;
+                background-color: $primary-off-white;
+                opacity: 0.95;
+                .mat-card-header {
+                    margin: 0;
+                    .mat-card-title {
+                        margin: 0;
+                    }
+                }
+                .friendName {
+                    color: $primary-off-black;
+                }
+                .friendBio {
+                    color: $primary-off-black;
+                }
+                .friendActions {
+                    margin: 0px 0px 0px 0px;
+                }
+            }
+        }
     }
-}
+}   
